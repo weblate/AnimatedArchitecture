@@ -23,6 +23,7 @@
         <dependency.version.maven-compiler>3.8.1</dependency.version.maven-compiler>
         <dependency.version.maven-shade>3.2.4</dependency.version.maven-shade>
         <dependency.version.maven-jar>3.2.0</dependency.version.maven-jar>
+        <dependency.version.maven-resources>3.2.0</dependency.version.maven-resources>
     </properties>
 
     <modules>
