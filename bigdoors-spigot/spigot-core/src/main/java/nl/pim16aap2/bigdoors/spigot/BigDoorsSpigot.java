@@ -80,6 +80,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -98,10 +99,13 @@ import java.util.logging.Level;
  */
 public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
 {
+    @Getter
+    private final @NonNull JavaPlugin javaPlugin;
+
     private static BigDoorsSpigot INSTANCE;
     private static long MAINTHREADID = -1;
 
-    private final @NonNull PLogger pLogger = new PLogger(new File(getDataFolder(), "log.txt"));
+    private final @NonNull PLogger pLogger;
 
     @Getter
     private ConfigLoaderSpigot configLoader;
@@ -137,7 +141,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     private boolean successfulInit = true;
 
     @Getter
-    private final @NonNull IPServer pServer = new PServer(this);
+    private final @NonNull IPServer pServer;
 
     @Getter
     private final @NonNull IPLocationFactory pLocationFactory = new PLocationFactorySpigot();
@@ -152,7 +156,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     private final @NonNull ISoundEngine soundEngine = new PSoundEngineSpigot();
 
     @Getter
-    private final @NonNull IMessagingInterface messagingInterface = new MessagingInterfaceSpigot(this);
+    private final @NonNull IMessagingInterface messagingInterface;
 
     @Getter
     private final @NonNull IChunkManager chunkManager = ChunkManagerSpigot.get();
@@ -193,17 +197,26 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     @Getter
     private final @NonNull DelayedCommandInputManager delayedCommandInputManager = new DelayedCommandInputManager();
 
-    public BigDoorsSpigot()
+    public BigDoorsSpigot(final @NonNull JavaPlugin javaPlugin)
     {
+        this.javaPlugin = javaPlugin;
         INSTANCE = this;
+
+        pLogger = new PLogger(new File(javaPlugin.getDataFolder(), "log.txt"));
+
         BigDoors.get().setBigDoorsPlatform(this);
         BigDoors.get().registerRestartable(this);
 
         MAINTHREADID = Thread.currentThread().getId();
-        pExecutor = new PExecutorSpigot(this);
+
+        pExecutor = new PExecutorSpigot(javaPlugin);
+
         bigDoorsToolUtil = new BigDoorsToolUtilSpigot();
 
         doorOpener = new DoorOpener();
+
+        pServer = new PServer(javaPlugin);
+        messagingInterface = new MessagingInterfaceSpigot(javaPlugin);
 
         try
         {
@@ -215,7 +228,6 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
         }
     }
 
-    @Override
     public void onEnable()
     {
         Bukkit.getLogger().setLevel(Level.FINER);
@@ -225,10 +237,10 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
             // Register this here so it can check for updates even when loaded on an incorrect version.
             updateManager = new UpdateManager(this, 58669);
 
-            databaseManager = new DatabaseManager(this, new File(super.getDataFolder(), "doorDB.db"));
+            databaseManager = new DatabaseManager(this, new File(javaPlugin.getDataFolder(), "doorDB.db"));
             registerDoorTypes();
 
-            Bukkit.getPluginManager().registerEvents(new LoginMessageListener(this), this);
+            Bukkit.getPluginManager().registerEvents(new LoginMessageListener(this), javaPlugin);
             validVersion = PlatformManagerSpigot.get().initPlatform(this);
 
             // Load the files for the correct version of Minecraft.
@@ -262,23 +274,34 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
 
             headManager = HeadManager.init(this, getConfigLoader());
 
-            Bukkit.getPluginManager().registerEvents(new EventListeners(this), this);
-            Bukkit.getPluginManager().registerEvents(new GUIListener(this), this);
-            Bukkit.getPluginManager().registerEvents(new ChunkListener(this), this);
+            Bukkit.getPluginManager().registerEvents(new EventListeners(this), javaPlugin);
+            Bukkit.getPluginManager().registerEvents(new GUIListener(this), javaPlugin);
+            Bukkit.getPluginManager().registerEvents(new ChunkListener(this), javaPlugin);
 
             protectionCompatManager = ProtectionCompatManagerSpigot.init(this);
-            Bukkit.getPluginManager().registerEvents(protectionCompatManager, this);
+            Bukkit.getPluginManager().registerEvents(protectionCompatManager, javaPlugin);
 
             powerBlockManager = new PowerBlockManager(this, configLoader, databaseManager, getPLogger());
-            Bukkit.getPluginManager().registerEvents(WorldListener.init(powerBlockManager), this);
+            Bukkit.getPluginManager().registerEvents(WorldListener.init(powerBlockManager), javaPlugin);
 
-            pLogger.info("Successfully enabled BigDoors " + getDescription().getVersion());
+            pLogger.info("Successfully enabled BigDoors " + javaPlugin.getDescription().getVersion());
         }
         catch (Exception exception)
         {
             successfulInit = false;
             pLogger.logThrowable(exception);
         }
+    }
+    
+    public @NonNull File getDataFolder()
+    {
+        return javaPlugin.getDataFolder();
+    }
+
+    public void onDisable()
+    {
+        shutdown();
+        restartables.forEach(IRestartable::shutdown);
     }
 
     /**
@@ -287,7 +310,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     private void disablePlugin()
     {
         successfulInit = false;
-        Bukkit.getPluginManager().disablePlugin(this);
+        Bukkit.getPluginManager().disablePlugin(javaPlugin);
     }
 
     /**
@@ -326,7 +349,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
             return;
 
         configLoader.restart();
-        messages = new Messages(this, getDataFolder(), getConfigLoader().languageFile(), getPLogger());
+        messages = new Messages(this, javaPlugin.getDataFolder(), getConfigLoader().languageFile(), getPLogger());
         playerGUIs = new HashMap<>();
 
         updateManager.setEnabled(getConfigLoader().checkForUpdates(), getConfigLoader().autoDLUpdate());
@@ -335,7 +358,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     @Override
     public @NonNull File getDataDirectory()
     {
-        return getDataFolder();
+        return javaPlugin.getDataFolder();
     }
 
     @Override
@@ -431,13 +454,6 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     }
 
     @Override
-    public void onDisable()
-    {
-        shutdown();
-        restartables.forEach(IRestartable::shutdown);
-    }
-
-    @Override
     public @NonNull IEconomyManager getEconomyManager()
     {
         return vaultManager;
@@ -493,7 +509,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     @Override
     public @NonNull String getVersion()
     {
-        return BigDoorsSpigot.get().getDescription().getVersion();
+        return javaPlugin.getDescription().getVersion();
     }
 
     @Override

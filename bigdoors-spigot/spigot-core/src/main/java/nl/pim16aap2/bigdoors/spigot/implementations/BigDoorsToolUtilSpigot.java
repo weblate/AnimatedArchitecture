@@ -22,7 +22,8 @@ import java.util.Arrays;
 public class BigDoorsToolUtilSpigot implements IBigDoorsToolUtil
 {
     private static final @NonNull Material TOOL_MATERIAL = Material.STICK;
-    private static final @NonNull NamespacedKey BIG_DOORS_TOOL_KEY = new NamespacedKey(BigDoorsSpigot.get(), "BIG_DOORS_TOOL");
+    private static final @NonNull NamespacedKey BIG_DOORS_TOOL_KEY =
+        new NamespacedKey(BigDoorsSpigot.get().getJavaPlugin(), "BIG_DOORS_TOOL");
 
     @Override
     public void giveToPlayer(final @NonNull IPPlayer player, final @NonNull String name, final @NonNull String lore)

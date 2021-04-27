@@ -85,7 +85,7 @@ public enum ProtectionCompat
             nameMap.put(ProtectionCompat.getName(compat), compat);
     }
 
-    private final String name;
+    private final @NonNull String name;
 
     ProtectionCompat(final @NonNull String name)
     {
@@ -98,7 +98,7 @@ public enum ProtectionCompat
      * @param compat The compat the get the name of the plugin for.
      * @return The name of the plugin the given compat hooks into.
      */
-    public static @Nullable String getName(final @NonNull ProtectionCompat compat)
+    public static @NonNull String getName(final @NonNull ProtectionCompat compat)
     {
         return compat.name;
     }

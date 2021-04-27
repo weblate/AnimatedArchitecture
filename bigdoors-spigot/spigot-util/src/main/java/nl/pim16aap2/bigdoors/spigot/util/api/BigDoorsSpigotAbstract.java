@@ -10,7 +10,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  * @author Pim
  */
-public abstract class BigDoorsSpigotAbstract extends JavaPlugin implements Listener, IBigDoorsPlatform
+public abstract class BigDoorsSpigotAbstract implements Listener, IBigDoorsPlatform
 {
     public abstract @NonNull IPlatformManagerSpigot getPlatformManagerSpigot();
+
+    public abstract @NonNull JavaPlugin getJavaPlugin();
 }

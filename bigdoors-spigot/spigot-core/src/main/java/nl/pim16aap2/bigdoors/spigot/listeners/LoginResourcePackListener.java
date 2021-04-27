@@ -19,14 +19,14 @@ import org.jetbrains.annotations.Nullable;
 public class LoginResourcePackListener extends Restartable implements Listener
 {
     private static @Nullable LoginResourcePackListener INSTANCE;
-    private final @NonNull BigDoorsSpigot plugin;
+    private final @NonNull BigDoorsSpigot bigDoorsSpigot;
     private final @NonNull String url;
     private boolean isRegistered = false;
 
-    private LoginResourcePackListener(final @NonNull BigDoorsSpigot plugin, final @NonNull String url)
+    private LoginResourcePackListener(final @NonNull BigDoorsSpigot bigDoorsSpigot, final @NonNull String url)
     {
-        super(plugin);
-        this.plugin = plugin;
+        super(bigDoorsSpigot);
+        this.bigDoorsSpigot = bigDoorsSpigot;
         this.url = url;
     }
 
@@ -34,20 +34,20 @@ public class LoginResourcePackListener extends Restartable implements Listener
      * Initializes the {@link LoginResourcePackListener}. If it has already been initialized, it'll return that instance
      * instead.
      *
-     * @param plugin The {@link BigDoorsSpigot} plugin.
-     * @param url    The URL of the resource pack.
+     * @param bigDoorsSpigot The {@link BigDoorsSpigot} plugin.
+     * @param url            The URL of the resource pack.
      * @return The instance of this {@link LoginResourcePackListener}.
      */
-    public static @NonNull LoginResourcePackListener init(final @NonNull BigDoorsSpigot plugin,
+    public static @NonNull LoginResourcePackListener init(final @NonNull BigDoorsSpigot bigDoorsSpigot,
                                                           final @NonNull String url)
     {
-        return (INSTANCE == null) ? INSTANCE = new LoginResourcePackListener(plugin, url) : INSTANCE;
+        return (INSTANCE == null) ? INSTANCE = new LoginResourcePackListener(bigDoorsSpigot, url) : INSTANCE;
     }
 
     @Override
     public void restart()
     {
-        if (plugin.getConfigLoader().enableRedstone())
+        if (bigDoorsSpigot.getConfigLoader().enableRedstone())
             register();
         else
             unregister();
@@ -60,7 +60,7 @@ public class LoginResourcePackListener extends Restartable implements Listener
     {
         if (isRegistered)
             return;
-        Bukkit.getPluginManager().registerEvents(this, plugin);
+        Bukkit.getPluginManager().registerEvents(this, bigDoorsSpigot.getJavaPlugin());
         isRegistered = true;
     }
 
@@ -95,7 +95,7 @@ public class LoginResourcePackListener extends Restartable implements Listener
         }
         catch (Exception e)
         {
-            plugin.getPLogger().logThrowable(e);
+            bigDoorsSpigot.getPLogger().logThrowable(e);
         }
     }
 }

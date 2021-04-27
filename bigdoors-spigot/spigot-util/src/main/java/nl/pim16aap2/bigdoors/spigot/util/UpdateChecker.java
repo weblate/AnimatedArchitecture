@@ -175,7 +175,7 @@ public final class UpdateChecker
      *
      * @return the last update check result. null if none.
      */
-    public @NonNull UpdateResult getLastResult()
+    public @Nullable UpdateResult getLastResult()
     {
         return lastResult;
     }

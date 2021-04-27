@@ -38,7 +38,7 @@ import java.util.logging.Level;
 public final class ProtectionCompatManagerSpigot extends Restartable implements Listener, IProtectionCompatManager
 {
     private final @NonNull List<IProtectionCompat> protectionCompats;
-    private final @NonNull BigDoorsSpigot plugin;
+    private final @NonNull BigDoorsSpigot bigDoorsSpigot;
     private @NonNull FakePlayerCreator fakePlayerCreator;
     private ConfigLoaderSpigot config;
 
@@ -47,13 +47,13 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
     /**
      * Constructor of {@link ProtectionCompatManagerSpigot}.
      *
-     * @param plugin The instance of {@link BigDoorsSpigot}.
+     * @param bigDoorsSpigot The instance of {@link BigDoorsSpigot}.
      */
-    private ProtectionCompatManagerSpigot(final @NonNull BigDoorsSpigot plugin)
+    private ProtectionCompatManagerSpigot(final @NonNull BigDoorsSpigot bigDoorsSpigot)
     {
-        super(plugin);
-        this.plugin = plugin;
-        fakePlayerCreator = new FakePlayerCreator(plugin);
+        super(bigDoorsSpigot);
+        this.bigDoorsSpigot = bigDoorsSpigot;
+        fakePlayerCreator = new FakePlayerCreator(bigDoorsSpigot);
         protectionCompats = new ArrayList<>();
         restart();
     }
@@ -93,8 +93,8 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
     {
         shutdown();
 
-        config = plugin.getConfigLoader();
-        for (Plugin p : plugin.getServer().getPluginManager().getPlugins())
+        config = bigDoorsSpigot.getConfigLoader();
+        for (Plugin p : bigDoorsSpigot.getJavaPlugin().getServer().getPluginManager().getPlugins())
             loadFromPluginName(p.getName());
     }
 
@@ -119,7 +119,7 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
         // offline players don't have permissions, so use Vault if that's the case.
         if (!player.hasMetadata(FakePlayerCreator.FAKEPLAYERMETADATA))
             return player.hasPermission(Constants.COMPAT_BYPASS_PERMISSION);
-        return plugin.getVaultManager().hasPermission(player, Constants.COMPAT_BYPASS_PERMISSION);
+        return bigDoorsSpigot.getVaultManager().hasPermission(player, Constants.COMPAT_BYPASS_PERMISSION);
     }
 
     /**
@@ -166,7 +166,7 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
             }
             catch (Exception e)
             {
-                plugin.getPLogger().logThrowable(e, "Failed to use \"" + compat.getName()
+                bigDoorsSpigot.getPLogger().logThrowable(e, "Failed to use \"" + compat.getName()
                     + "\"! Please send this error to pim16aap2:");
             }
         return Optional.empty();
@@ -207,7 +207,7 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
             }
             catch (Exception e)
             {
-                plugin.getPLogger().logThrowable(e, "Failed to use \"" + compat.getName()
+                bigDoorsSpigot.getPLogger().logThrowable(e, "Failed to use \"" + compat.getName()
                     + "\"! Please send this error to pim16aap2:");
             }
         return Optional.empty();
@@ -237,10 +237,10 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
         if (hook.success())
         {
             protectionCompats.add(hook);
-            plugin.getPLogger().info("Successfully hooked into \"" + hook.getName() + "\"!");
+            bigDoorsSpigot.getPLogger().info("Successfully hooked into \"" + hook.getName() + "\"!");
         }
         else
-            plugin.getPLogger().info("Failed to hook into \"" + hook.getName() + "\"!");
+            bigDoorsSpigot.getPLogger().info("Failed to hook into \"" + hook.getName() + "\"!");
     }
 
     /**
@@ -271,8 +271,8 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
 
         try
         {
-            @Nullable Plugin otherPlugin = plugin.getServer().getPluginManager()
-                                                 .getPlugin(ProtectionCompat.getName(compat));
+            @Nullable Plugin otherPlugin = bigDoorsSpigot.getJavaPlugin().getServer().getPluginManager()
+                                                         .getPlugin(ProtectionCompat.getName(compat));
             if (otherPlugin == null)
             {
                 BigDoors.get().getPLogger()
@@ -281,7 +281,7 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
             }
 
             @Nullable Class<? extends IProtectionCompat> compatClass =
-                compat.getClass(plugin.getDescription().getVersion());
+                compat.getClass(bigDoorsSpigot.getJavaPlugin().getDescription().getVersion());
 
             if (compatClass == null)
             {
@@ -297,21 +297,21 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
             if (protectionAlreadyLoaded(compatClass))
                 return;
 
-            addProtectionCompat(compatClass.getConstructor(BigDoorsSpigot.class).newInstance(plugin));
+            addProtectionCompat(compatClass.getConstructor(BigDoorsSpigot.class).newInstance(bigDoorsSpigot));
         }
         catch (NoClassDefFoundError e)
         {
-            plugin.getPLogger()
-                  .logThrowable(e, "Failed to initialize \"" + compatName + "\" compatibility hook! Hook not enabled!");
+            bigDoorsSpigot.getPLogger()
+                          .logThrowable(e, "Failed to initialize \"" + compatName +
+                              "\" compatibility hook! Hook not enabled!");
         }
         catch (NullPointerException e)
         {
-            plugin.getPLogger().warn("Could not find \"" + compatName + "\"! Hook not enabled!");
+            bigDoorsSpigot.getPLogger().warn("Could not find \"" + compatName + "\"! Hook not enabled!");
         }
         catch (Exception e)
         {
-            plugin.getPLogger()
-                  .logThrowable(e, "Failed to initialize \"" + compatName + "\" compatibility hook! Hook not enabled!");
+            bigDoorsSpigot.getPLogger().logThrowable(e, "Failed to initialize \"" + compatName);
         }
     }
 }

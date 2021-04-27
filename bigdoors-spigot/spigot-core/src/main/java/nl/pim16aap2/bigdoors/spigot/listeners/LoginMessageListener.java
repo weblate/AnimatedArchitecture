@@ -17,11 +17,11 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public final class LoginMessageListener implements Listener
 {
-    private final @NonNull BigDoorsSpigot plugin;
+    private final @NonNull BigDoorsSpigot bigDoorsSpigot;
 
-    public LoginMessageListener(final @NonNull BigDoorsSpigot plugin)
+    public LoginMessageListener(final @NonNull BigDoorsSpigot bigDoorsSpigot)
     {
-        this.plugin = plugin;
+        this.bigDoorsSpigot = bigDoorsSpigot;
     }
 
     /**
@@ -45,15 +45,15 @@ public final class LoginMessageListener implements Listener
                     @Override
                     public void run()
                     {
-                        final String loginString = plugin.getLoginMessage();
+                        final String loginString = bigDoorsSpigot.getLoginMessage();
                         if (!loginString.isEmpty())
-                            player.sendMessage(ChatColor.AQUA + plugin.getLoginMessage());
+                            player.sendMessage(ChatColor.AQUA + bigDoorsSpigot.getLoginMessage());
                     }
-                }.runTaskLater(plugin, 120);
+                }.runTaskLater(bigDoorsSpigot.getJavaPlugin(), 120);
         }
         catch (Exception e)
         {
-            plugin.getPLogger().logThrowable(e);
+            bigDoorsSpigot.getPLogger().logThrowable(e);
         }
     }
 }

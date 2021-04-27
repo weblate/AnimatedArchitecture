@@ -24,13 +24,14 @@ import org.bukkit.plugin.RegisteredListener;
 @AllArgsConstructor
 public class DebugReporterSpigot extends DebugReporter
 {
-    private final @NonNull BigDoorsSpigot plugin;
+    private final @NonNull BigDoorsSpigot bigDoorsSpigot;
 
     @Override
     public @NonNull String getDump()
     {
         final StringBuilder sb = new StringBuilder(super.getDump());
-        sb.append("BigDoors version: ").append(plugin.getDescription().getVersion()).append("\n");
+        sb.append("BigDoors version: ").append(bigDoorsSpigot.getJavaPlugin().getDescription().getVersion())
+          .append("\n");
         sb.append("Server version: ").append(Bukkit.getServer().getVersion()).append("\n");
 
         sb.append("Registered door types: ")
@@ -41,7 +42,7 @@ public class DebugReporterSpigot extends DebugReporter
           .append(Util.toString(BigDoors.get().getDoorTypeManager().getEnabledDoorTypes()))
           .append("\n");
 
-        val platform = plugin.getPlatformManagerSpigot().getSpigotPlatform();
+        val platform = bigDoorsSpigot.getPlatformManagerSpigot().getSpigotPlatform();
         sb.append("SpigotPlatform: ").append(platform == null ? "NULL" : platform.getClass().getName()).append("\n");
 
         // TODO: Implement this:

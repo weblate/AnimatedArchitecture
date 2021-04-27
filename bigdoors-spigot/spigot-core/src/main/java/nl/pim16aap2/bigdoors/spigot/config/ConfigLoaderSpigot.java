@@ -43,7 +43,7 @@ import java.util.Set;
 public final class ConfigLoaderSpigot implements IConfigLoader
 {
     private static @Nullable ConfigLoaderSpigot INSTANCE;
-    private final @NonNull BigDoorsSpigot plugin;
+    private final @NonNull BigDoorsSpigot bigDoorsSpigot;
     @ToString.Exclude
     private final @NonNull IPLogger logger;
 
@@ -81,12 +81,12 @@ public final class ConfigLoaderSpigot implements IConfigLoader
     /**
      * Constructs a new {@link ConfigLoaderSpigot}.
      *
-     * @param plugin The Spigot core.
-     * @param logger The logger used for error logging.
+     * @param bigDoorsSpigot The Spigot core.
+     * @param logger         The logger used for error logging.
      */
-    private ConfigLoaderSpigot(final @NonNull BigDoorsSpigot plugin, final @NonNull IPLogger logger)
+    private ConfigLoaderSpigot(final @NonNull BigDoorsSpigot bigDoorsSpigot, final @NonNull IPLogger logger)
     {
-        this.plugin = plugin;
+        this.bigDoorsSpigot = bigDoorsSpigot;
         this.logger = logger;
         configEntries = new ArrayList<>();
         powerBlockTypes = EnumSet.noneOf(Material.class);
@@ -140,7 +140,7 @@ public final class ConfigLoaderSpigot implements IConfigLoader
      */
     public void reloadConfig()
     {
-        plugin.reloadConfig();
+        bigDoorsSpigot.getJavaPlugin().reloadConfig();
         configEntries.clear();
         powerBlockTypes.clear();
         doorPrices.clear();
@@ -238,7 +238,7 @@ public final class ConfigLoaderSpigot implements IConfigLoader
             "If enabled, they will be written to both the console and the bigdoors log."};
 
 
-        IConfigReader config = new ConfigReaderSpigot(plugin.getConfig());
+        IConfigReader config = new ConfigReaderSpigot(bigDoorsSpigot.getJavaPlugin().getConfig());
 
 
         enableRedstone = addNewConfigEntry(config, "allowRedstone", true, enableRedstoneComment);
@@ -345,7 +345,8 @@ public final class ConfigLoaderSpigot implements IConfigLoader
     private @NonNull <T> T addNewConfigEntry(final @NonNull IConfigReader config, final @NonNull String optionName,
                                              final @NonNull T defaultValue, final @Nullable String[] comment)
     {
-        ConfigEntry<T> option = new ConfigEntry<>(plugin.getPLogger(), config, optionName, defaultValue, comment);
+        ConfigEntry<T> option = new ConfigEntry<>(bigDoorsSpigot.getPLogger(), config,
+                                                  optionName, defaultValue, comment);
         configEntries.add(option);
         return option.getValue();
     }
@@ -365,8 +366,8 @@ public final class ConfigLoaderSpigot implements IConfigLoader
                                              final @NonNull T defaultValue, final @NonNull String[] comment,
                                              final @NonNull ConfigEntry.TestValue<T> verifyValue)
     {
-        ConfigEntry<T> option = new ConfigEntry<>(plugin.getPLogger(), config, optionName, defaultValue, comment,
-                                                  verifyValue);
+        ConfigEntry<T> option = new ConfigEntry<>(bigDoorsSpigot.getPLogger(), config, optionName,
+                                                  defaultValue, comment, verifyValue);
         configEntries.add(option);
         return option.getValue();
     }
@@ -379,14 +380,14 @@ public final class ConfigLoaderSpigot implements IConfigLoader
         // Write all the config options to the config.yml.
         try
         {
-            File dataFolder = plugin.getDataFolder();
+            File dataFolder = bigDoorsSpigot.getDataFolder();
             if (!dataFolder.exists() && !dataFolder.mkdirs())
             {
                 logger.logThrowable(new IOException("Failed to create folder: \"" + dataFolder.toString() + "\""));
                 return;
             }
 
-            File saveTo = new File(plugin.getDataFolder(), "config.yml");
+            File saveTo = new File(bigDoorsSpigot.getDataFolder(), "config.yml");
             if (!saveTo.exists() && !saveTo.createNewFile())
             {
                 logger.logThrowable(new IOException("Failed to create file: \"" + saveTo.toString() + "\""));

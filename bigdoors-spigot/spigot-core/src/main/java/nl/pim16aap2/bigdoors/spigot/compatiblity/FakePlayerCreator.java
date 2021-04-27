@@ -26,7 +26,7 @@ class FakePlayerCreator
 
     private final String NMSbase;
     private final String CraftBase;
-    private final BigDoorsSpigot plugin;
+    private final BigDoorsSpigot bigDoorsSpigot;
     private Class<?> CraftOfflinePlayer;
     private Class<?> CraftWorld;
     private Class<?> World;
@@ -43,9 +43,9 @@ class FakePlayerCreator
     private Field uuid;
     private boolean success = false;
 
-    FakePlayerCreator(final @NonNull BigDoorsSpigot plugin)
+    FakePlayerCreator(final @NonNull BigDoorsSpigot bigDoorsSpigot)
     {
-        this.plugin = plugin;
+        this.bigDoorsSpigot = bigDoorsSpigot;
 
         NMSbase = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3] + ".";
         CraftBase = "org.bukkit.craftbukkit." + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3]
@@ -79,12 +79,12 @@ class FakePlayerCreator
         }
         catch (ClassNotFoundException | NoSuchMethodException | SecurityException | NoSuchFieldException e)
         {
-            plugin.getPLogger().logThrowable(e);
+            bigDoorsSpigot.getPLogger().logThrowable(e);
             return;
         }
         catch (LinkageError e)
         {
-            plugin.getPLogger().logThrowable(e);
+            bigDoorsSpigot.getPLogger().logThrowable(e);
             return;
         }
         success = true;
@@ -133,11 +133,11 @@ class FakePlayerCreator
         }
         catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e)
         {
-            plugin.getPLogger().logThrowable(e);
+            bigDoorsSpigot.getPLogger().logThrowable(e);
         }
 
         if (player != null)
-            player.setMetadata(FAKEPLAYERMETADATA, new FixedMetadataValue(plugin, true));
+            player.setMetadata(FAKEPLAYERMETADATA, new FixedMetadataValue(bigDoorsSpigot.getJavaPlugin(), true));
 
         return Optional.ofNullable(player);
     }

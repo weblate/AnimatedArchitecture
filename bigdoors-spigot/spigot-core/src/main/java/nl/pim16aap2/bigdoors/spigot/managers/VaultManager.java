@@ -42,7 +42,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
     private boolean permissionsEnabled = false;
     private @Nullable Economy economy = null;
     private @Nullable Permission perms = null;
-    private @NonNull BigDoorsSpigot plugin;
+    private @NonNull BigDoorsSpigot bigDoorsSpigot;
 
     private VaultManager()
     {
@@ -57,14 +57,14 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
     /**
      * Initializes this object.
      *
-     * @param plugin The {@link BigDoorsSpigot} instance.
+     * @param bigDoorsSpigot The {@link BigDoorsSpigot} instance.
      * @return The {@link VaultManager} instance.
      */
-    public static @NonNull VaultManager init(final @NonNull BigDoorsSpigot plugin)
+    public static @NonNull VaultManager init(final @NonNull BigDoorsSpigot bigDoorsSpigot)
     {
-        if (!plugin.isRestartableRegistered(INSTANCE))
-            plugin.registerRestartable(INSTANCE);
-        INSTANCE.plugin = plugin;
+        if (!bigDoorsSpigot.isRestartableRegistered(INSTANCE))
+            bigDoorsSpigot.registerRestartable(INSTANCE);
+        INSTANCE.bigDoorsSpigot = bigDoorsSpigot;
         INSTANCE.init();
         return INSTANCE;
     }
@@ -91,13 +91,13 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
         final double price = priceOpt.getAsDouble();
         if (withdrawPlayer(spigotPlayer, world.getWorldName(), price))
         {
-            player.sendMessage(plugin.getMessages().getString(Message.CREATOR_GENERAL_MONEYWITHDRAWN,
-                                                              Double.toString(price)));
+            player.sendMessage(bigDoorsSpigot.getMessages().getString(Message.CREATOR_GENERAL_MONEYWITHDRAWN,
+                                                                      Double.toString(price)));
             return true;
         }
 
-        player.sendMessage(plugin.getMessages().getString(Message.CREATOR_GENERAL_INSUFFICIENTFUNDS,
-                                                          Double.toString(price)));
+        player.sendMessage(bigDoorsSpigot.getMessages().getString(Message.CREATOR_GENERAL_INSUFFICIENTFUNDS,
+                                                                  Double.toString(price)));
         return false;
     }
 
@@ -115,7 +115,8 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
      */
     private void getFlatPrice(final @NonNull DoorType type)
     {
-        Util.parseDouble(plugin.getConfigLoader().getPrice(type)).ifPresent(price -> flatPrices.put(type, price));
+        Util.parseDouble(bigDoorsSpigot.getConfigLoader().getPrice(type))
+            .ifPresent(price -> flatPrices.put(type, price));
     }
 
     /**
@@ -154,8 +155,9 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
         }
         catch (Exception e)
         {
-            plugin.getPLogger().logThrowable(e, "Failed to determine door creation price! Please contact pim16aap2! "
-                + "Include this: \"" + formula + "\" and stacktrace:");
+            bigDoorsSpigot.getPLogger()
+                          .logThrowable(e, "Failed to determine door creation price! Please contact pim16aap2! "
+                              + "Include this: \"" + formula + "\" and stacktrace:");
             return 0.0d;
         }
     }
@@ -168,7 +170,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
 
         // TODO: Store flat prices as OptionalDoubles.
         final double price = flatPrices
-            .getOrDefault(type, evaluateFormula(plugin.getConfigLoader().getPrice(type), blockCount));
+            .getOrDefault(type, evaluateFormula(bigDoorsSpigot.getConfigLoader().getPrice(type), blockCount));
 
         return price <= 0 ? OptionalDouble.empty() : OptionalDouble.of(price);
     }
@@ -188,7 +190,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
         }
         catch (Exception e)
         {
-            plugin.getPLogger().logThrowable(e, "Failed to check balance of player \"" + player.getName() +
+            bigDoorsSpigot.getPLogger().logThrowable(e, "Failed to check balance of player \"" + player.getName() +
                 "\" (" + player.getUniqueId() + ")! Please contact pim16aap2!");
         }
         return true;
@@ -214,7 +216,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
         }
         catch (Exception e)
         {
-            plugin.getPLogger().logThrowable(e, "Failed to subtract money from player \"" + player.getName() +
+            bigDoorsSpigot.getPLogger().logThrowable(e, "Failed to subtract money from player \"" + player.getName() +
                 "\" (" + player.getUniqueId() + ")! Please contact pim16aap2!");
         }
         return true;
@@ -242,7 +244,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
     {
         try
         {
-            return plugin.getServer().getPluginManager().getPlugin("Vault") != null;
+            return bigDoorsSpigot.getJavaPlugin().getServer().getPluginManager().getPlugin("Vault") != null;
         }
         catch (NullPointerException e)
         {
@@ -259,8 +261,9 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
     {
         try
         {
-            final RegisteredServiceProvider<Economy> economyProvider = plugin.getServer().getServicesManager()
-                                                                             .getRegistration(Economy.class);
+            final RegisteredServiceProvider<Economy> economyProvider = bigDoorsSpigot.getJavaPlugin().getServer()
+                                                                                     .getServicesManager()
+                                                                                     .getRegistration(Economy.class);
             if (economyProvider == null)
                 return false;
 
@@ -284,8 +287,9 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
     {
         try
         {
-            final RegisteredServiceProvider<Permission> permissionProvider = plugin.getServer().getServicesManager()
-                                                                                   .getRegistration(Permission.class);
+            final RegisteredServiceProvider<Permission> permissionProvider =
+                bigDoorsSpigot.getJavaPlugin().getServer().getServicesManager().getRegistration(Permission.class);
+            
             if (permissionProvider == null)
                 return false;
 

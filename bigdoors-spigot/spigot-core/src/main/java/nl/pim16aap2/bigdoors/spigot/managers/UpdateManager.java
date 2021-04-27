@@ -8,6 +8,7 @@ import nl.pim16aap2.bigdoors.util.Constants;
 import nl.pim16aap2.bigdoors.util.Util;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Class that manages all update-related stuff.
@@ -16,20 +17,20 @@ import org.bukkit.scheduler.BukkitTask;
  */
 public final class UpdateManager
 {
-    private final @NonNull BigDoorsSpigot plugin;
+    private final @NonNull BigDoorsSpigot bigDoorsSpigot;
     private final @NonNull IPLogger logger;
     private boolean checkForUpdates = false;
     private boolean downloadUpdates = false;
     private boolean updateDownloaded = false;
 
-    private @NonNull UpdateChecker updater;
-    private @NonNull BukkitTask updateRunner = null;
+    private final @NonNull UpdateChecker updater;
+    private @Nullable BukkitTask updateRunner = null;
 
-    public UpdateManager(final @NonNull BigDoorsSpigot plugin, final int pluginID)
+    public UpdateManager(final @NonNull BigDoorsSpigot bigDoorsSpigot, final int pluginID)
     {
-        this.plugin = plugin;
-        logger = plugin.getPLogger();
-        updater = UpdateChecker.init(plugin, pluginID, plugin.getPLogger());
+        this.bigDoorsSpigot = bigDoorsSpigot;
+        logger = bigDoorsSpigot.getPLogger();
+        updater = UpdateChecker.init(bigDoorsSpigot.getJavaPlugin(), pluginID, bigDoorsSpigot.getPLogger());
     }
 
     /**
@@ -99,13 +100,15 @@ public final class UpdateManager
                 if (updateAvailable)
                     logger.info("A new update is available: " + getNewestVersion());
 
-                if (downloadUpdates && updateAvailable && result.getAge() >= plugin.getConfigLoader().downloadDelay())
+                if (downloadUpdates && updateAvailable &&
+                    result.getAge() >= bigDoorsSpigot.getConfigLoader().downloadDelay())
                 {
                     updateDownloaded = updater.downloadUpdate();
                     if (updateDownloaded)
                         logger.info("Update downloaded! Restart to apply it! " +
                                         "New version is " + updater.getLastResult().getNewestVersion() +
-                                        ", Currently running " + plugin.getDescription().getVersion() +
+                                        ", Currently running " + bigDoorsSpigot.getJavaPlugin()
+                                                                               .getDescription().getVersion() +
                                         (Constants.DEV_BUILD ? " (but a DEV-build)" : ""));
                     else
                         logger.info("Failed to download latest version! You can download it manually at: " +
@@ -131,7 +134,7 @@ public final class UpdateManager
                     {
                         checkForUpdates();
                     }
-                }.runTaskTimer(plugin, 0L, 288000L); // Run immediately, then every 4 hours.
+                }.runTaskTimer(bigDoorsSpigot.getJavaPlugin(), 0L, 288000L); // Run immediately, then every 4 hours.
             }
         }
         else

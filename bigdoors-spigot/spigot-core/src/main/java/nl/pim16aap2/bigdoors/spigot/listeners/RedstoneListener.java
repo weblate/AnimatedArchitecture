@@ -30,14 +30,14 @@ import java.util.concurrent.CompletableFuture;
 public class RedstoneListener extends Restartable implements Listener
 {
     private static @Nullable RedstoneListener INSTANCE;
-    private final @NonNull BigDoorsSpigot plugin;
+    private final @NonNull BigDoorsSpigot bigDoorsSpigot;
     private final @NonNull Set<Material> powerBlockTypes = new HashSet<>();
     private boolean isRegistered = false;
 
-    private RedstoneListener(final @NonNull BigDoorsSpigot plugin)
+    private RedstoneListener(final @NonNull BigDoorsSpigot bigDoorsSpigot)
     {
-        super(plugin);
-        this.plugin = plugin;
+        super(bigDoorsSpigot);
+        this.bigDoorsSpigot = bigDoorsSpigot;
         restart();
     }
 
@@ -58,10 +58,10 @@ public class RedstoneListener extends Restartable implements Listener
     {
         powerBlockTypes.clear();
 
-        if (plugin.getConfigLoader().enableRedstone())
+        if (bigDoorsSpigot.getConfigLoader().enableRedstone())
         {
             register();
-            powerBlockTypes.addAll(plugin.getConfigLoader().powerBlockTypes());
+            powerBlockTypes.addAll(bigDoorsSpigot.getConfigLoader().powerBlockTypes());
             return;
         }
         unregister();
@@ -74,7 +74,7 @@ public class RedstoneListener extends Restartable implements Listener
     {
         if (isRegistered)
             return;
-        Bukkit.getPluginManager().registerEvents(this, plugin);
+        Bukkit.getPluginManager().registerEvents(this, bigDoorsSpigot.getJavaPlugin());
         isRegistered = true;
     }
 
@@ -139,7 +139,7 @@ public class RedstoneListener extends Restartable implements Listener
         }
         catch (Exception e)
         {
-            plugin.getPLogger().logThrowable(e, "Exception thrown while handling redstone event!");
+            bigDoorsSpigot.getPLogger().logThrowable(e, "Exception thrown while handling redstone event!");
         }
     }
 
