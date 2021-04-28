@@ -217,20 +217,21 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
 
         pServer = new PServer(javaPlugin);
         messagingInterface = new MessagingInterfaceSpigot(javaPlugin);
-
-        try
-        {
-            glowingBlockSpawner = new GlowingBlockSpawner(this);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 
     public void onEnable()
     {
         Bukkit.getLogger().setLevel(Level.FINER);
+
+        try
+        {
+            if (glowingBlockSpawner == null)
+                glowingBlockSpawner = new GlowingBlockSpawner(this);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         try
         {
@@ -320,13 +321,12 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     {
         final @NonNull File extensionsDir = new File(BigDoors.get().getPlatform().getDataDirectory() +
                                                          Constants.BIGDOORS_EXTENSIONS_FOLDER);
-        if (!extensionsDir.exists())
-            if (!extensionsDir.mkdirs())
-            {
-                BigDoors.get().getPLogger()
-                        .logThrowable(new IOException("Failed to create folder: " + extensionsDir));
-                return;
-            }
+        if (!extensionsDir.exists() && !extensionsDir.mkdirs())
+        {
+            BigDoors.get().getPLogger()
+                    .logThrowable(new IOException("Failed to create folder: " + extensionsDir));
+            return;
+        }
 
         Bukkit.getLogger().setLevel(Level.ALL);
         DoorTypeLoader.get().loadDoorTypesFromDirectory();
