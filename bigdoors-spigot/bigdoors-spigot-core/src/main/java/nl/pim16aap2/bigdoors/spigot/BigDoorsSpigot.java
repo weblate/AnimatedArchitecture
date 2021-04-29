@@ -67,6 +67,7 @@ import nl.pim16aap2.bigdoors.spigot.util.GlowingBlockSpawner;
 import nl.pim16aap2.bigdoors.spigot.util.MessagingInterfaceSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.PExecutorSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.SpigotAdapter;
+import nl.pim16aap2.bigdoors.spigot.util.api.AbstractBigDoorsSpigotLoader;
 import nl.pim16aap2.bigdoors.spigot.util.api.BigDoorsSpigotAbstract;
 import nl.pim16aap2.bigdoors.spigot.util.api.IPlatformManagerSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.implementations.ChunkManagerSpigot;
@@ -83,7 +84,6 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,7 +103,7 @@ import java.util.logging.Level;
 public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBigDoorsInnerPlatform
 {
     @Getter
-    private final @NonNull JavaPlugin javaPlugin;
+    private final @NonNull AbstractBigDoorsSpigotLoader plugin;
 
     private static BigDoorsSpigot INSTANCE;
     private static long MAINTHREADID = -1;
@@ -200,9 +200,9 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
     @Getter
     private final @NonNull DelayedCommandInputManager delayedCommandInputManager = new DelayedCommandInputManager();
 
-    public BigDoorsSpigot(final @NonNull JavaPlugin javaPlugin)
+    public BigDoorsSpigot(final @NonNull AbstractBigDoorsSpigotLoader javaPlugin)
     {
-        this.javaPlugin = javaPlugin;
+        plugin = javaPlugin;
         INSTANCE = this;
 
         messagingInterface = new MessagingInterfaceSpigot(javaPlugin);
@@ -241,10 +241,10 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
             // Register this here so it can check for updates even when loaded on an incorrect version.
             updateManager = new UpdateManager(this, 58669);
 
-            databaseManager = new DatabaseManager(this, new File(javaPlugin.getDataFolder(), "doorDB.db"));
+            databaseManager = new DatabaseManager(this, new File(plugin.getDataFolder(), "doorDB.db"));
             registerDoorTypes();
 
-            Bukkit.getPluginManager().registerEvents(new LoginMessageListener(this), javaPlugin);
+            Bukkit.getPluginManager().registerEvents(new LoginMessageListener(this), plugin);
             validVersion = PlatformManagerSpigot.get().initPlatform(this);
 
             // Load the files for the correct version of Minecraft.
@@ -278,17 +278,17 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
 
             headManager = HeadManager.init(this, getConfigLoader());
 
-            Bukkit.getPluginManager().registerEvents(new EventListeners(this), javaPlugin);
-            Bukkit.getPluginManager().registerEvents(new GUIListener(this), javaPlugin);
-            Bukkit.getPluginManager().registerEvents(new ChunkListener(this), javaPlugin);
+            Bukkit.getPluginManager().registerEvents(new EventListeners(this), plugin);
+            Bukkit.getPluginManager().registerEvents(new GUIListener(this), plugin);
+            Bukkit.getPluginManager().registerEvents(new ChunkListener(this), plugin);
 
             protectionCompatManager = ProtectionCompatManagerSpigot.init(this);
-            Bukkit.getPluginManager().registerEvents(protectionCompatManager, javaPlugin);
+            Bukkit.getPluginManager().registerEvents(protectionCompatManager, plugin);
 
             powerBlockManager = new PowerBlockManager(this, configLoader, databaseManager, getPLogger());
-            Bukkit.getPluginManager().registerEvents(WorldListener.init(powerBlockManager), javaPlugin);
+            Bukkit.getPluginManager().registerEvents(WorldListener.init(powerBlockManager), plugin);
 
-            pLogger.info("Successfully enabled BigDoors " + javaPlugin.getDescription().getVersion());
+            pLogger.info("Successfully enabled BigDoors " + plugin.getDescription().getVersion());
         }
         catch (Exception exception)
         {
@@ -299,7 +299,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
 
     public @NonNull File getDataFolder()
     {
-        return javaPlugin.getDataFolder();
+        return plugin.getDataFolder();
     }
 
     @Override public void onDisable()
@@ -314,7 +314,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
     private void disablePlugin()
     {
         successfulInit = false;
-        Bukkit.getPluginManager().disablePlugin(javaPlugin);
+        Bukkit.getPluginManager().disablePlugin(plugin);
     }
 
     /**
@@ -352,7 +352,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
             return;
 
         configLoader.restart();
-        messages = new Messages(this, javaPlugin.getDataFolder(), getConfigLoader().languageFile(), getPLogger());
+        messages = new Messages(this, plugin.getDataFolder(), getConfigLoader().languageFile(), getPLogger());
         playerGUIs = new HashMap<>();
 
         updateManager.setEnabled(getConfigLoader().checkForUpdates(), getConfigLoader().autoDLUpdate());
@@ -361,7 +361,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
     @Override
     public @NonNull File getDataDirectory()
     {
-        return javaPlugin.getDataFolder();
+        return plugin.getDataFolder();
     }
 
     @Override
@@ -479,11 +479,6 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
         return Optional.ofNullable(glowingBlockSpawner);
     }
 
-    public @NonNull BigDoorsSpigot getPlugin()
-    {
-        return this;
-    }
-
     public @NonNull Optional<GUI> getGUIUser(final @NonNull Player player)
     {
         GUI gui = null;
@@ -512,7 +507,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
     @Override
     public @NonNull String getVersion()
     {
-        return javaPlugin.getDescription().getVersion();
+        return plugin.getDescription().getVersion();
     }
 
     @Override

@@ -49,7 +49,7 @@ public final class LoginMessageListener implements Listener
                         if (!loginString.isEmpty())
                             player.sendMessage(ChatColor.AQUA + bigDoorsSpigot.getLoginMessage());
                     }
-                }.runTaskLater(bigDoorsSpigot.getJavaPlugin(), 120);
+                }.runTaskLater(bigDoorsSpigot.getPlugin(), 120);
         }
         catch (Exception e)
         {

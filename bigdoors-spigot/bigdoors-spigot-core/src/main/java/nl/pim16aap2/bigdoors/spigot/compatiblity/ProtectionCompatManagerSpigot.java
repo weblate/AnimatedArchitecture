@@ -94,7 +94,7 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
         shutdown();
 
         config = bigDoorsSpigot.getConfigLoader();
-        for (Plugin p : bigDoorsSpigot.getJavaPlugin().getServer().getPluginManager().getPlugins())
+        for (Plugin p : bigDoorsSpigot.getPlugin().getServer().getPluginManager().getPlugins())
             loadFromPluginName(p.getName());
     }
 
@@ -271,7 +271,7 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
 
         try
         {
-            @Nullable Plugin otherPlugin = bigDoorsSpigot.getJavaPlugin().getServer().getPluginManager()
+            @Nullable Plugin otherPlugin = bigDoorsSpigot.getPlugin().getServer().getPluginManager()
                                                          .getPlugin(ProtectionCompat.getName(compat));
             if (otherPlugin == null)
             {
@@ -281,7 +281,7 @@ public final class ProtectionCompatManagerSpigot extends Restartable implements 
             }
 
             @Nullable Class<? extends IProtectionCompat> compatClass =
-                compat.getClass(bigDoorsSpigot.getJavaPlugin().getDescription().getVersion());
+                compat.getClass(bigDoorsSpigot.getPlugin().getDescription().getVersion());
 
             if (compatClass == null)
             {

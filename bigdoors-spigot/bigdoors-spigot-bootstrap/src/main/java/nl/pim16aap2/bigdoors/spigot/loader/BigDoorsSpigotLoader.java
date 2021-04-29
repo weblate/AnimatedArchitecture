@@ -3,34 +3,37 @@ package nl.pim16aap2.bigdoors.spigot.loader;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
+import nl.pim16aap2.bigdoors.spigot.util.api.AbstractBigDoorsSpigotLoader;
 import nl.pim16aap2.bigdoors.spigot.util.api.BigDoorsSpigotAbstract;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.nio.file.StandardCopyOption;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
-/**
- * Represents the bootstrap loader for Spigot.
- *
- * @author Pim
- */
 // TODO: Keep track of the plugin's state while initializing/enabling it.
 //       If something went wrong (e.g. incorrect MC version, database version mismatch),
 //       just close the ClassLoader to fully unload the plugin and maybe register a backup
 //       command handler to intercept everything and report some error messages.
 
 @SuppressWarnings("unused")
-public class BigDoorsSpigotPlugin extends JavaPlugin
+public class BigDoorsSpigotLoader extends AbstractBigDoorsSpigotLoader
 {
     private boolean isEnabled = false;
     private static final @NonNull String JAR_JAR_NAME = "bigdoors-spigot-core.jar";
     private final @NonNull File jarPath;
 
     private final @NonNull PClassLoader classLoader;
-    private @Nullable BigDoorsSpigotAbstract bigDoorsSpigot;
 
-    public BigDoorsSpigotPlugin()
+    private @Nullable BigDoorsSpigotAbstract plugin;
+
+    private @NonNull Set<JavaPlugin> addons = new CopyOnWriteArraySet<>();
+
+    public BigDoorsSpigotLoader()
     {
         jarPath = new File(getDataFolder(), JAR_JAR_NAME);
         classLoader = new PClassLoader(super.getClassLoader());
@@ -43,8 +46,9 @@ public class BigDoorsSpigotPlugin extends JavaPlugin
             classLoader.addURL(jarPath.toURI().toURL());
 
             Class<?> bigDoorsSpigotClass = classLoader.loadClass("nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot");
-            bigDoorsSpigot = (BigDoorsSpigotAbstract) bigDoorsSpigotClass.getDeclaredConstructor(JavaPlugin.class)
-                                                                         .newInstance(this);
+            plugin = (BigDoorsSpigotAbstract) bigDoorsSpigotClass
+                .getDeclaredConstructor(AbstractBigDoorsSpigotLoader.class)
+                .newInstance(this);
 
             isEnabled = true;
         }
@@ -55,6 +59,22 @@ public class BigDoorsSpigotPlugin extends JavaPlugin
         }
         if (!isEnabled)
             getLogger().severe("Failed to initialize the plugin!");
+    }
+
+    @Override public @NonNull Set<JavaPlugin> getRegisteredAddons()
+    {
+        return Collections.unmodifiableSet(addons);
+    }
+
+    @Override
+    public @NonNull Optional<BigDoorsSpigotAbstract> getBigDoorsAPI(final @NonNull JavaPlugin caller)
+    {
+        if (caller == this)
+            throw new IllegalArgumentException(
+                "Caller plugin is the same instance as the requested plugin! Please provide the instance of the plugin that actually requested the BigDoors API instead!");
+
+        addons.add(caller);
+        return Optional.ofNullable(plugin);
     }
 
     private boolean extractJar()
@@ -80,20 +100,20 @@ public class BigDoorsSpigotPlugin extends JavaPlugin
     @SneakyThrows
     public void onEnable()
     {
-        if (!isEnabled || bigDoorsSpigot == null)
+        if (!isEnabled || plugin == null)
         {
             getLogger().severe("Plugin failed to initialize!");
             return;
         }
-        bigDoorsSpigot.onEnable();
+        plugin.onEnable();
     }
 
     @Override
     @SneakyThrows
     public void onDisable()
     {
-        if (!isEnabled || bigDoorsSpigot == null)
+        if (!isEnabled || plugin == null)
             return;
-        bigDoorsSpigot.onDisable();
+        plugin.onDisable();
     }
 }

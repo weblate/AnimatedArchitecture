@@ -27,7 +27,7 @@ public class LandsProtectionCompat implements IProtectionCompat
     public LandsProtectionCompat(final @NonNull BigDoorsSpigot bigDoorsSpigot)
     {
         this.bigDoorsSpigot = bigDoorsSpigot;
-        landsAddon = new LandsIntegration(bigDoorsSpigot.getJavaPlugin(), false);
+        landsAddon = new LandsIntegration(bigDoorsSpigot.getPlugin(), false);
         success = landsAddon != null;
     }
 

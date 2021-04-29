@@ -30,7 +30,7 @@ public class DebugReporterSpigot extends DebugReporter
     public @NonNull String getDump()
     {
         final StringBuilder sb = new StringBuilder(super.getDump());
-        sb.append("BigDoors version: ").append(bigDoorsSpigot.getJavaPlugin().getDescription().getVersion())
+        sb.append("BigDoors version: ").append(bigDoorsSpigot.getPlugin().getDescription().getVersion())
           .append("\n");
         sb.append("Server version: ").append(Bukkit.getServer().getVersion()).append("\n");
 
@@ -40,6 +40,10 @@ public class DebugReporterSpigot extends DebugReporter
 
         sb.append("Enabled door types:    ")
           .append(Util.toString(BigDoors.get().getDoorTypeManager().getEnabledDoorTypes()))
+          .append("\n");
+
+        sb.append("Registered addons: ")
+          .append(Util.toString(bigDoorsSpigot.getPlugin().getRegisteredAddons()))
           .append("\n");
 
         val platform = bigDoorsSpigot.getPlatformManagerSpigot().getSpigotPlatform();

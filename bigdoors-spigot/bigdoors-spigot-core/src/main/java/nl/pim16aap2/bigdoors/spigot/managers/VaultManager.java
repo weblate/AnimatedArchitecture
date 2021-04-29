@@ -245,7 +245,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
     {
         try
         {
-            return bigDoorsSpigot.getJavaPlugin().getServer().getPluginManager().getPlugin("Vault") != null;
+            return bigDoorsSpigot.getPlugin().getServer().getPluginManager().getPlugin("Vault") != null;
         }
         catch (NullPointerException e)
         {
@@ -262,7 +262,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
     {
         try
         {
-            final RegisteredServiceProvider<Economy> economyProvider = bigDoorsSpigot.getJavaPlugin().getServer()
+            final RegisteredServiceProvider<Economy> economyProvider = bigDoorsSpigot.getPlugin().getServer()
                                                                                      .getServicesManager()
                                                                                      .getRegistration(Economy.class);
             if (economyProvider == null)
@@ -289,7 +289,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
         try
         {
             final RegisteredServiceProvider<Permission> permissionProvider =
-                bigDoorsSpigot.getJavaPlugin().getServer().getServicesManager().getRegistration(Permission.class);
+                bigDoorsSpigot.getPlugin().getServer().getServicesManager().getRegistration(Permission.class);
 
             if (permissionProvider == null)
                 return false;

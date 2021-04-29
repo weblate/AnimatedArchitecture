@@ -137,7 +137,7 @@ class FakePlayerCreator
         }
 
         if (player != null)
-            player.setMetadata(FAKEPLAYERMETADATA, new FixedMetadataValue(bigDoorsSpigot.getJavaPlugin(), true));
+            player.setMetadata(FAKEPLAYERMETADATA, new FixedMetadataValue(bigDoorsSpigot.getPlugin(), true));
 
         return Optional.ofNullable(player);
     }

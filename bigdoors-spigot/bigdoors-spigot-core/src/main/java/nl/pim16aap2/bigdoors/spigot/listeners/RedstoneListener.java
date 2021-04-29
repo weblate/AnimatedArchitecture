@@ -74,7 +74,7 @@ public class RedstoneListener extends Restartable implements Listener
     {
         if (isRegistered)
             return;
-        Bukkit.getPluginManager().registerEvents(this, bigDoorsSpigot.getJavaPlugin());
+        Bukkit.getPluginManager().registerEvents(this, bigDoorsSpigot.getPlugin());
         isRegistered = true;
     }
 

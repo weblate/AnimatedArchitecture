@@ -141,7 +141,7 @@ public final class ConfigLoaderSpigot implements IConfigLoader
      */
     public void reloadConfig()
     {
-        bigDoorsSpigot.getJavaPlugin().reloadConfig();
+        bigDoorsSpigot.getPlugin().reloadConfig();
         configEntries.clear();
         powerBlockTypes.clear();
         doorPrices.clear();
@@ -239,7 +239,7 @@ public final class ConfigLoaderSpigot implements IConfigLoader
             "If enabled, they will be written to both the console and the bigdoors log."};
 
 
-        IConfigReader config = new ConfigReaderSpigot(bigDoorsSpigot.getJavaPlugin().getConfig());
+        IConfigReader config = new ConfigReaderSpigot(bigDoorsSpigot.getPlugin().getConfig());
 
 
         enableRedstone = addNewConfigEntry(config, "allowRedstone", true, enableRedstoneComment);

@@ -30,7 +30,7 @@ public final class UpdateManager
     {
         this.bigDoorsSpigot = bigDoorsSpigot;
         logger = bigDoorsSpigot.getPLogger();
-        updater = UpdateChecker.init(bigDoorsSpigot.getJavaPlugin(), pluginID, bigDoorsSpigot.getPLogger());
+        updater = UpdateChecker.init(bigDoorsSpigot.getPlugin(), pluginID, bigDoorsSpigot.getPLogger());
     }
 
     /**
@@ -107,7 +107,7 @@ public final class UpdateManager
                     if (updateDownloaded)
                         logger.info("Update downloaded! Restart to apply it! " +
                                         "New version is " + updater.getLastResult().getNewestVersion() +
-                                        ", Currently running " + bigDoorsSpigot.getJavaPlugin()
+                                        ", Currently running " + bigDoorsSpigot.getPlugin()
                                                                                .getDescription().getVersion() +
                                         (Constants.DEV_BUILD ? " (but a DEV-build)" : ""));
                     else
@@ -134,7 +134,7 @@ public final class UpdateManager
                     {
                         checkForUpdates();
                     }
-                }.runTaskTimer(bigDoorsSpigot.getJavaPlugin(), 0L, 288000L); // Run immediately, then every 4 hours.
+                }.runTaskTimer(bigDoorsSpigot.getPlugin(), 0L, 288000L); // Run immediately, then every 4 hours.
             }
         }
         else
