@@ -205,7 +205,8 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
         this.javaPlugin = javaPlugin;
         INSTANCE = this;
 
-        pLogger = new PLogger(new File(javaPlugin.getDataFolder(), "log.txt"));
+        messagingInterface = new MessagingInterfaceSpigot(javaPlugin);
+        pLogger = new PLogger(new File(javaPlugin.getDataFolder(), "log.txt"), messagingInterface);
 
         BigDoors.get().setBigDoorsPlatform(this);
         BigDoors.get().registerRestartable(this);
@@ -219,7 +220,6 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract implements IBig
         doorOpener = new DoorOpener();
 
         pServer = new PServer(javaPlugin);
-        messagingInterface = new MessagingInterfaceSpigot(javaPlugin);
     }
 
     @Override public void onEnable()

@@ -2,7 +2,6 @@ package nl.pim16aap2.bigdoors.logging;
 
 import lombok.Getter;
 import lombok.NonNull;
-import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IMessagingInterface;
 
 import java.io.BufferedWriter;
@@ -27,6 +26,8 @@ public final class PLogger implements IPLogger
      */
     private final @NonNull File logFile;
 
+    private final @NonNull IMessagingInterface messagingInterface;
+
     /**
      * The queue of {@link LogMessage}s that will be written to the log.
      */
@@ -50,8 +51,9 @@ public final class PLogger implements IPLogger
     @Getter
     private @NonNull Level lowestLevel = Level.CONFIG;
 
-    public PLogger(@NonNull File logFile)
+    public PLogger(final @NonNull File logFile, final @NonNull IMessagingInterface messagingInterface)
     {
+        this.messagingInterface = messagingInterface;
         updateLowestLevel();
         this.logFile = logFile;
         prepareLog();
@@ -201,7 +203,7 @@ public final class PLogger implements IPLogger
      */
     private void writeToConsole(final @NonNull Level level, final @NonNull String string)
     {
-        BigDoors.get().getMessagingInterface().writeToConsole(level, string);
+        messagingInterface.writeToConsole(level, string);
     }
 
     @Override
