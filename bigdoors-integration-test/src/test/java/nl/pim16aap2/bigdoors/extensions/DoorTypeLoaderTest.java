@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.extensions;
 
 import nl.pim16aap2.bigdoors.BigDoors;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.logging.BasicPLogger;
 import nl.pim16aap2.bigdoors.managers.DoorTypeManager;
 import org.junit.jupiter.api.Assertions;
@@ -14,12 +14,12 @@ import java.io.IOException;
 
 class DoorTypeLoaderTest
 {
-    private IBigDoorsPlatform platform;
+    private IBigDoorsInnerPlatform platform;
 
     @BeforeEach
     public void init()
     {
-        platform = Mockito.mock(IBigDoorsPlatform.class);
+        platform = Mockito.mock(IBigDoorsInnerPlatform.class);
         BigDoors.get().setBigDoorsPlatform(platform);
         Mockito.when(platform.getPLogger()).thenReturn(new BasicPLogger());
         Mockito.when(platform.getDoorTypeManager()).thenReturn(Mockito.mock(DoorTypeManager.class));

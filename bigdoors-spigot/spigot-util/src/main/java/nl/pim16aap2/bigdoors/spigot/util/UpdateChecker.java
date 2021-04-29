@@ -9,7 +9,7 @@ import lombok.NonNull;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.logging.IPLogger;
 import nl.pim16aap2.bigdoors.logging.PLogger;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -154,7 +154,7 @@ public final class UpdateChecker
 
                 return new UpdateResult(
                     responseCode == 401 ? UpdateReason.UNAUTHORIZED_QUERY : UpdateReason.UNKNOWN_ERROR);
-            }).exceptionally(ex -> Util.exceptionally(ex, new UpdateResult(UpdateReason.UNKNOWN_ERROR)));
+            }).exceptionally(ex -> InnerUtil.exceptionally(ex, new UpdateResult(UpdateReason.UNKNOWN_ERROR)));
     }
 
     /**

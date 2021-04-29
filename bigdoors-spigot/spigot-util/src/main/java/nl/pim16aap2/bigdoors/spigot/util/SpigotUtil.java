@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import nl.pim16aap2.bigdoors.api.PColor;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import nl.pim16aap2.bigdoors.util.PBlockFace;
-import nl.pim16aap2.bigdoors.util.Util;
 import nl.pim16aap2.bigdoors.util.vector.Vector3DiConst;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -344,7 +344,8 @@ public final class SpigotUtil
                             // Ignore
                         }
                 return ret;
-            }).exceptionally(ex -> Util.exceptionally(ex, 0)); // 0 to indicate a limit of 0, to err on the safe side.
+                // 0 to indicate a limit of 0, to err on the safe side.
+            }).exceptionally(ex -> InnerUtil.exceptionally(ex, 0));
     }
 
 

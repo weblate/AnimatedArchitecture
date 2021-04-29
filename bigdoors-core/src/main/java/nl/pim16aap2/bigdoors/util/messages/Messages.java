@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  *
  * @author Pim
  */
-public final class Messages extends Restartable
+public final class Messages extends Restartable implements IMessages
 {
     /**
      * The name of the default language file.
@@ -53,7 +53,7 @@ public final class Messages extends Restartable
      * <p>
      * Value: The translated message.
      */
-    private @NonNull Map<Message, String> messageMap = new EnumMap<>(Message.class);
+    private final @NonNull Map<Message, String> messageMap = new EnumMap<>(Message.class);
 
     /**
      * The selected language file.
@@ -75,12 +75,11 @@ public final class Messages extends Restartable
         this.plogger = plogger;
         this.fileDir = fileDir;
 
-        if (!fileDir.exists())
-            if (!fileDir.mkdirs())
-            {
-                plogger.logThrowable(new IOException("Failed to create folder: \"" + fileDir.toString() + "\""));
-                return;
-            }
+        if (!fileDir.exists() && !fileDir.mkdirs())
+        {
+            plogger.logThrowable(new IOException("Failed to create folder: \"" + fileDir + "\""));
+            return;
+        }
 
         // TODO: Don't add .txt if it already ends with .txt
         textFile = new File(fileDir, fileName + ".txt");
@@ -265,13 +264,7 @@ public final class Messages extends Restartable
         return "Translation for key \"" + key + "\" not found! Contact server admin!";
     }
 
-    /**
-     * Tries to get the translated message from the name of a {@link Message}. If no such mapping exists, an empty
-     * String will be returned.
-     *
-     * @param messageName The name of a {@link Message}, see {@link Message#valueOf(String)}.
-     * @return The translated String if possible, otherwise an empty String.
-     */
+    @Override
     public @NonNull String getString(final @NonNull String messageName)
     {
         try
@@ -285,15 +278,7 @@ public final class Messages extends Restartable
         }
     }
 
-    /**
-     * Gets the translated message of the provided {@link Message} and substitutes its variables for the provided
-     * values.
-     *
-     * @param msg    The {@link Message} to translate.
-     * @param values The values to substitute for the variables in the message.
-     * @return The translated message of the provided {@link Message} and substitutes its variables for the provided
-     * values.
-     */
+    @Override
     public @NonNull String getString(final @NonNull Message msg, final @NonNull String... values)
     {
         if (msg.equals(Message.EMPTY))

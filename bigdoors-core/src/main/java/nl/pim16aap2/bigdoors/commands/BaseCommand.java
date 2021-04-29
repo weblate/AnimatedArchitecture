@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
+import nl.pim16aap2.bigdoors.commands.ICommandSender;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.managers.DatabaseManager;
 import nl.pim16aap2.bigdoors.util.DoorAttribute;
@@ -192,9 +193,9 @@ public abstract class BaseCommand
         {
             return executeCommand(permissionResult).get(30, TimeUnit.MINUTES);
         }
-        catch (Throwable t)
+        catch (Exception ex)
         {
-            throw new RuntimeException("Encountered issue running command: " + this, t);
+            throw new RuntimeException("Encountered issue running command: " + this, ex);
         }
     }
 

@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors;
 
 import lombok.NonNull;
-import nl.pim16aap2.bigdoors.api.DebugReporter;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
 import nl.pim16aap2.bigdoors.api.IMessagingInterface;
 import nl.pim16aap2.bigdoors.api.restartable.IRestartable;
@@ -17,9 +17,11 @@ import nl.pim16aap2.bigdoors.managers.DoorActivityManager;
 import nl.pim16aap2.bigdoors.managers.DoorRegistry;
 import nl.pim16aap2.bigdoors.managers.DoorSpecificationManager;
 import nl.pim16aap2.bigdoors.managers.DoorTypeManager;
+import nl.pim16aap2.bigdoors.managers.ILimitsManager;
 import nl.pim16aap2.bigdoors.managers.LimitsManager;
 import nl.pim16aap2.bigdoors.managers.PowerBlockManager;
 import nl.pim16aap2.bigdoors.managers.ToolUserManager;
+import nl.pim16aap2.bigdoors.util.IDebugReporter;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -44,7 +46,7 @@ public final class BigDoors extends RestartableHolder
     /**
      * The platform to use. e.g. "Spigot".
      */
-    private @Nullable IBigDoorsPlatform platform;
+    private @Nullable IBigDoorsInnerPlatform platform;
 
     private BigDoors()
     {
@@ -65,7 +67,7 @@ public final class BigDoors extends RestartableHolder
      *
      * @param platform The platform implementing BigDoor's internal API.
      */
-    public void setBigDoorsPlatform(final @NonNull IBigDoorsPlatform platform)
+    public void setBigDoorsPlatform(final @NonNull IBigDoorsInnerPlatform platform)
     {
         this.platform = platform;
     }
@@ -75,7 +77,7 @@ public final class BigDoors extends RestartableHolder
      *
      * @return The platform implementing BigDoor's internal API.
      */
-    public @NonNull IBigDoorsPlatform getPlatform()
+    public @NonNull IBigDoorsInnerPlatform getPlatform()
     {
         if (platform == null)
             throw new IllegalStateException("No platform currently registered!");
@@ -107,7 +109,7 @@ public final class BigDoors extends RestartableHolder
      *
      * @return The {@link LimitsManager}.
      */
-    public @NonNull LimitsManager getLimitsManager()
+    public @NonNull ILimitsManager getLimitsManager()
     {
         return platform.getLimitsManager();
     }
@@ -214,11 +216,11 @@ public final class BigDoors extends RestartableHolder
     }
 
     /**
-     * Gets the {@link DebugReporter}.
+     * Gets the {@link IDebugReporter}.
      *
-     * @return The {@link DebugReporter}.
+     * @return The {@link IDebugReporter}.
      */
-    public @NonNull DebugReporter getDebugReporter()
+    public @NonNull IDebugReporter getDebugReporter()
     {
         return getPlatform().getDebugReporter();
     }

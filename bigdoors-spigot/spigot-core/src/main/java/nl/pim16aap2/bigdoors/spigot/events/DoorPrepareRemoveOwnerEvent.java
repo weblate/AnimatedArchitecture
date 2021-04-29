@@ -5,7 +5,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
+import nl.pim16aap2.bigdoors.doors.IDoorBase;
 import nl.pim16aap2.bigdoors.events.IDoorPrepareRemoveOwnerEvent;
 import nl.pim16aap2.bigdoors.util.DoorOwner;
 import org.bukkit.event.HandlerList;
@@ -28,7 +28,7 @@ public class DoorPrepareRemoveOwnerEvent extends DoorEvent implements IDoorPrepa
     @Getter
     private final @NonNull DoorOwner removedDoorOwner;
 
-    public DoorPrepareRemoveOwnerEvent(final @NonNull AbstractDoorBase door,
+    public DoorPrepareRemoveOwnerEvent(final @NonNull IDoorBase door,
                                        final @Nullable IPPlayer responsible,
                                        final @NonNull DoorOwner removedDoorOwner)
     {

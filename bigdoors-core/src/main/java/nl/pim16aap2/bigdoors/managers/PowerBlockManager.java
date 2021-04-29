@@ -8,6 +8,7 @@ import nl.pim16aap2.bigdoors.api.restartable.IRestartableHolder;
 import nl.pim16aap2.bigdoors.api.restartable.Restartable;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.logging.IPLogger;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import nl.pim16aap2.bigdoors.util.Util;
 import nl.pim16aap2.bigdoors.util.cache.TimedCache;
 import nl.pim16aap2.bigdoors.util.vector.Vector2DiConst;
@@ -99,7 +100,7 @@ public final class PowerBlockManager extends Restartable
                 final @NonNull List<CompletableFuture<Optional<AbstractDoorBase>>> doorBases = new ArrayList<>();
                 list.forEach(doorUID -> doorBases.add(databaseManager.getDoor(doorUID)));
                 return doorBases;
-            }).exceptionally(ex -> Util.exceptionally(ex, Collections.emptyList()));
+            }).exceptionally(ex -> InnerUtil.exceptionally(ex, Collections.emptyList()));
     }
 
     /**
@@ -254,7 +255,7 @@ public final class PowerBlockManager extends Restartable
                         final @NonNull List<Long> doorUIDs = new ArrayList<>(map.size());
                         map.forEach((key, value) -> doorUIDs.addAll(value));
                         return doorUIDs;
-                    }).exceptionally(ex -> Util.exceptionally(ex, Collections.emptyList()));
+                    }).exceptionally(ex -> InnerUtil.exceptionally(ex, Collections.emptyList()));
             }
 
             return CompletableFuture.completedFuture(powerBlockChunks.get(chunkHash)
@@ -280,7 +281,7 @@ public final class PowerBlockManager extends Restartable
         private void checkBigDoorsWorldStatus()
         {
             databaseManager.isBigDoorsWorld(worldName).whenComplete((result, throwable) -> isBigDoorsWorld = result)
-                           .exceptionally(Util::exceptionally);
+                           .exceptionally(InnerUtil::exceptionally);
         }
 
         @Override

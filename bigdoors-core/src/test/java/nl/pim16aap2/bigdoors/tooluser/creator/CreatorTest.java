@@ -3,7 +3,7 @@ package nl.pim16aap2.bigdoors.tooluser.creator;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IBigDoorsToolUtil;
 import nl.pim16aap2.bigdoors.api.IEconomyManager;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
@@ -33,7 +33,7 @@ import static nl.pim16aap2.bigdoors.UnitTestUtil.*;
 
 class CreatorTest
 {
-    private IBigDoorsPlatform platform;
+    private IBigDoorsInnerPlatform platform;
 
     @Mock(answer = Answers.CALLS_REAL_METHODS)
     private Creator creator;

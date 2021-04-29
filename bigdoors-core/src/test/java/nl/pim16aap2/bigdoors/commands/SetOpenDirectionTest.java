@@ -3,7 +3,7 @@ package nl.pim16aap2.bigdoors.commands;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.doortypes.DoorType;
@@ -34,7 +34,7 @@ class SetOpenDirectionTest
     @Mock
     private DoorType doorType;
 
-    private IBigDoorsPlatform platform;
+    private IBigDoorsInnerPlatform platform;
 
     @Mock
     private DoorRetriever doorRetriever;

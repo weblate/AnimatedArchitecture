@@ -2,10 +2,11 @@ package nl.pim16aap2.bigdoors;
 
 import lombok.NonNull;
 import lombok.val;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IPLocation;
 import nl.pim16aap2.bigdoors.api.IPWorld;
 import nl.pim16aap2.bigdoors.logging.BasicPLogger;
+import nl.pim16aap2.bigdoors.util.messages.IMessages;
 import nl.pim16aap2.bigdoors.util.messages.Message;
 import nl.pim16aap2.bigdoors.util.messages.Messages;
 import nl.pim16aap2.bigdoors.util.vector.Vector2Di;
@@ -26,19 +27,19 @@ public class UnitTestUtil
     public static final double EPSILON = 1E-6;
 
     /**
-     * Initializes and registers a new {@link IBigDoorsPlatform}. A {@link BasicPLogger} is also set up.
+     * Initializes and registers a new {@link IBigDoorsInnerPlatform}. A {@link BasicPLogger} is also set up.
      *
-     * @return The new {@link IBigDoorsPlatform}.
+     * @return The new {@link IBigDoorsInnerPlatform}.
      */
-    public static @NonNull IBigDoorsPlatform initPlatform()
+    public static @NonNull IBigDoorsInnerPlatform initPlatform()
     {
-        IBigDoorsPlatform platform = Mockito.mock(IBigDoorsPlatform.class);
+        IBigDoorsInnerPlatform platform = Mockito.mock(IBigDoorsInnerPlatform.class);
         BigDoors.get().setBigDoorsPlatform(platform);
         Mockito.when(platform.getPLogger()).thenReturn(new BasicPLogger());
         return platform;
     }
 
-    public static @NonNull Messages initMessages()
+    public static @NonNull IMessages initMessages()
     {
         val messages = Mockito.mock(Messages.class);
         Mockito.when(messages.getString(Mockito.any()))

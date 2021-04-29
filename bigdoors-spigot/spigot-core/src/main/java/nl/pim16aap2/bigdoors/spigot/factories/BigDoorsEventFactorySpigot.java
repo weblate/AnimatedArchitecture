@@ -3,7 +3,7 @@ package nl.pim16aap2.bigdoors.spigot.factories;
 import lombok.NonNull;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.api.factories.IBigDoorsEventFactory;
-import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
+import nl.pim16aap2.bigdoors.doors.IDoorBase;
 import nl.pim16aap2.bigdoors.events.IDoorCreatedEvent;
 import nl.pim16aap2.bigdoors.events.IDoorPrepareAddOwnerEvent;
 import nl.pim16aap2.bigdoors.events.IDoorPrepareCreateEvent;
@@ -31,21 +31,21 @@ import org.jetbrains.annotations.Nullable;
 public class BigDoorsEventFactorySpigot implements IBigDoorsEventFactory
 {
     @Override
-    public @NonNull IDoorCreatedEvent createDoorCreatedEvent(final @NonNull AbstractDoorBase preview,
+    public @NonNull IDoorCreatedEvent createDoorCreatedEvent(final @NonNull IDoorBase preview,
                                                              final @Nullable IPPlayer responsible)
     {
         return new DoorCreatedEvent(preview, responsible);
     }
 
     @Override
-    public @NonNull IDoorPrepareCreateEvent createPrepareDoorCreateEvent(final @NonNull AbstractDoorBase door,
+    public @NonNull IDoorPrepareCreateEvent createPrepareDoorCreateEvent(final @NonNull IDoorBase door,
                                                                          final @Nullable IPPlayer responsible)
     {
         return new DoorPrepareCreateEvent(door, responsible);
     }
 
     @Override
-    public @NonNull IDoorPrepareDeleteEvent createPrepareDeleteDoorEvent(final @NonNull AbstractDoorBase door,
+    public @NonNull IDoorPrepareDeleteEvent createPrepareDeleteDoorEvent(final @NonNull IDoorBase door,
                                                                          final @Nullable IPPlayer responsible)
     {
         return new DoorPrepareDeleteEvent(door, responsible);
@@ -53,14 +53,14 @@ public class BigDoorsEventFactorySpigot implements IBigDoorsEventFactory
 
     @Override
     public @NonNull IDoorPrepareAddOwnerEvent createDoorPrepareAddOwnerEvent(
-        final @NonNull AbstractDoorBase door, final @NonNull DoorOwner newOwner, final @Nullable IPPlayer responsible)
+        final @NonNull IDoorBase door, final @NonNull DoorOwner newOwner, final @Nullable IPPlayer responsible)
     {
         return new DoorPrepareAddOwnerEvent(door, responsible, newOwner);
     }
 
     @Override
     public @NonNull IDoorPrepareRemoveOwnerEvent createDoorPrepareRemoveOwnerEvent(
-        final @NonNull AbstractDoorBase door, final @NonNull DoorOwner removedOwner,
+        final @NonNull IDoorBase door, final @NonNull DoorOwner removedOwner,
         final @Nullable IPPlayer responsible)
     {
         return new DoorPrepareRemoveOwnerEvent(door, responsible, removedOwner);
@@ -68,13 +68,13 @@ public class BigDoorsEventFactorySpigot implements IBigDoorsEventFactory
 
     @Override
     public @NonNull IDoorPrepareLockChangeEvent createDoorPrepareLockChangeEvent(
-        final @NonNull AbstractDoorBase door, final boolean newLockStatus, final @Nullable IPPlayer responsible)
+        final @NonNull IDoorBase door, final boolean newLockStatus, final @Nullable IPPlayer responsible)
     {
         return new DoorPrepareLockChangeEvent(door, responsible, newLockStatus);
     }
 
     @Override
-    public @NonNull IDoorEventTogglePrepare createTogglePrepareEvent(final @NonNull AbstractDoorBase door,
+    public @NonNull IDoorEventTogglePrepare createTogglePrepareEvent(final @NonNull IDoorBase door,
                                                                      final @NonNull DoorActionCause cause,
                                                                      final @NonNull DoorActionType actionType,
                                                                      final @NonNull IPPlayer responsible,
@@ -86,7 +86,7 @@ public class BigDoorsEventFactorySpigot implements IBigDoorsEventFactory
     }
 
     @Override
-    public @NonNull IDoorEventToggleStart createToggleStartEvent(final @NonNull AbstractDoorBase door,
+    public @NonNull IDoorEventToggleStart createToggleStartEvent(final @NonNull IDoorBase door,
                                                                  final @NonNull DoorActionCause cause,
                                                                  final @NonNull DoorActionType actionType,
                                                                  final @NonNull IPPlayer responsible, final double time,
@@ -98,7 +98,7 @@ public class BigDoorsEventFactorySpigot implements IBigDoorsEventFactory
     }
 
     @Override
-    public @NonNull IDoorEventToggleEnd createToggleEndEvent(final @NonNull AbstractDoorBase door,
+    public @NonNull IDoorEventToggleEnd createToggleEndEvent(final @NonNull IDoorBase door,
                                                              final @NonNull DoorActionCause cause,
                                                              final @NonNull DoorActionType actionType,
                                                              final @NonNull IPPlayer responsible, final double time,

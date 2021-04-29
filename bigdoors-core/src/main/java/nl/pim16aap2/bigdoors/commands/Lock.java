@@ -19,13 +19,13 @@ import java.util.logging.Level;
 @ToString
 public class Lock extends DoorTargetCommand
 {
-    private final boolean lock;
+    private final boolean lockStatus;
 
     protected Lock(final @NonNull ICommandSender commandSender, final @NonNull DoorRetriever doorRetriever,
-                   final boolean lock)
+                   final boolean lockStatus)
     {
         super(commandSender, doorRetriever, DoorAttribute.LOCK);
-        this.lock = lock;
+        this.lockStatus = lockStatus;
     }
 
     /**
@@ -54,7 +54,8 @@ public class Lock extends DoorTargetCommand
     protected @NonNull CompletableFuture<Boolean> performAction(final @NonNull AbstractDoorBase door)
     {
         val event = BigDoors.get().getPlatform().getBigDoorsEventFactory()
-                            .createDoorPrepareLockChangeEvent(door, lock, getCommandSender().getPlayer().orElse(null));
+                            .createDoorPrepareLockChangeEvent(door, lockStatus,
+                                                              getCommandSender().getPlayer().orElse(null));
         BigDoors.get().getPlatform().callDoorEvent(event);
 
         if (event.isCancelled())
@@ -63,6 +64,6 @@ public class Lock extends DoorTargetCommand
             return CompletableFuture.completedFuture(true);
         }
 
-        return door.setLocked(lock).syncData().thenApply(x -> true);
+        return door.setLocked(lockStatus).syncData().thenApply(x -> true);
     }
 }

@@ -4,7 +4,7 @@ import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
 import nl.pim16aap2.bigdoors.UnitTestUtil;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.managers.DatabaseManager;
@@ -41,7 +41,7 @@ class RemoveOwnerTest
 
     private RemoveOwner removeOwner;
 
-    private IBigDoorsPlatform platform;
+    private IBigDoorsInnerPlatform platform;
 
     @BeforeEach
     void beforeEach()

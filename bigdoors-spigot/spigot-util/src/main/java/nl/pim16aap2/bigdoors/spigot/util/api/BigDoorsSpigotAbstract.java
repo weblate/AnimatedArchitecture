@@ -1,6 +1,7 @@
 package nl.pim16aap2.bigdoors.spigot.util.api;
 
 import lombok.NonNull;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  * @author Pim
  */
-public abstract class BigDoorsSpigotAbstract implements Listener, IBigDoorsPlatform
+public abstract class BigDoorsSpigotAbstract implements Listener, IBigDoorsInnerPlatform, IBigDoorsPlatform
 {
     public abstract @NonNull IPlatformManagerSpigot getPlatformManagerSpigot();
 

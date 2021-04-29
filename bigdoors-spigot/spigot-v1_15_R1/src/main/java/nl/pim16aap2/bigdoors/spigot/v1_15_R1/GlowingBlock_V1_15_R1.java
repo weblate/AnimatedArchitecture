@@ -12,12 +12,12 @@ import net.minecraft.server.v1_15_R1.PacketPlayOutEntityTeleport;
 import net.minecraft.server.v1_15_R1.PacketPlayOutSpawnEntityLiving;
 import net.minecraft.server.v1_15_R1.PlayerConnection;
 import nl.pim16aap2.bigdoors.BigDoors;
+import nl.pim16aap2.bigdoors.api.IGlowingBlock;
 import nl.pim16aap2.bigdoors.api.IGlowingBlockSpawner;
 import nl.pim16aap2.bigdoors.api.PColor;
 import nl.pim16aap2.bigdoors.api.restartable.IRestartableHolder;
 import nl.pim16aap2.bigdoors.spigot.util.GlowingBlockSpawner;
 import nl.pim16aap2.bigdoors.spigot.util.api.IGlowingBlockFactory;
-import nl.pim16aap2.bigdoors.util.IGlowingBlock;
 import nl.pim16aap2.bigdoors.util.vector.Vector3DdConst;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
@@ -39,7 +39,7 @@ import java.util.logging.Level;
  */
 public class GlowingBlock_V1_15_R1 implements IGlowingBlock
 {
-private final @NonNull World world;
+    private final @NonNull World world;
 
     private @Nullable TimerTask killTask;
 

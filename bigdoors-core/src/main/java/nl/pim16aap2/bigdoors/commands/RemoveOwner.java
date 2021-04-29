@@ -55,7 +55,7 @@ public class RemoveOwner extends DoorTargetCommand
      * These missing values will be retrieved using a {@link DelayedCommandInputRequest}. The player will be asked to
      * use the  {@link RemoveOwner} command (again, if needed) to supply the missing data.
      * <p>
-     * These missing data can be supplied using {@link #provideDelayedInput(ICommandSender, IPPlayer}.
+     * These missing data can be supplied using {@link #provideDelayedInput(ICommandSender, IPPlayer)}.
      *
      * @param commandSender The entity that sent the command and is held responsible (i.e. permissions, communication)
      *                      for its execution.

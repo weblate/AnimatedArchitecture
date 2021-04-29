@@ -17,6 +17,7 @@
             <groupId>nl.pim16aap2.bigdoors</groupId>
             <artifactId>spigot-util</artifactId>
             <version>1</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Spigot API (docs) -->

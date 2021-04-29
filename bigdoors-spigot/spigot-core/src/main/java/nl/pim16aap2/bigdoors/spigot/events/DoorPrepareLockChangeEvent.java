@@ -5,7 +5,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
+import nl.pim16aap2.bigdoors.doors.IDoorBase;
 import nl.pim16aap2.bigdoors.events.IDoorPrepareLockChangeEvent;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.Nullable;
@@ -26,7 +26,7 @@ public class DoorPrepareLockChangeEvent extends DoorEvent implements IDoorPrepar
 
     private final boolean newLockStatus;
 
-    public DoorPrepareLockChangeEvent(final @NonNull AbstractDoorBase door,
+    public DoorPrepareLockChangeEvent(final @NonNull IDoorBase door,
                                       final @Nullable IPPlayer responsible,
                                       final boolean newLockStatus)
     {

@@ -6,7 +6,7 @@ import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.util.DoorAttribute;
 import nl.pim16aap2.bigdoors.util.DoorRetriever;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import nl.pim16aap2.bigdoors.util.pair.BooleanPair;
 
 import java.util.Optional;
@@ -39,7 +39,7 @@ public abstract class DoorTargetCommand extends BaseCommand
     {
         return getDoor(getDoorRetriever())
             .thenApplyAsync(door -> processDoorResult(door, permissions))
-            .exceptionally(t -> Util.exceptionally(t, false));
+            .exceptionally(t -> InnerUtil.exceptionally(t, false));
     }
 
     /**
@@ -77,9 +77,9 @@ public abstract class DoorTargetCommand extends BaseCommand
         {
             return performAction(door.get()).get(30, TimeUnit.MINUTES);
         }
-        catch (Throwable t)
+        catch (Exception ex)
         {
-            throw new RuntimeException(t);
+            throw new RuntimeException(ex);
         }
     }
 

@@ -4,7 +4,7 @@ import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
 import nl.pim16aap2.bigdoors.BigDoors;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IBigDoorsToolUtil;
 import nl.pim16aap2.bigdoors.api.IConfigLoader;
 import nl.pim16aap2.bigdoors.api.IEconomyManager;
@@ -62,7 +62,7 @@ public class CreatorTestsUtil
     @Mock
     protected DatabaseManager databaseManager;
 
-    protected IBigDoorsPlatform platform;
+    protected IBigDoorsInnerPlatform platform;
 
     @Mock
     protected PowerBlockManager powerBlockManager;

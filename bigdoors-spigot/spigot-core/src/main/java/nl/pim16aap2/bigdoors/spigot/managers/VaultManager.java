@@ -11,6 +11,7 @@ import nl.pim16aap2.bigdoors.api.IPWorld;
 import nl.pim16aap2.bigdoors.api.IPermissionsManager;
 import nl.pim16aap2.bigdoors.api.restartable.IRestartable;
 import nl.pim16aap2.bigdoors.doortypes.DoorType;
+import nl.pim16aap2.bigdoors.doortypes.IDoorType;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.SpigotAdapter;
 import nl.pim16aap2.bigdoors.util.Util;
@@ -37,7 +38,7 @@ import java.util.Set;
 public final class VaultManager implements IRestartable, IEconomyManager, IPermissionsManager
 {
     private static final @NonNull VaultManager INSTANCE = new VaultManager();
-    private final @NonNull Map<DoorType, Double> flatPrices;
+    private final @NonNull Map<IDoorType, Double> flatPrices;
     private boolean economyEnabled = false;
     private boolean permissionsEnabled = false;
     private @Nullable Economy economy = null;
@@ -70,7 +71,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
     }
 
     @Override
-    public boolean buyDoor(final @NonNull IPPlayer player, final @NonNull IPWorld world, final @NonNull DoorType type,
+    public boolean buyDoor(final @NonNull IPPlayer player, final @NonNull IPWorld world, final @NonNull IDoorType type,
                            final int blockCount)
     {
         if (!economyEnabled)
@@ -163,7 +164,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
     }
 
     @Override
-    public @NonNull OptionalDouble getPrice(final @NonNull DoorType type, final int blockCount)
+    public @NonNull OptionalDouble getPrice(final @NonNull IDoorType type, final int blockCount)
     {
         if (!economyEnabled)
             return OptionalDouble.empty();
@@ -289,7 +290,7 @@ public final class VaultManager implements IRestartable, IEconomyManager, IPermi
         {
             final RegisteredServiceProvider<Permission> permissionProvider =
                 bigDoorsSpigot.getJavaPlugin().getServer().getServicesManager().getRegistration(Permission.class);
-            
+
             if (permissionProvider == null)
                 return false;
 

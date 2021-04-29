@@ -5,8 +5,8 @@ import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.PageType;
 import nl.pim16aap2.bigdoors.util.DoorOwner;
+import nl.pim16aap2.bigdoors.util.messages.IMessages;
 import nl.pim16aap2.bigdoors.util.messages.Message;
-import nl.pim16aap2.bigdoors.util.messages.Messages;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class GUIPageRemoveOwner implements IGUIPage
 {
     protected final BigDoorsSpigot plugin;
     protected final GUI gui;
-    protected final Messages messages;
+    protected final IMessages messages;
     private int doorOwnerPage = 0;
     private int maxDoorOwnerPageCount = 0;
 

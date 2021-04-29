@@ -13,7 +13,7 @@ import java.util.Optional;
  * @author Pim
  */
 @ToString
-public enum CommandDefinition
+public enum CommandDefinition implements ICommandDefinition
 {
     ADD_OWNER("bigdoors.user.addowner", "bigdoors.admin.bypass.addowner"),
     MENU("bigdoors.user.base", "bigdoors.admin.bypass.menu"),

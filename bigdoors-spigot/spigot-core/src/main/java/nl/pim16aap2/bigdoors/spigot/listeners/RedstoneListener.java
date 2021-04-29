@@ -6,7 +6,7 @@ import nl.pim16aap2.bigdoors.api.restartable.Restartable;
 import nl.pim16aap2.bigdoors.events.dooraction.DoorActionCause;
 import nl.pim16aap2.bigdoors.events.dooraction.DoorActionType;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import nl.pim16aap2.bigdoors.util.vector.Vector3Di;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -159,6 +159,6 @@ public class RedstoneListener extends Restartable implements Listener
         if (!BigDoors.get().getPlatform().getPowerBlockManager().isBigDoorsWorld(event.getBlock().getWorld().getName()))
             return;
 
-        CompletableFuture.runAsync(() -> processRedstoneEvent(event)).exceptionally(Util::exceptionally);
+        CompletableFuture.runAsync(() -> processRedstoneEvent(event)).exceptionally(InnerUtil::exceptionally);
     }
 }

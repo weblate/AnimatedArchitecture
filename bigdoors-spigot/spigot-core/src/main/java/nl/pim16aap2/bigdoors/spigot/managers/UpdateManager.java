@@ -5,7 +5,7 @@ import nl.pim16aap2.bigdoors.logging.IPLogger;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.UpdateChecker;
 import nl.pim16aap2.bigdoors.util.Constants;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Nullable;
@@ -114,7 +114,7 @@ public final class UpdateManager
                         logger.info("Failed to download latest version! You can download it manually at: " +
                                         updater.getDownloadUrl());
                 }
-            }).exceptionally(Util::exceptionally);
+            }).exceptionally(InnerUtil::exceptionally);
     }
 
     /**

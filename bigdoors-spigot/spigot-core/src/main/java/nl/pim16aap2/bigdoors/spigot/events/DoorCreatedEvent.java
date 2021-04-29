@@ -3,7 +3,7 @@ package nl.pim16aap2.bigdoors.spigot.events;
 import lombok.NonNull;
 import lombok.ToString;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
+import nl.pim16aap2.bigdoors.doors.IDoorBase;
 import nl.pim16aap2.bigdoors.events.IDoorCreatedEvent;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.Nullable;
@@ -18,8 +18,7 @@ public class DoorCreatedEvent extends DoorEvent implements IDoorCreatedEvent
 {
     private static final @NonNull HandlerList HANDLERS_LIST = new HandlerList();
 
-    public DoorCreatedEvent(final @NonNull AbstractDoorBase door,
-                            final @Nullable IPPlayer responsible)
+    public DoorCreatedEvent(final @NonNull IDoorBase door, final @Nullable IPPlayer responsible)
     {
         super(door, responsible);
     }

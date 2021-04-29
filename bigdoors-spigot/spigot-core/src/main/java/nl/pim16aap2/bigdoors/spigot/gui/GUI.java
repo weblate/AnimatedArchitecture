@@ -7,8 +7,8 @@ import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.PageType;
 import nl.pim16aap2.bigdoors.spigot.util.SpigotAdapter;
+import nl.pim16aap2.bigdoors.util.messages.IMessages;
 import nl.pim16aap2.bigdoors.util.messages.Message;
-import nl.pim16aap2.bigdoors.util.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -61,7 +61,7 @@ public class GUI
     private IGUIPage guiPage;
     private boolean isRefreshing;
     private boolean isOpen;
-    private Messages messages;
+    private IMessages messages;
     private int page;
     private int doorOwnerPage = 0;
     private SortType sortType = SortType.ID;

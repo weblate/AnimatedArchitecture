@@ -7,7 +7,7 @@ import nl.pim16aap2.bigdoors.api.PPlayerData;
 import nl.pim16aap2.bigdoors.api.factories.IPPlayerFactory;
 import nl.pim16aap2.bigdoors.spigot.util.implementations.OfflinePPlayerSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.implementations.PPlayerSpigot;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -40,6 +40,6 @@ public class PPlayerFactorySpigot implements IPPlayerFactory
 
         return BigDoors.get().getDatabaseManager().getPlayerData(uuid)
                        .thenApply(playerData -> playerData.<IPPlayer>map(OfflinePPlayerSpigot::new))
-                       .exceptionally(Util::exceptionallyOptional);
+                       .exceptionally(InnerUtil::exceptionallyOptional);
     }
 }

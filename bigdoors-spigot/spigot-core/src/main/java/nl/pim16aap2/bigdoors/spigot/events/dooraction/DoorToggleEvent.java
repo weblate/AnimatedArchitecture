@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
+import nl.pim16aap2.bigdoors.doors.IDoorBase;
 import nl.pim16aap2.bigdoors.events.dooraction.DoorActionCause;
 import nl.pim16aap2.bigdoors.events.dooraction.DoorActionType;
 import nl.pim16aap2.bigdoors.events.dooraction.IDoorToggleEvent;
@@ -14,7 +14,7 @@ import nl.pim16aap2.bigdoors.spigot.events.BigDoorsSpigotEvent;
 abstract class DoorToggleEvent extends BigDoorsSpigotEvent implements IDoorToggleEvent
 {
     @Getter
-    protected final @NonNull AbstractDoorBase door;
+    protected final @NonNull IDoorBase door;
 
     @Getter
     protected final @NonNull DoorActionCause cause;

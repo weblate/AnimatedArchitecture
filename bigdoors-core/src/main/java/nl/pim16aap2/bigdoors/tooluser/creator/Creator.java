@@ -21,6 +21,7 @@ import nl.pim16aap2.bigdoors.tooluser.stepexecutor.StepExecutorString;
 import nl.pim16aap2.bigdoors.tooluser.stepexecutor.StepExecutorVoid;
 import nl.pim16aap2.bigdoors.util.Cuboid;
 import nl.pim16aap2.bigdoors.util.DoorOwner;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import nl.pim16aap2.bigdoors.util.Limit;
 import nl.pim16aap2.bigdoors.util.RotateDirection;
 import nl.pim16aap2.bigdoors.util.Util;
@@ -474,7 +475,7 @@ public abstract class Creator extends ToolUser
                     getPlayer().sendMessage("An error occurred, please contact a server administrator!");
                     BigDoors.get().getPLogger().severe("Failed to insert door after creation!");
                 }
-            }).exceptionally(Util::exceptionally);
+            }).exceptionally(InnerUtil::exceptionally);
     }
 
     /**

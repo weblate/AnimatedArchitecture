@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  *
  * @author Pim
  */
-public final class DoorActivityManager extends Restartable
+public final class DoorActivityManager extends Restartable implements IDoorActivityManager
 {
     private final @NonNull Map<Long, Optional<BlockMover>> busyDoors = new ConcurrentHashMap<>();
 
@@ -33,13 +33,7 @@ public final class DoorActivityManager extends Restartable
         super(holder);
     }
 
-    /**
-     * Checks if a {@link AbstractDoorBase} is 'busy', i.e. currently being animated.
-     *
-     * @param doorUID The UID of the {@link AbstractDoorBase}.
-     * @return True if the {@link AbstractDoorBase} is busy.
-     */
-    public boolean isDoorBusy(final long doorUID)
+    @Override public boolean isDoorBusy(final long doorUID)
     {
         return busyDoors.containsKey(doorUID);
     }
@@ -76,7 +70,7 @@ public final class DoorActivityManager extends Restartable
      * @param blockMover      The {@link BlockMover} to postprocess.
      * @param allowReschedule Whether or not to allow rescheduling (e.g. autoclose).
      */
-    public void processFinishedBlockMover(@NonNull BlockMover blockMover, boolean allowReschedule)
+    public void processFinishedBlockMover(final @NonNull BlockMover blockMover, final boolean allowReschedule)
     {
         int delay = Math.max(Constants.MINIMUM_DOOR_DELAY,
                              BigDoors.get().getPlatform().getConfigLoader().coolDown() * 20);
@@ -85,7 +79,7 @@ public final class DoorActivityManager extends Restartable
                 .runSyncLater(() -> handleFinishedBlockMover(blockMover, allowReschedule), delay);
     }
 
-    private void handleFinishedBlockMover(@NonNull BlockMover blockMover, boolean allowReschedule)
+    private void handleFinishedBlockMover(final @NonNull BlockMover blockMover, final boolean allowReschedule)
     {
         setDoorAvailable(blockMover.getDoor().getDoorUID());
 

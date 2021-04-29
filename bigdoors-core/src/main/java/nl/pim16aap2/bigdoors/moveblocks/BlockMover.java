@@ -159,7 +159,8 @@ public abstract class BlockMover implements IRestartable
      */
     private boolean respawnBlock(final @NonNull PBlockData blockData, final @NonNull INMSBlock newBlock)
     {
-        final IPLocationConst loc = blockData.getFBlock().getPosition().toLocation(world);
+        final IPLocationConst loc = BigDoors.get().getPlatform().getPLocationFactory()
+                                            .create(world, blockData.getFBlock().getPosition());
         final Vector3DdConst veloc = blockData.getFBlock().getPVelocity();
 
         try

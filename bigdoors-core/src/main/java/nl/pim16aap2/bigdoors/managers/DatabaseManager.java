@@ -16,6 +16,7 @@ import nl.pim16aap2.bigdoors.events.IDoorPrepareDeleteEvent;
 import nl.pim16aap2.bigdoors.storage.IStorage;
 import nl.pim16aap2.bigdoors.storage.sqlite.SQLiteJDBCDriverConnection;
 import nl.pim16aap2.bigdoors.util.DoorOwner;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import nl.pim16aap2.bigdoors.util.Util;
 import nl.pim16aap2.bigdoors.util.pair.Pair;
 import nl.pim16aap2.bigdoors.util.vector.Vector3Di;
@@ -128,21 +129,22 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<Pair<Boolean, Optional<AbstractDoorBase>>> addDoorBase(
         final @NonNull AbstractDoorBase newDoor, final @Nullable IPPlayer responsible)
     {
-        val ret = callCancellableEvent(fact -> fact.createPrepareDoorCreateEvent(newDoor, responsible)).thenApplyAsync(
-            cancelled ->
-            {
-                if (cancelled)
-                    return new Pair<>(true, Optional.<AbstractDoorBase>empty());
+        val ret = callCancellableEvent(fact -> fact.createPrepareDoorCreateEvent(newDoor, responsible))
+            .thenApplyAsync(
+                cancelled ->
+                {
+                    if (cancelled)
+                        return new Pair<>(true, Optional.<AbstractDoorBase>empty());
 
-                final @NonNull Optional<AbstractDoorBase> result = db.insert(newDoor);
-                result.ifPresent(
-                    (door) -> BigDoors.get().getPlatform().getPowerBlockManager()
-                                      .onDoorAddOrRemove(door.getWorld().getWorldName(), new Vector3Di(
-                                          door.getPowerBlock().getX(),
-                                          door.getPowerBlock().getY(),
-                                          door.getPowerBlock().getZ())));
-                return new Pair<>(false, result);
-            }, threadPool).exceptionally(ex -> Util.exceptionally(ex, new Pair<>(false, Optional.empty())));
+                    final @NonNull Optional<AbstractDoorBase> result = db.insert(newDoor);
+                    result.ifPresent(
+                        (door) -> BigDoors.get().getPlatform().getPowerBlockManager()
+                                          .onDoorAddOrRemove(door.getWorld().getWorldName(), new Vector3Di(
+                                              door.getPowerBlock().getX(),
+                                              door.getPowerBlock().getY(),
+                                              door.getPowerBlock().getZ())));
+                    return new Pair<>(false, result);
+                }, threadPool).exceptionally(ex -> InnerUtil.exceptionally(ex, new Pair<>(false, Optional.empty())));
 
         ret.thenAccept(result -> callDoorCreatedEvent(result, responsible));
 
@@ -211,7 +213,7 @@ public final class DatabaseManager extends Restartable
                                                                                          door.getPowerBlock().getY(),
                                                                                          door.getPowerBlock().getZ()));
                 return ActionResult.SUCCESS;
-            }, threadPool).exceptionally(ex -> Util.exceptionally(ex, ActionResult.FAIL));
+            }, threadPool).exceptionally(ex -> InnerUtil.exceptionally(ex, ActionResult.FAIL));
     }
 
     /**
@@ -223,7 +225,7 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<List<Long>> getDoorsInChunk(final long chunkHash)
     {
         return CompletableFuture.supplyAsync(() -> db.getDoorsInChunk(chunkHash), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, Collections.emptyList()));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, Collections.emptyList()));
     }
 
     /**
@@ -244,10 +246,10 @@ public final class DatabaseManager extends Restartable
                 .supplyAsync(() -> db.getDoor(playerUUID, doorUID.getAsLong())
                                      .map(Collections::singletonList)
                                      .orElse(Collections.emptyList()), threadPool)
-                .exceptionally(ex -> Util.exceptionally(ex, Collections.emptyList()));
+                .exceptionally(ex -> InnerUtil.exceptionally(ex, Collections.emptyList()));
 
         return CompletableFuture.supplyAsync(() -> db.getDoors(playerUUID, doorID), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, Collections.emptyList()));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, Collections.emptyList()));
     }
 
     /**
@@ -268,7 +270,7 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<List<AbstractDoorBase>> getDoors(final @NonNull UUID playerUUID)
     {
         return CompletableFuture.supplyAsync(() -> db.getDoors(playerUUID), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, Collections.emptyList()));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, Collections.emptyList()));
     }
 
     /**
@@ -293,7 +295,7 @@ public final class DatabaseManager extends Restartable
                                                                        final int maxPermission)
     {
         return CompletableFuture.supplyAsync(() -> db.getDoors(playerUUID, name, maxPermission), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, Collections.emptyList()));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, Collections.emptyList()));
     }
 
     /**
@@ -305,7 +307,7 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<List<AbstractDoorBase>> getDoors(final @NonNull String name)
     {
         return CompletableFuture.supplyAsync(() -> db.getDoors(name), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, Collections.emptyList()));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, Collections.emptyList()));
     }
 
     /**
@@ -317,7 +319,7 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<Boolean> updatePlayer(final @NonNull IPPlayer player)
     {
         return CompletableFuture.supplyAsync(() -> db.updatePlayerData(player.getPPlayerData()), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, Boolean.FALSE));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, Boolean.FALSE));
     }
 
     /**
@@ -329,7 +331,7 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<Optional<PPlayerData>> getPlayerData(final @NonNull UUID uuid)
     {
         return CompletableFuture.supplyAsync(() -> db.getPlayerData(uuid), threadPool)
-                                .exceptionally(Util::exceptionallyOptional);
+                                .exceptionally(InnerUtil::exceptionallyOptional);
     }
 
     /**
@@ -344,7 +346,7 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<List<PPlayerData>> getPlayerData(final @NonNull String playerName)
     {
         return CompletableFuture.supplyAsync(() -> db.getPlayerData(playerName), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, Collections.emptyList()));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, Collections.emptyList()));
     }
 
     /**
@@ -356,7 +358,7 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<Optional<AbstractDoorBase>> getDoor(final long doorUID)
     {
         return CompletableFuture.supplyAsync(() -> db.getDoor(doorUID), threadPool)
-                                .exceptionally(Util::exceptionallyOptional);
+                                .exceptionally(InnerUtil::exceptionallyOptional);
     }
 
     /**
@@ -385,7 +387,7 @@ public final class DatabaseManager extends Restartable
                                                                           final long doorUID)
     {
         return CompletableFuture.supplyAsync(() -> db.getDoor(uuid, doorUID), threadPool)
-                                .exceptionally(Util::exceptionallyOptional);
+                                .exceptionally(InnerUtil::exceptionallyOptional);
     }
 
     /**
@@ -397,7 +399,7 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<Integer> countDoorsOwnedByPlayer(final @NonNull UUID playerUUID)
     {
         return CompletableFuture.supplyAsync(() -> db.getDoorCountForPlayer(playerUUID), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, -1));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, -1));
     }
 
     /**
@@ -411,7 +413,7 @@ public final class DatabaseManager extends Restartable
                                                                        final @NonNull String doorName)
     {
         return CompletableFuture.supplyAsync(() -> db.getDoorCountForPlayer(playerUUID, doorName), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, -1));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, -1));
     }
 
     /**
@@ -423,7 +425,7 @@ public final class DatabaseManager extends Restartable
     public @NonNull CompletableFuture<Integer> countDoorsByName(final @NonNull String doorName)
     {
         return CompletableFuture.supplyAsync(() -> db.getDoorCountByName(doorName), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, -1));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, -1));
     }
 
     /**
@@ -476,7 +478,7 @@ public final class DatabaseManager extends Restartable
                     ((FriendDoorAccessor) door).addOwner(player.getUUID(), new DoorOwner(door.getDoorUID(),
                                                                                          permission, playerData));
                     return ActionResult.SUCCESS;
-                }, threadPool).exceptionally(ex -> Util.exceptionally(ex, ActionResult.FAIL));
+                }, threadPool).exceptionally(ex -> InnerUtil.exceptionally(ex, ActionResult.FAIL));
     }
 
     /**
@@ -584,7 +586,7 @@ public final class DatabaseManager extends Restartable
 
                     ((FriendDoorAccessor) door).removeOwner(playerUUID);
                     return ActionResult.SUCCESS;
-                }, threadPool).exceptionally(ex -> Util.exceptionally(ex, ActionResult.FAIL));
+                }, threadPool).exceptionally(ex -> InnerUtil.exceptionally(ex, ActionResult.FAIL));
     }
 
     /**
@@ -599,7 +601,7 @@ public final class DatabaseManager extends Restartable
         final @NonNull AbstractDoorBase.SimpleDoorData simpleDoorData, final byte[] typeData)
     {
         return CompletableFuture.supplyAsync(() -> db.syncDoorData(simpleDoorData, typeData), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, Boolean.FALSE));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, Boolean.FALSE));
     }
 
     /**
@@ -611,7 +613,7 @@ public final class DatabaseManager extends Restartable
     @NonNull CompletableFuture<Boolean> isBigDoorsWorld(final @NonNull String worldName)
     {
         return CompletableFuture.supplyAsync(() -> db.isBigDoorsWorld(worldName), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, Boolean.FALSE));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, Boolean.FALSE));
     }
 
     /**
@@ -626,7 +628,7 @@ public final class DatabaseManager extends Restartable
     @NonNull CompletableFuture<ConcurrentHashMap<Integer, List<Long>>> getPowerBlockData(final long chunkHash)
     {
         return CompletableFuture.supplyAsync(() -> db.getPowerBlockData(chunkHash), threadPool)
-                                .exceptionally(ex -> Util.exceptionally(ex, new ConcurrentHashMap<>(0)));
+                                .exceptionally(ex -> InnerUtil.exceptionally(ex, new ConcurrentHashMap<>(0)));
     }
 
     /**

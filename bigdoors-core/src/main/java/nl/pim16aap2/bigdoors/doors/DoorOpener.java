@@ -8,7 +8,7 @@ import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.events.dooraction.DoorActionCause;
 import nl.pim16aap2.bigdoors.events.dooraction.DoorActionType;
 import nl.pim16aap2.bigdoors.util.DoorToggleResult;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -57,7 +57,7 @@ public final class DoorOpener
 
                 return animateDoor(doorOpt.get(), cause, messageReceiver, finalResponsible,
                                    time, skipAnimation, doorActionType);
-            }).exceptionally(ex -> Util.exceptionally(ex, DoorToggleResult.ERROR));
+            }).exceptionally(ex -> InnerUtil.exceptionally(ex, DoorToggleResult.ERROR));
     }
 
     /**
@@ -177,6 +177,6 @@ public final class DoorOpener
         final @NonNull IPExecutor pExecutor = BigDoors.get().getPlatform().getPExecutor();
         return pExecutor.supplyOnMainThread(() -> door.toggle(cause, messageReceiver, responsible,
                                                               time, skipAnimation, doorActionType))
-                        .exceptionally(ex -> Util.exceptionally(ex, DoorToggleResult.ERROR));
+                        .exceptionally(ex -> InnerUtil.exceptionally(ex, DoorToggleResult.ERROR));
     }
 }

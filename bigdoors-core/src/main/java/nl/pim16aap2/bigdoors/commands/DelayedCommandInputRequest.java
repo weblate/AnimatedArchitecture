@@ -8,7 +8,7 @@ import lombok.ToString;
 import lombok.val;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.util.InnerUtil;
 import nl.pim16aap2.bigdoors.util.delayedinput.DelayedInputRequest;
 
 import java.util.concurrent.CompletableFuture;
@@ -104,7 +104,7 @@ public final class DelayedCommandInputRequest<T> extends DelayedInputRequest<T>
     {
         return getInputResult()
             .thenCompose(input -> input.map(executor).orElse(CompletableFuture.completedFuture(Boolean.FALSE)))
-            .exceptionally(ex -> Util.exceptionally(ex, Boolean.FALSE));
+            .exceptionally(ex -> InnerUtil.exceptionally(ex, Boolean.FALSE));
     }
 
     /**

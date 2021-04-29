@@ -4,7 +4,7 @@ import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.Value;
 import lombok.val;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.managers.DelayedCommandInputManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ class DelayedCommandInputRequestTest
     @Mock(answer = Answers.CALLS_REAL_METHODS)
     private CommandDefinition commandDefinition;
 
-    private IBigDoorsPlatform platform;
+    private IBigDoorsInnerPlatform platform;
 
     @Mock
     private ICommandSender commandSender;

@@ -3,11 +3,11 @@ package nl.pim16aap2.bigdoors.spigot.loader;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
+import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.nio.file.StandardCopyOption;
 
 /**
@@ -15,23 +15,19 @@ import java.nio.file.StandardCopyOption;
  *
  * @author Pim
  */
+@SuppressWarnings("unused")
 public class BigDoorsSpigotPlugin extends JavaPlugin
 {
     private boolean isEnabled = false;
-    private final @NonNull String jarJarName = "bigdoors-spigot-core.jar";
+    private static final @NonNull String JAR_JAR_NAME = "bigdoors-spigot-core.jar";
     private final @NonNull File jarPath;
 
     private final @NonNull PClassLoader classLoader;
-    private @Nullable Object bigDoorsSpigot;
-
-    private @Nullable Method onEnable;
-    private @Nullable Method onDisable;
-    private @Nullable Method shutdown;
-    private @Nullable Method restart;
+    private @Nullable IBigDoorsPlatform bigDoorsSpigot;
 
     public BigDoorsSpigotPlugin()
     {
-        jarPath = new File(getDataFolder(), jarJarName);
+        jarPath = new File(getDataFolder(), JAR_JAR_NAME);
         classLoader = new PClassLoader(super.getClassLoader());
 
         try
@@ -42,12 +38,9 @@ public class BigDoorsSpigotPlugin extends JavaPlugin
             classLoader.addURL(jarPath.toURI().toURL());
 
             Class<?> bigDoorsSpigotClass = classLoader.loadClass("nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot");
-            bigDoorsSpigot = bigDoorsSpigotClass.getDeclaredConstructor(JavaPlugin.class).newInstance(this);
+            bigDoorsSpigot = (IBigDoorsPlatform) bigDoorsSpigotClass.getDeclaredConstructor(JavaPlugin.class)
+                                                                    .newInstance(this);
 
-            onEnable = bigDoorsSpigotClass.getDeclaredMethod("onEnable");
-            onDisable = bigDoorsSpigotClass.getDeclaredMethod("onDisable");
-            shutdown = bigDoorsSpigotClass.getDeclaredMethod("shutdown");
-            restart = bigDoorsSpigotClass.getDeclaredMethod("restart");
             isEnabled = true;
         }
         catch (Exception exception)
@@ -60,7 +53,7 @@ public class BigDoorsSpigotPlugin extends JavaPlugin
 
     private boolean extractJar()
     {
-        try (val inputStream = getClass().getClassLoader().getResourceAsStream(jarJarName))
+        try (val inputStream = getClass().getClassLoader().getResourceAsStream(JAR_JAR_NAME))
         {
             if (inputStream == null)
             {
@@ -81,20 +74,20 @@ public class BigDoorsSpigotPlugin extends JavaPlugin
     @SneakyThrows
     public void onEnable()
     {
-        if (!isEnabled || bigDoorsSpigot == null || onEnable == null)
+        if (!isEnabled || bigDoorsSpigot == null)
         {
             getLogger().severe("Plugin failed to initialize!");
             return;
         }
-        onEnable.invoke(bigDoorsSpigot);
+        bigDoorsSpigot.onEnable();
     }
 
     @Override
     @SneakyThrows
     public void onDisable()
     {
-        if (!isEnabled || bigDoorsSpigot == null || onDisable == null)
+        if (!isEnabled || bigDoorsSpigot == null)
             return;
-        onDisable.invoke(bigDoorsSpigot);
+        bigDoorsSpigot.onDisable();
     }
 }

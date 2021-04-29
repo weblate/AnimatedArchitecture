@@ -15,8 +15,8 @@ import nl.pim16aap2.bigdoors.spigot.util.SpigotAdapter;
 import nl.pim16aap2.bigdoors.util.DoorAttribute;
 import nl.pim16aap2.bigdoors.util.DoorRetriever;
 import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.util.messages.IMessages;
 import nl.pim16aap2.bigdoors.util.messages.Message;
-import nl.pim16aap2.bigdoors.util.messages.Messages;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class GUIPageDoorInfo implements IGUIPage
 {
     protected final BigDoorsSpigot plugin;
     protected final GUI gui;
-    protected final Messages messages;
+    protected final IMessages messages;
 
     protected GUIPageDoorInfo(final BigDoorsSpigot plugin, final GUI gui)
     {

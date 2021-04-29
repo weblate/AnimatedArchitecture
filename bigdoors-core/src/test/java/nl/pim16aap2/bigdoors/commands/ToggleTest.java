@@ -3,7 +3,7 @@ package nl.pim16aap2.bigdoors.commands;
 import lombok.SneakyThrows;
 import lombok.val;
 import nl.pim16aap2.bigdoors.UnitTestUtil;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.doors.DoorOpener;
@@ -33,7 +33,7 @@ class ToggleTest
     @Mock(answer = Answers.CALLS_REAL_METHODS)
     private IPPlayer commandSender;
 
-    private IBigDoorsPlatform platform;
+    private IBigDoorsInnerPlatform platform;
 
     @Mock
     private AbstractDoorBase door;

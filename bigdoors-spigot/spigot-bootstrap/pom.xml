@@ -19,6 +19,14 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>nl.pim16aap2.bigdoors</groupId>
+            <artifactId>bigdoors-api</artifactId>
+            <version>1</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Spigot API (docs) -->
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -63,6 +71,37 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${dependency.version.maven-shade}</version>
+                <configuration>
+                    <artifactSet>
+                        <includes>
+                            <include>nl.pim16aap2.bigdoors:bigdoors-api:*</include>
+                        </includes>
+                    </artifactSet>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>

@@ -103,7 +103,8 @@ class DoorSerializerTest
         final TestDoorSubType testDoorSubType1 = new TestDoorSubType(doorData, "test", true, 42, 6);
 
         final byte[] serialized = Assertions.assertDoesNotThrow(() -> instantiator.serialize(testDoorSubType1));
-        val testDoorSubType2 = Assertions.assertDoesNotThrow(() -> instantiator.deserialize(doorData, serialized));
+        val testDoorSubType2 = Assertions
+            .assertDoesNotThrow(() -> instantiator.deserialize(doorData, serialized));
 
         Assertions.assertEquals(testDoorSubType1, testDoorSubType2);
     }

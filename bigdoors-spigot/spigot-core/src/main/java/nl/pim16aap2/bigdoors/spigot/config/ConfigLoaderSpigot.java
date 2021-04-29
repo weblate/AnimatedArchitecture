@@ -7,6 +7,7 @@ import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IConfigLoader;
 import nl.pim16aap2.bigdoors.api.IConfigReader;
 import nl.pim16aap2.bigdoors.doortypes.DoorType;
+import nl.pim16aap2.bigdoors.doortypes.IDoorType;
 import nl.pim16aap2.bigdoors.logging.IPLogger;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
 import nl.pim16aap2.bigdoors.spigot.compatiblity.ProtectionCompat;
@@ -56,8 +57,8 @@ public final class ConfigLoaderSpigot implements IConfigLoader
     private final @NonNull Map<ProtectionCompat, Boolean> hooksMap;
     @ToString.Exclude
     private final @NonNull List<ConfigEntry<?>> configEntries;
-    private final @NonNull Map<DoorType, String> doorPrices;
-    private final @NonNull Map<DoorType, Double> doorMultipliers;
+    private final @NonNull Map<IDoorType, String> doorPrices;
+    private final @NonNull Map<IDoorType, Double> doorMultipliers;
 
     private final @NonNull String header;
     private int coolDown;
@@ -559,13 +560,13 @@ public final class ConfigLoaderSpigot implements IConfigLoader
     }
 
     @Override
-    public @NonNull String getPrice(final @NonNull DoorType type)
+    public @NonNull String getPrice(final @NonNull IDoorType type)
     {
         return doorPrices.get(type);
     }
 
     @Override
-    public double getMultiplier(final @NonNull DoorType type)
+    public double getMultiplier(final @NonNull IDoorType type)
     {
         return doorMultipliers.getOrDefault(type, 0.0D);
     }

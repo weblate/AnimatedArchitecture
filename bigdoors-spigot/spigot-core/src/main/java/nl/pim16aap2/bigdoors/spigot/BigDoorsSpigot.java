@@ -3,7 +3,6 @@ package nl.pim16aap2.bigdoors.spigot;
 import lombok.Getter;
 import lombok.NonNull;
 import nl.pim16aap2.bigdoors.BigDoors;
-import nl.pim16aap2.bigdoors.api.DebugReporter;
 import nl.pim16aap2.bigdoors.api.IBlockAnalyzer;
 import nl.pim16aap2.bigdoors.api.IChunkManager;
 import nl.pim16aap2.bigdoors.api.IEconomyManager;
@@ -37,6 +36,7 @@ import nl.pim16aap2.bigdoors.managers.DoorActivityManager;
 import nl.pim16aap2.bigdoors.managers.DoorRegistry;
 import nl.pim16aap2.bigdoors.managers.DoorSpecificationManager;
 import nl.pim16aap2.bigdoors.managers.DoorTypeManager;
+import nl.pim16aap2.bigdoors.managers.ILimitsManager;
 import nl.pim16aap2.bigdoors.managers.LimitsManager;
 import nl.pim16aap2.bigdoors.managers.PowerBlockManager;
 import nl.pim16aap2.bigdoors.managers.ToolUserManager;
@@ -74,6 +74,8 @@ import nl.pim16aap2.bigdoors.spigot.util.implementations.PServer;
 import nl.pim16aap2.bigdoors.spigot.util.implementations.PSoundEngineSpigot;
 import nl.pim16aap2.bigdoors.storage.IStorage;
 import nl.pim16aap2.bigdoors.util.Constants;
+import nl.pim16aap2.bigdoors.util.DebugReporter;
+import nl.pim16aap2.bigdoors.util.messages.IMessages;
 import nl.pim16aap2.bigdoors.util.messages.Messages;
 import nl.pim16aap2.bigdoors.util.vector.Vector3DiConst;
 import org.bstats.bukkit.Metrics;
@@ -112,7 +114,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     private Metrics metrics;
 
     @Getter
-    private Messages messages;
+    private IMessages messages;
 
     private boolean validVersion = false;
     private final @NonNull IPExecutor pExecutor;
@@ -132,7 +134,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
     private IGlowingBlockSpawner glowingBlockSpawner;
 
     @Getter
-    private final @NonNull LimitsManager limitsManager = new LimitsManager();
+    private final @NonNull ILimitsManager limitsManager = new LimitsManager();
 
     @Getter
     private HeadManager headManager;
@@ -219,7 +221,7 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
         messagingInterface = new MessagingInterfaceSpigot(javaPlugin);
     }
 
-    public void onEnable()
+    @Override public void onEnable()
     {
         Bukkit.getLogger().setLevel(Level.FINER);
 
@@ -293,13 +295,13 @@ public final class BigDoorsSpigot extends BigDoorsSpigotAbstract
             pLogger.logThrowable(exception);
         }
     }
-    
+
     public @NonNull File getDataFolder()
     {
         return javaPlugin.getDataFolder();
     }
 
-    public void onDisable()
+    @Override public void onDisable()
     {
         shutdown();
         restartables.forEach(IRestartable::shutdown);

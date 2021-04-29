@@ -3,7 +3,7 @@ package nl.pim16aap2.bigdoors.storage;
 import lombok.NonNull;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.UnitTestUtil;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IPWorld;
 import nl.pim16aap2.bigdoors.api.PPlayerData;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
@@ -74,13 +74,13 @@ public class SQLiteJDBCDriverConnectionTest
     private static SQLiteJDBCDriverConnection storage;
 
     @Mock
-    protected IBigDoorsPlatform platform;
+    protected IBigDoorsInnerPlatform platform;
 
     // Initialize files.
     static
     {
         DB_FILE = new File("./tests/test.db");
-        dbFileBackup = new File(DB_FILE.toString() + ".BACKUP");
+        dbFileBackup = new File(DB_FILE + ".BACKUP");
     }
 
     @BeforeAll
