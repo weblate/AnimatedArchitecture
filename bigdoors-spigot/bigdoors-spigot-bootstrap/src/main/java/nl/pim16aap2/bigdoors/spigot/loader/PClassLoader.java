@@ -24,7 +24,7 @@ class PClassLoader extends URLClassLoader
     }
 
     @Override
-    public void addURL(@NonNull URL url)
+    protected void addURL(final @NonNull URL url)
     {
         super.addURL(url);
     }
