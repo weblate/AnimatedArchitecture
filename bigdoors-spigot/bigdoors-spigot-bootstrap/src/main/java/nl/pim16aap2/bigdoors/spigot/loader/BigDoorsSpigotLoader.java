@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.Optional;
@@ -27,15 +28,20 @@ public class BigDoorsSpigotLoader extends AbstractBigDoorsSpigotLoader
     private static final @NonNull String JAR_JAR_NAME = "bigdoors-spigot-core.jar";
     private final @NonNull File jarPath;
 
-    private final @NonNull PClassLoader classLoader;
+    private @Nullable PClassLoader classLoader;
 
     private @Nullable BigDoorsSpigotAbstract plugin;
 
-    private @NonNull Set<JavaPlugin> addons = new CopyOnWriteArraySet<>();
+    private final @NonNull Set<JavaPlugin> addons = new CopyOnWriteArraySet<>();
 
     public BigDoorsSpigotLoader()
     {
         jarPath = new File(getDataFolder(), JAR_JAR_NAME);
+        init();
+    }
+
+    private void init()
+    {
         classLoader = new PClassLoader(super.getClassLoader());
 
         try
@@ -54,14 +60,32 @@ public class BigDoorsSpigotLoader extends AbstractBigDoorsSpigotLoader
         }
         catch (Exception exception)
         {
-            // TODO: Close the new ClassLoader to properly ensure the plugin is disabled.
+            closeClassLoader();
             exception.printStackTrace();
         }
         if (!isEnabled)
             getLogger().severe("Failed to initialize the plugin!");
     }
 
-    @Override public @NonNull Set<JavaPlugin> getRegisteredAddons()
+    private void closeClassLoader()
+    {
+        if (classLoader == null)
+            return;
+
+        try
+        {
+            classLoader.close();
+            classLoader = null;
+            plugin = null;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public @NonNull Set<JavaPlugin> getRegisteredAddons()
     {
         return Collections.unmodifiableSet(addons);
     }
