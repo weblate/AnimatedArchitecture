@@ -9,7 +9,7 @@ import nl.pim16aap2.bigdoors.api.IPLocationConst;
 import nl.pim16aap2.bigdoors.api.IPWorld;
 
 @AllArgsConstructor
-public class Vector3DdConst
+public sealed class Vector3DdConst permits Vector3Dd
 {
     @Getter
     protected double x, y, z;

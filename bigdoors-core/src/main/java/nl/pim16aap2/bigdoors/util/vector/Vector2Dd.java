@@ -8,7 +8,7 @@ import lombok.NonNull;
  *
  * @author Pim
  */
-public class Vector2Dd extends Vector2DdConst
+public final class Vector2Dd extends Vector2DdConst
 {
     public Vector2Dd(final double x, final double y)
     {

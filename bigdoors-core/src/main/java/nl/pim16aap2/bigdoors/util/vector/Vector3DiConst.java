@@ -8,7 +8,7 @@ import nl.pim16aap2.bigdoors.api.IPLocation;
 import nl.pim16aap2.bigdoors.api.IPWorld;
 
 @AllArgsConstructor
-public class Vector3DiConst
+public sealed class Vector3DiConst permits Vector3Di
 {
     @Getter
     protected int x, y, z;

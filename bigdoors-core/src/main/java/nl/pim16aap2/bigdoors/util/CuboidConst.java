@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @author Pim
  */
-public class CuboidConst
+public sealed class CuboidConst permits Cuboid
 {
     protected @NonNull Vector3Di min, max;
 

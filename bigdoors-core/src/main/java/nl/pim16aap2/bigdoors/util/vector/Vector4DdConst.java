@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @AllArgsConstructor
-public class Vector4DdConst
+public sealed class Vector4DdConst permits Vector4Dd
 {
     @Getter
     protected double x, y, z, w;

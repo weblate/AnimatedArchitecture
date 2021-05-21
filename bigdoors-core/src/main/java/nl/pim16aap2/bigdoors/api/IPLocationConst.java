@@ -9,7 +9,7 @@ import nl.pim16aap2.bigdoors.util.vector.Vector3Di;
  *
  * @author Pim
  */
-public interface IPLocationConst extends Cloneable
+public sealed interface IPLocationConst extends Cloneable permits IPLocation
 {
     /**
      * Gets the world of this location.

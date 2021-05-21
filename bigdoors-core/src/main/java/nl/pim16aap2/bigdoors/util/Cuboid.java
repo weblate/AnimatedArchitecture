@@ -11,7 +11,7 @@ import java.util.function.Consumer;
  *
  * @author Pim
  */
-public class Cuboid extends CuboidConst
+public final class Cuboid extends CuboidConst
 {
     public Cuboid(final @NonNull Vector3DiConst min, final @NonNull Vector3DiConst max)
     {

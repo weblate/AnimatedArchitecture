@@ -10,7 +10,7 @@ import lombok.NonNull;
  * @author Pim
  */
 @AllArgsConstructor
-public class Vector2DdConst
+public sealed class Vector2DdConst permits Vector2Dd
 {
     @Getter
     protected double x, y;

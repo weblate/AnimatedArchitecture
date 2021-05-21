@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @AllArgsConstructor
-public class Vector4DiConst
+public sealed class Vector4DiConst permits Vector4Di
 {
     @Getter
     protected int x, y, z, w;
