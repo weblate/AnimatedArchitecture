@@ -10,7 +10,7 @@ import nl.pim16aap2.bigdoors.util.vector.Vector3DiConst;
  *
  * @author Pim
  */
-public non-sealed interface IPLocation extends IPLocationConst, Cloneable
+public interface IPLocation extends IPLocationConst, Cloneable
 {
     @Override
     @NonNull IPWorld getWorld();
