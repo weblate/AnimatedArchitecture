@@ -1,6 +1,5 @@
 package nl.pim16aap2.bigdoors.managers;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.restartable.IRestartableHolder;
 import nl.pim16aap2.bigdoors.api.restartable.Restartable;
@@ -8,6 +7,7 @@ import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.doors.doorArchetypes.ITimerToggleableArchetype;
 import nl.pim16aap2.bigdoors.moveblocks.BlockMover;
 import nl.pim16aap2.bigdoors.util.Constants;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.Optional;
@@ -21,14 +21,14 @@ import java.util.stream.Stream;
  */
 public final class DoorActivityManager extends Restartable implements IDoorActivityManager
 {
-    private final @NonNull Map<Long, Optional<BlockMover>> busyDoors = new ConcurrentHashMap<>();
+    private final @NotNull Map<Long, Optional<BlockMover>> busyDoors = new ConcurrentHashMap<>();
 
     /**
      * Constructs a new {@link DoorActivityManager}.
      *
      * @param holder The {@link IRestartableHolder} that manages this object.
      */
-    public DoorActivityManager(final @NonNull IRestartableHolder holder)
+    public DoorActivityManager(final @NotNull IRestartableHolder holder)
     {
         super(holder);
     }
@@ -70,7 +70,7 @@ public final class DoorActivityManager extends Restartable implements IDoorActiv
      * @param blockMover      The {@link BlockMover} to postprocess.
      * @param allowReschedule Whether or not to allow rescheduling (e.g. autoclose).
      */
-    public void processFinishedBlockMover(final @NonNull BlockMover blockMover, final boolean allowReschedule)
+    public void processFinishedBlockMover(@NotNull BlockMover blockMover, boolean allowReschedule)
     {
         int delay = Math.max(Constants.MINIMUM_DOOR_DELAY,
                              BigDoors.get().getPlatform().getConfigLoader().coolDown() * 20);
@@ -79,7 +79,7 @@ public final class DoorActivityManager extends Restartable implements IDoorActiv
                 .runSyncLater(() -> handleFinishedBlockMover(blockMover, allowReschedule), delay);
     }
 
-    private void handleFinishedBlockMover(final @NonNull BlockMover blockMover, final boolean allowReschedule)
+    private void handleFinishedBlockMover(@NotNull BlockMover blockMover, boolean allowReschedule)
     {
         setDoorAvailable(blockMover.getDoor().getDoorUID());
 
@@ -104,7 +104,7 @@ public final class DoorActivityManager extends Restartable implements IDoorActiv
      *
      * @param mover The {@link BlockMover}.
      */
-    public void addBlockMover(final @NonNull BlockMover mover)
+    public void addBlockMover(final @NotNull BlockMover mover)
     {
         busyDoors.replace(mover.getDoorUID(), Optional.of(mover));
     }
@@ -114,7 +114,7 @@ public final class DoorActivityManager extends Restartable implements IDoorActiv
      *
      * @return All the currently active {@link BlockMover}s.
      */
-    public @NonNull Stream<BlockMover> getBlockMovers()
+    public @NotNull Stream<BlockMover> getBlockMovers()
     {
         return busyDoors.values().stream().filter(Optional::isPresent).map(Optional::get);
     }
@@ -125,7 +125,7 @@ public final class DoorActivityManager extends Restartable implements IDoorActiv
      * @param doorUID The UID of the {@link AbstractDoorBase}.
      * @return The {@link BlockMover} of a busy {@link AbstractDoorBase}.
      */
-    public @NonNull Optional<BlockMover> getBlockMover(final long doorUID)
+    public @NotNull Optional<BlockMover> getBlockMover(final long doorUID)
     {
         return busyDoors.containsKey(doorUID) ? busyDoors.get(doorUID) : Optional.empty();
     }

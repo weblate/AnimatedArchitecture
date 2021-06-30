@@ -1,7 +1,6 @@
 package nl.pim16aap2.bigdoors.commands;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import nl.pim16aap2.bigdoors.BigDoors;
@@ -12,6 +11,7 @@ import nl.pim16aap2.bigdoors.managers.DatabaseManager;
 import nl.pim16aap2.bigdoors.util.DoorAttribute;
 import nl.pim16aap2.bigdoors.util.DoorRetriever;
 import nl.pim16aap2.bigdoors.util.pair.BooleanPair;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -36,14 +36,14 @@ public abstract class BaseCommand
      * receive error/success/information messages when applicable).
      */
     @Getter
-    private final @NonNull ICommandSender commandSender;
+    private final @NotNull ICommandSender commandSender;
 
     /**
      * Gets the {@link CommandDefinition} that contains the definition of this {@link BaseCommand}.
      *
      * @return The {@link CommandDefinition} that contains the definition of this {@link BaseCommand}.
      */
-    public abstract @NonNull CommandDefinition getCommand();
+    public abstract @NotNull CommandDefinition getCommand();
 
     /**
      * Checks if the input is valid before starting any potentially expensive tasks.
@@ -63,8 +63,8 @@ public abstract class BaseCommand
      * @param hasBypassPermission Whether the {@link #commandSender} has bypass permission or not.
      * @return True if the command sender has access to the provided attribute for the given door.
      */
-    protected boolean hasAccessToAttribute(final @NonNull AbstractDoorBase door,
-                                           final @NonNull DoorAttribute doorAttribute,
+    protected boolean hasAccessToAttribute(final @NotNull AbstractDoorBase door,
+                                           final @NotNull DoorAttribute doorAttribute,
                                            final boolean hasBypassPermission)
     {
         if (hasBypassPermission || !getCommandSender().isPlayer())
@@ -103,7 +103,7 @@ public abstract class BaseCommand
      * @return True if the command could be executed successfully or if the command execution failed through no fault of
      * the {@link ICommandSender}.
      */
-    protected final @NonNull CompletableFuture<Boolean> run()
+    protected final @NotNull CompletableFuture<Boolean> run()
     {
         log();
         if (!validInput())
@@ -146,7 +146,7 @@ public abstract class BaseCommand
      * @param result The result obtained from the database.
      * @return True in all cases, as it is assumed that this is not user error.
      */
-    protected @NonNull Boolean handleDatabaseActionResult(final @NonNull DatabaseManager.ActionResult result)
+    protected @NotNull Boolean handleDatabaseActionResult(final @NotNull DatabaseManager.ActionResult result)
     {
         // TODO: Localization
         switch (result)
@@ -174,12 +174,12 @@ public abstract class BaseCommand
      * @return True if the command could be executed successfully or if the command execution failed through no fault of
      * the {@link ICommandSender}.
      */
-    protected final @NonNull CompletableFuture<Boolean> startExecution()
+    protected final @NotNull CompletableFuture<Boolean> startExecution()
     {
         return hasPermission().thenApplyAsync(this::handlePermissionResult);
     }
 
-    private boolean handlePermissionResult(final @NonNull BooleanPair permissionResult)
+    private boolean handlePermissionResult(final @NotNull BooleanPair permissionResult)
     {
         if (!permissionResult.first && !permissionResult.second)
         {
@@ -207,7 +207,7 @@ public abstract class BaseCommand
      * @param permissions Whether the {@link ICommandSender} has user and/or admin permissions respectively.
      * @return True if the method execution was successful.
      */
-    protected abstract @NonNull CompletableFuture<Boolean> executeCommand(final @NonNull BooleanPair permissions);
+    protected abstract @NotNull CompletableFuture<Boolean> executeCommand(final @NotNull BooleanPair permissions);
 
     /**
      * Ensures the command is logged.
@@ -227,7 +227,7 @@ public abstract class BaseCommand
      * @param doorRetriever The {@link DoorRetriever} to use
      * @return The {@link AbstractDoorBase} if one could be retrieved.
      */
-    protected @NonNull CompletableFuture<Optional<AbstractDoorBase>> getDoor(final @NonNull DoorRetriever doorRetriever)
+    protected @NotNull CompletableFuture<Optional<AbstractDoorBase>> getDoor(final @NotNull DoorRetriever doorRetriever)
     {
         return getCommandSender().getPlayer().map(doorRetriever::getDoorInteractive)
                                  .orElseGet(doorRetriever::getDoor).thenApplyAsync(
@@ -250,7 +250,7 @@ public abstract class BaseCommand
      * @return A pair of booleans that indicates whether the user has access to the user and admin permission nodes
      * respectively. For both, true indicates that they do have access to the node and false that they do not.
      */
-    protected @NonNull CompletableFuture<BooleanPair> hasPermission()
+    protected @NotNull CompletableFuture<BooleanPair> hasPermission()
     {
         return getCommandSender().hasPermission(getCommand());
     }

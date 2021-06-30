@@ -1,24 +1,24 @@
 package nl.pim16aap2.bigdoors.managers;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.util.Limit;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.OptionalInt;
 
 public class LimitsManager implements ILimitsManager
 {
     @Override
-    public @NonNull OptionalInt getLimit(final @NonNull IPPlayer player, final @NonNull Limit limit)
+    public @NotNull OptionalInt getLimit(final @NotNull IPPlayer player, final @NotNull Limit limit)
     {
         final boolean hasBypass = BigDoors.get().getPlatform().getPermissionsManager()
                                           .hasPermission(player, limit.getAdminPermission());
-        final @NonNull OptionalInt globalLimit = limit.getGlobalLimit(BigDoors.get().getPlatform().getConfigLoader());
+        final @NotNull OptionalInt globalLimit = limit.getGlobalLimit(BigDoors.get().getPlatform().getConfigLoader());
         if (hasBypass)
             return globalLimit;
 
-        final @NonNull OptionalInt playerLimit = BigDoors.get().getPlatform().getPermissionsManager()
+        final @NotNull OptionalInt playerLimit = BigDoors.get().getPlatform().getPermissionsManager()
                                                          .getMaxPermissionSuffix(player, limit.getUserPermission());
 
         if (globalLimit.isPresent() && playerLimit.isPresent())
@@ -30,9 +30,9 @@ public class LimitsManager implements ILimitsManager
     }
 
     @Override
-    public boolean exceedsLimit(final @NonNull IPPlayer player, final @NonNull Limit limit, final int value)
+    public boolean exceedsLimit(final @NotNull IPPlayer player, final @NotNull Limit limit, final int value)
     {
-        final @NonNull OptionalInt limitValue = getLimit(player, limit);
+        final @NotNull OptionalInt limitValue = getLimit(player, limit);
         return limitValue.isPresent() && value > limitValue.getAsInt();
     }
 }

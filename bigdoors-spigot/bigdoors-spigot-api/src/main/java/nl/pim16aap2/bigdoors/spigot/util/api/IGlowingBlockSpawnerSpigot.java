@@ -1,11 +1,11 @@
 package nl.pim16aap2.bigdoors.spigot.util.api;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.api.IGlowingBlockSpawner;
 import nl.pim16aap2.bigdoors.api.PColor;
 import nl.pim16aap2.bigdoors.api.restartable.IRestartable;
 import nl.pim16aap2.bigdoors.api.restartable.IRestartableHolder;
 import org.bukkit.scoreboard.Team;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -21,5 +21,5 @@ public interface IGlowingBlockSpawnerSpigot extends IRestartable, IGlowingBlockS
      *
      * @return The mapping of colors to teams.
      */
-    @NonNull Map<PColor, Team> getTeams();
+    @NotNull Map<PColor, Team> getTeams();
 }

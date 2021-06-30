@@ -1,7 +1,6 @@
 package nl.pim16aap2.bigdoors.doortypes;
 
 import lombok.Getter;
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
@@ -9,6 +8,7 @@ import nl.pim16aap2.bigdoors.doors.DoorSerializer;
 import nl.pim16aap2.bigdoors.managers.DoorTypeManager;
 import nl.pim16aap2.bigdoors.tooluser.creator.Creator;
 import nl.pim16aap2.bigdoors.util.RotateDirection;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -23,10 +23,10 @@ import java.util.Optional;
 public abstract class DoorType implements IDoorType
 {
     @Getter
-    protected final @NonNull String pluginName;
+    protected final @NotNull String pluginName;
 
     @Getter
-    protected final @NonNull String simpleName;
+    protected final @NotNull String simpleName;
 
     @Getter
     protected final int typeVersion;
@@ -35,10 +35,10 @@ public abstract class DoorType implements IDoorType
     protected final String translationName;
 
     @Getter
-    private final @NonNull String fullName;
+    private final @NotNull String fullName;
 
     @Getter
-    private final @NonNull List<RotateDirection> validOpenDirections;
+    private final @NotNull List<RotateDirection> validOpenDirections;
 
     private final @Nullable DoorSerializer<?> doorSerializer;
 
@@ -51,8 +51,8 @@ public abstract class DoorType implements IDoorType
      *                    new {@link DoorType}, as far as the database is concerned. This fact can be used if the
      *                    parameters of the constructor for this type need to be changed.
      */
-    protected DoorType(final @NonNull String pluginName, final @NonNull String simpleName, final int typeVersion,
-                       final @NonNull List<RotateDirection> validOpenDirections)
+    protected DoorType(final @NotNull String pluginName, final @NotNull String simpleName, final int typeVersion,
+                       final @NotNull List<RotateDirection> validOpenDirections)
     {
         this.pluginName = pluginName;
         this.simpleName = simpleName.toLowerCase();
@@ -79,12 +79,12 @@ public abstract class DoorType implements IDoorType
      *
      * @return The {@link DoorSerializer}.
      */
-    public @NonNull Optional<DoorSerializer<?>> getDoorSerializer()
+    public @NotNull Optional<DoorSerializer<?>> getDoorSerializer()
     {
         return Optional.ofNullable(doorSerializer);
     }
 
-    @Override public final boolean isValidOpenDirection(final @NonNull RotateDirection rotateDirection)
+    @Override public final boolean isValidOpenDirection(final @NotNull RotateDirection rotateDirection)
     {
         return validOpenDirections.contains(rotateDirection);
     }
@@ -94,7 +94,7 @@ public abstract class DoorType implements IDoorType
      *
      * @return THe class of the door.
      */
-    public abstract @NonNull Class<? extends AbstractDoorBase> getDoorClass();
+    public abstract @NotNull Class<? extends AbstractDoorBase> getDoorClass();
 
     /**
      * Creates (and registers) a new {@link Creator} for this type.
@@ -102,7 +102,7 @@ public abstract class DoorType implements IDoorType
      * @param player The player who will own the {@link Creator}.
      * @return The newly created {@link Creator}.
      */
-    public abstract @NonNull Creator getCreator(@NonNull IPPlayer player);
+    public abstract @NotNull Creator getCreator(@NotNull IPPlayer player);
 
     /**
      * Creates (and registers) a new {@link Creator} for this type.
@@ -111,10 +111,10 @@ public abstract class DoorType implements IDoorType
      * @param name   The name that will be given to the door.
      * @return The newly created {@link Creator}.
      */
-    public abstract @NonNull Creator getCreator(@NonNull IPPlayer player, @Nullable String name);
+    public abstract @NotNull Creator getCreator(@NotNull IPPlayer player, @Nullable String name);
 
     @Override
-    public final @NonNull String toString()
+    public final @NotNull String toString()
     {
         return getPluginName() + ":" + getSimpleName() + ":" + getTypeVersion();
     }

@@ -1,6 +1,6 @@
 package nl.pim16aap2.bigdoors.commands;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -11,12 +11,12 @@ public interface ICommandDefinition
      *
      * @return The user-level permission for the command.
      */
-    @NonNull Optional<String> getUserPermission();
+    @NotNull Optional<String> getUserPermission();
 
     /**
      * Gets the admin-level permission for a command if it exists.
      *
      * @return The admin-level permission for the command.
      */
-    @NonNull Optional<String> getAdminPermission();
+    @NotNull Optional<String> getAdminPermission();
 }

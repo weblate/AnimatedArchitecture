@@ -12,6 +12,8 @@ import nl.pim16aap2.bigdoors.util.messages.Message;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
+@SuppressWarnings("NullAway")
 class GUIPageDoorList implements IGUIPage
 {
     protected final BigDoorsSpigot plugin;

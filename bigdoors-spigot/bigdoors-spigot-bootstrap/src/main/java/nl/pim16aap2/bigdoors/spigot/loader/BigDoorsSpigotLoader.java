@@ -1,11 +1,11 @@
 package nl.pim16aap2.bigdoors.spigot.loader;
 
-import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
 import nl.pim16aap2.bigdoors.spigot.util.api.AbstractBigDoorsSpigotLoader;
 import nl.pim16aap2.bigdoors.spigot.util.api.BigDoorsSpigotAbstract;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -25,14 +25,14 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class BigDoorsSpigotLoader extends AbstractBigDoorsSpigotLoader
 {
     private boolean isEnabled = false;
-    private static final @NonNull String JAR_JAR_NAME = "bigdoors-spigot-core.jar";
-    private final @NonNull File jarPath;
+    private static final @NotNull String JAR_JAR_NAME = "bigdoors-spigot-core.jar";
+    private final @NotNull File jarPath;
 
     private @Nullable PClassLoader classLoader;
 
     private @Nullable BigDoorsSpigotAbstract plugin;
 
-    private final @NonNull Set<JavaPlugin> addons = new CopyOnWriteArraySet<>();
+    private final @NotNull Set<JavaPlugin> addons = new CopyOnWriteArraySet<>();
 
     public BigDoorsSpigotLoader()
     {
@@ -85,13 +85,13 @@ public class BigDoorsSpigotLoader extends AbstractBigDoorsSpigotLoader
     }
 
     @Override
-    public @NonNull Set<JavaPlugin> getRegisteredAddons()
+    public @NotNull Set<JavaPlugin> getRegisteredAddons()
     {
         return Collections.unmodifiableSet(addons);
     }
 
     @Override
-    public @NonNull Optional<BigDoorsSpigotAbstract> getBigDoorsAPI(final @NonNull JavaPlugin caller)
+    public @NotNull Optional<BigDoorsSpigotAbstract> getBigDoorsAPI(final @NotNull JavaPlugin caller)
     {
         if (caller == this)
             throw new IllegalArgumentException(

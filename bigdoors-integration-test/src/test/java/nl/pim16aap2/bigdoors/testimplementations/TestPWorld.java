@@ -1,9 +1,9 @@
 package nl.pim16aap2.bigdoors.testimplementations;
 
 import lombok.Getter;
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.api.IPWorld;
 import nl.pim16aap2.bigdoors.util.WorldTime;
+import org.jetbrains.annotations.NotNull;
 
 public final class TestPWorld implements IPWorld
 {
@@ -12,7 +12,7 @@ public final class TestPWorld implements IPWorld
     private final boolean exists;
     private final WorldTime time;
 
-    public TestPWorld(final @NonNull String name)
+    public TestPWorld(final @NotNull String name)
     {
         worldName = name;
         exists = true;
@@ -26,14 +26,32 @@ public final class TestPWorld implements IPWorld
     }
 
     @Override
-    public @NonNull WorldTime getTime()
+    public @NotNull WorldTime getTime()
     {
         return time;
     }
 
     @Override
-    public @NonNull IPWorld clone()
+    public @NotNull IPWorld clone()
     {
         return new TestPWorld(worldName);
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        return worldName.equals(((IPWorld) o).getWorldName());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return worldName.hashCode();
     }
 }

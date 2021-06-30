@@ -1,6 +1,5 @@
 package nl.pim16aap2.bigdoors.commands;
 
-import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
@@ -8,6 +7,7 @@ import nl.pim16aap2.bigdoors.api.factories.IBigDoorsEventFactory;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.events.IDoorPrepareLockChangeEvent;
 import nl.pim16aap2.bigdoors.util.DoorRetriever;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +40,7 @@ class LockTest
     @BeforeEach
     void init()
     {
-        @NonNull val platform = initPlatform();
+        @NotNull val platform = initPlatform();
         MockitoAnnotations.openMocks(this);
 
         initCommandSenderPermissions(commandSender, true, true);

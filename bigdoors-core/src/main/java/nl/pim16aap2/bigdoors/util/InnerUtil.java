@@ -1,10 +1,10 @@
 package nl.pim16aap2.bigdoors.util;
 
-import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.logging.IPLogger;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -30,7 +30,8 @@ public class InnerUtil
      * @return The fallback value.
      */
     @Contract("_, !null -> !null")
-    public <T> T exceptionally(final @NonNull Throwable throwable, final T fallback)
+    @SuppressWarnings("NullAway")
+    public <T> T exceptionally(final @NotNull Throwable throwable, final T fallback)
     {
         BigDoors.get().getPLogger().logThrowable(throwable);
         return fallback;
@@ -41,7 +42,8 @@ public class InnerUtil
      *
      * @return Always null
      */
-    public @Nullable <T> T exceptionally(final @NonNull Throwable throwable)
+    @SuppressWarnings("NullAway")
+    public @Nullable <T> T exceptionally(final @NotNull Throwable throwable)
     {
         return exceptionally(throwable, null);
     }
@@ -51,7 +53,7 @@ public class InnerUtil
      *
      * @return Always {@link Optional#empty()}.
      */
-    public <T> Optional<T> exceptionallyOptional(final @NonNull Throwable throwable)
+    public <T> Optional<T> exceptionallyOptional(final @NotNull Throwable throwable)
     {
         return exceptionally(throwable, Optional.empty());
     }
@@ -65,8 +67,8 @@ public class InnerUtil
      * @param target    The {@link CompletableFuture} to complete.
      * @return The fallback value.
      */
-    public <T, U> T exceptionallyCompletion(@NonNull Throwable throwable, T fallback,
-                                            @NonNull CompletableFuture<U> target)
+    public <T, U> T exceptionallyCompletion(@NotNull Throwable throwable, T fallback,
+                                            @NotNull CompletableFuture<U> target)
     {
         target.completeExceptionally(throwable);
         return fallback;
@@ -80,7 +82,7 @@ public class InnerUtil
      * @param target    The {@link CompletableFuture} to complete.
      * @return Always null;
      */
-    public <T> Void exceptionallyCompletion(@NonNull Throwable throwable, @NonNull CompletableFuture<T> target)
+    public <T> Void exceptionallyCompletion(@NotNull Throwable throwable, @NotNull CompletableFuture<T> target)
     {
         target.completeExceptionally(throwable);
         return null;

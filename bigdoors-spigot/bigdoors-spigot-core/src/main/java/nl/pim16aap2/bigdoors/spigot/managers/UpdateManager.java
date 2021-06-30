@@ -1,6 +1,5 @@
 package nl.pim16aap2.bigdoors.spigot.managers;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.logging.IPLogger;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.UpdateChecker;
@@ -8,6 +7,7 @@ import nl.pim16aap2.bigdoors.util.Constants;
 import nl.pim16aap2.bigdoors.util.InnerUtil;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -17,16 +17,16 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class UpdateManager
 {
-    private final @NonNull BigDoorsSpigot bigDoorsSpigot;
-    private final @NonNull IPLogger logger;
+    private final @NotNull BigDoorsSpigot bigDoorsSpigot;
+    private final @NotNull IPLogger logger;
     private boolean checkForUpdates = false;
     private boolean downloadUpdates = false;
     private boolean updateDownloaded = false;
 
-    private final @NonNull UpdateChecker updater;
+    private final @NotNull UpdateChecker updater;
     private @Nullable BukkitTask updateRunner = null;
 
-    public UpdateManager(final @NonNull BigDoorsSpigot bigDoorsSpigot, final int pluginID)
+    public UpdateManager(final @NotNull BigDoorsSpigot bigDoorsSpigot, final int pluginID)
     {
         this.bigDoorsSpigot = bigDoorsSpigot;
         logger = bigDoorsSpigot.getPLogger();
@@ -61,7 +61,7 @@ public final class UpdateManager
      *
      * @return The version of the latest publicly released build.
      */
-    public @NonNull String getNewestVersion()
+    public @NotNull String getNewestVersion()
     {
         if (!checkForUpdates || updater.getLastResult() == null)
             return "ERROR";
@@ -104,7 +104,7 @@ public final class UpdateManager
                     result.getAge() >= bigDoorsSpigot.getConfigLoader().downloadDelay())
                 {
                     updateDownloaded = updater.downloadUpdate();
-                    if (updateDownloaded)
+                    if (updateDownloaded && updater.getLastResult() != null)
                         logger.info("Update downloaded! Restart to apply it! " +
                                         "New version is " + updater.getLastResult().getNewestVersion() +
                                         ", Currently running " + bigDoorsSpigot.getPlugin()

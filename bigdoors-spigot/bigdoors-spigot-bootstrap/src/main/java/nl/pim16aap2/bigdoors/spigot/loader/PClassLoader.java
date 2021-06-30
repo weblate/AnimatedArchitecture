@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.spigot.loader;
 
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -13,18 +13,18 @@ import java.net.URLClassLoader;
  */
 class PClassLoader extends URLClassLoader
 {
-    public PClassLoader(final @NonNull URL[] urls, final @NonNull ClassLoader parent)
+    public PClassLoader(final @NotNull URL[] urls, final @NotNull ClassLoader parent)
     {
         super(urls, parent);
     }
 
-    public PClassLoader(final @NonNull ClassLoader parent)
+    public PClassLoader(final @NotNull ClassLoader parent)
     {
         super(new URL[]{}, parent);
     }
 
     @Override
-    protected void addURL(final @NonNull URL url)
+    protected void addURL(final @NotNull URL url)
     {
         super.addURL(url);
     }

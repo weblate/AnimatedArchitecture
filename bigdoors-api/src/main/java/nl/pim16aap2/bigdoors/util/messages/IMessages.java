@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.util.messages;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.api.restartable.IRestartable;
+import org.jetbrains.annotations.NotNull;
 
 public interface IMessages extends IRestartable
 {
@@ -12,7 +12,7 @@ public interface IMessages extends IRestartable
      * @param messageName The name of a {@link Message}, see {@link Message#valueOf(String)}.
      * @return The translated String if possible, otherwise an empty String.
      */
-    @NonNull String getString(@NonNull String messageName);
+    @NotNull String getString(@NotNull String messageName);
 
     /**
      * Gets the translated message of the provided {@link Message} and substitutes its variables for the provided
@@ -23,5 +23,5 @@ public interface IMessages extends IRestartable
      * @return The translated message of the provided {@link Message} and substitutes its variables for the provided
      * values.
      */
-    @NonNull String getString(@NonNull Message msg, @NonNull String... values);
+    @NotNull String getString(@NotNull Message msg, @NotNull String... values);
 }

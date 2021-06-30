@@ -1,9 +1,9 @@
 package nl.pim16aap2.bigdoors.managers;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.api.IConfigLoader;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.util.Limit;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.OptionalInt;
 
@@ -22,7 +22,7 @@ public interface ILimitsManager
      * <p>
      * If the player has a player limit as well as a global limit, the lowest value of the two will be used.
      */
-    @NonNull OptionalInt getLimit(@NonNull IPPlayer player, @NonNull Limit limit);
+    @NotNull OptionalInt getLimit(@NotNull IPPlayer player, @NotNull Limit limit);
 
     /**
      * Checks if a given value exceeds the limit for this player. For more info, see {@link #getLimit(IPPlayer,
@@ -33,5 +33,5 @@ public interface ILimitsManager
      * @param value  The value to compare to the limit.
      * @return True if the given value exceeds the limit for this player. If value <= limit, this will return false.
      */
-    boolean exceedsLimit(@NonNull IPPlayer player, @NonNull Limit limit, int value);
+    boolean exceedsLimit(@NotNull IPPlayer player, @NotNull Limit limit, int value);
 }

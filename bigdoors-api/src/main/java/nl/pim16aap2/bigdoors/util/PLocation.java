@@ -2,18 +2,18 @@ package nl.pim16aap2.bigdoors.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import nl.pim16aap2.bigdoors.api.IPLocation;
 import nl.pim16aap2.bigdoors.api.IPWorld;
 import nl.pim16aap2.bigdoors.util.vector.Vector3DdConst;
 import nl.pim16aap2.bigdoors.util.vector.Vector3DiConst;
+import org.jetbrains.annotations.NotNull;
 
 @AllArgsConstructor
 public class PLocation implements IPLocation
 {
     @Getter
-    private final @NonNull IPWorld world;
+    private final @NotNull IPWorld world;
 
     @Getter
     @Setter
@@ -27,12 +27,12 @@ public class PLocation implements IPLocation
     @Setter
     private double z;
 
-    public PLocation(final @NonNull IPWorld world, final @NonNull Vector3DiConst position)
+    public PLocation(final @NotNull IPWorld world, final @NotNull Vector3DiConst position)
     {
         this(world, position.getX(), position.getY(), position.getZ());
     }
 
-    public PLocation(final @NonNull IPWorld world, final @NonNull Vector3DdConst position)
+    public PLocation(final @NotNull IPWorld world, final @NotNull Vector3DdConst position)
     {
         this(world, position.getX(), position.getY(), position.getZ());
     }
@@ -56,7 +56,7 @@ public class PLocation implements IPLocation
     }
 
     @Override
-    public @NonNull IPLocation add(double x, double y, double z)
+    public @NotNull IPLocation add(double x, double y, double z)
     {
         this.x += x;
         this.y += y;
@@ -65,7 +65,7 @@ public class PLocation implements IPLocation
     }
 
     @Override
-    public @NonNull IPLocation clone()
+    public @NotNull IPLocation clone()
     {
         return new PLocation(getWorld(), getX(), getY(), getZ());
     }

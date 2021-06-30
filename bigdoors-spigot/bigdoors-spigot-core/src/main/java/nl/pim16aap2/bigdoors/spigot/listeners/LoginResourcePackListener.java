@@ -1,6 +1,5 @@
 package nl.pim16aap2.bigdoors.spigot.listeners;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.api.restartable.Restartable;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
 import org.bukkit.Bukkit;
@@ -9,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -19,11 +19,11 @@ import org.jetbrains.annotations.Nullable;
 public class LoginResourcePackListener extends Restartable implements Listener
 {
     private static @Nullable LoginResourcePackListener INSTANCE;
-    private final @NonNull BigDoorsSpigot bigDoorsSpigot;
-    private final @NonNull String url;
+    private final @NotNull BigDoorsSpigot bigDoorsSpigot;
+    private final @NotNull String url;
     private boolean isRegistered = false;
 
-    private LoginResourcePackListener(final @NonNull BigDoorsSpigot bigDoorsSpigot, final @NonNull String url)
+    private LoginResourcePackListener(final @NotNull BigDoorsSpigot bigDoorsSpigot, final @NotNull String url)
     {
         super(bigDoorsSpigot);
         this.bigDoorsSpigot = bigDoorsSpigot;
@@ -38,8 +38,8 @@ public class LoginResourcePackListener extends Restartable implements Listener
      * @param url            The URL of the resource pack.
      * @return The instance of this {@link LoginResourcePackListener}.
      */
-    public static @NonNull LoginResourcePackListener init(final @NonNull BigDoorsSpigot bigDoorsSpigot,
-                                                          final @NonNull String url)
+    public static @NotNull LoginResourcePackListener init(final @NotNull BigDoorsSpigot bigDoorsSpigot,
+                                                          final @NotNull String url)
     {
         return (INSTANCE == null) ? INSTANCE = new LoginResourcePackListener(bigDoorsSpigot, url) : INSTANCE;
     }
@@ -87,7 +87,7 @@ public class LoginResourcePackListener extends Restartable implements Listener
      * @param event The {@link PlayerJoinEvent}.
      */
     @EventHandler
-    public void onPlayerJoin(final @NonNull PlayerJoinEvent event)
+    public void onPlayerJoin(final @NotNull PlayerJoinEvent event)
     {
         try
         {

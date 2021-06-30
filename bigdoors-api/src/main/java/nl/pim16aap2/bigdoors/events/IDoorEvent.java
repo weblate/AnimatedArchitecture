@@ -1,8 +1,8 @@
 package nl.pim16aap2.bigdoors.events;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.doors.IDoorBase;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public interface IDoorEvent extends IBigDoorsEvent
      *
      * @return The {@link IDoorBase} that will be created.
      */
-    @NonNull IDoorBase getDoor();
+    @NotNull IDoorBase getDoor();
 
     /**
      * Gets the {@link IPPlayer} that was responsible for the creation this door.
@@ -26,5 +26,5 @@ public interface IDoorEvent extends IBigDoorsEvent
      * @return The {@link IPPlayer} that created if the creation was requested by a player. If it was requested by
      * something else (e.g. the server), an empty optional is returned.
      */
-    @NonNull Optional<IPPlayer> getResponsible();
+    @NotNull Optional<IPPlayer> getResponsible();
 }

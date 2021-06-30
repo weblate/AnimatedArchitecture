@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.spigot.util.api;
 
-import lombok.NonNull;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.Set;
@@ -20,12 +20,12 @@ public abstract class AbstractBigDoorsSpigotLoader extends JavaPlugin
      * @return The BigDoors API.
      */
     @SuppressWarnings("unused")
-    public abstract @NonNull Optional<BigDoorsSpigotAbstract> getBigDoorsAPI(@NonNull JavaPlugin caller);
+    public abstract @NotNull Optional<BigDoorsSpigotAbstract> getBigDoorsAPI(@NotNull JavaPlugin caller);
 
     /**
      * Gets the list of registered addons (i.e. plugins that use the BigDoors API).
      *
      * @return The list of registered addons.
      */
-    public abstract @NonNull Set<JavaPlugin> getRegisteredAddons();
+    public abstract @NotNull Set<JavaPlugin> getRegisteredAddons();
 }

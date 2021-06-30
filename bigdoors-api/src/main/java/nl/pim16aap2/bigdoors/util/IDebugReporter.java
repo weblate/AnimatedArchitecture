@@ -1,11 +1,11 @@
 package nl.pim16aap2.bigdoors.util;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public interface IDebugReporter
 {
     /**
      * Gets the datadump containing useful information for debugging issues.
      */
-    @NonNull String getDump();
+    @NotNull String getDump();
 }

@@ -1,6 +1,5 @@
 package nl.pim16aap2.bigdoors.api;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.commands.DelayedCommandInputRequest;
 import nl.pim16aap2.bigdoors.doors.DoorOpener;
 import nl.pim16aap2.bigdoors.managers.AutoCloseScheduler;
@@ -14,6 +13,7 @@ import nl.pim16aap2.bigdoors.managers.ILimitsManager;
 import nl.pim16aap2.bigdoors.managers.LimitsManager;
 import nl.pim16aap2.bigdoors.managers.PowerBlockManager;
 import nl.pim16aap2.bigdoors.managers.ToolUserManager;
+import org.jetbrains.annotations.NotNull;
 
 public interface IBigDoorsInnerPlatform extends IBigDoorsPlatform
 {
@@ -23,82 +23,82 @@ public interface IBigDoorsInnerPlatform extends IBigDoorsPlatform
      *
      * @return The {@link DoorTypeManager} instance.
      */
-    @NonNull DoorTypeManager getDoorTypeManager();
+    @NotNull DoorTypeManager getDoorTypeManager();
 
     /**
      * Gets the {@link DoorSpecificationManager} instance.
      *
      * @return The {@link DoorSpecificationManager} instance.
      */
-    @NonNull DoorSpecificationManager getDoorSpecificationManager();
+    @NotNull DoorSpecificationManager getDoorSpecificationManager();
 
     /**
      * Gets the {@link ToolUserManager} instance.
      *
      * @return The {@link ToolUserManager} instance.
      */
-    @NonNull ToolUserManager getToolUserManager();
+    @NotNull ToolUserManager getToolUserManager();
 
     /**
      * Gets the {@link DelayedCommandInputManager} to manage {@link DelayedCommandInputRequest}s.
      *
      * @return The {@link DelayedCommandInputManager} registered by the platform.
      */
-    @NonNull DelayedCommandInputManager getDelayedCommandInputManager();
+    @NotNull DelayedCommandInputManager getDelayedCommandInputManager();
 
     /**
      * Gets the {@link LimitsManager}.
      *
      * @return The {@link LimitsManager}.
      */
-    @Override @NonNull ILimitsManager getLimitsManager();
+    @Override @NotNull ILimitsManager getLimitsManager();
 
     /**
      * Gets the {@link DatabaseManager}.
      *
      * @return The {@link DatabaseManager}.
      */
-    @NonNull DatabaseManager getDatabaseManager();
+    @NotNull DatabaseManager getDatabaseManager();
 
     /**
      * Gets the {@link DoorRegistry}.
      *
      * @return The {@link DoorRegistry}.
      */
-    @NonNull DoorRegistry getDoorRegistry();
+    @NotNull DoorRegistry getDoorRegistry();
 
     /**
      * Gets the {@link PowerBlockManager} instance.
      *
      * @return The {@link PowerBlockManager} instance.
      */
-    @NonNull PowerBlockManager getPowerBlockManager();
+    @NotNull PowerBlockManager getPowerBlockManager();
 
     /**
      * Gets the {@link AutoCloseScheduler} instance.
      *
      * @return The {@link AutoCloseScheduler} instance.
      */
-    @NonNull AutoCloseScheduler getAutoCloseScheduler();
+    @NotNull AutoCloseScheduler getAutoCloseScheduler();
 
     /**
      * Gets the {@link DoorActivityManager} instance.
      *
      * @return The {@link DoorActivityManager} instance.
      */
-    @Override @NonNull DoorActivityManager getDoorActivityManager();
+    @Override @NotNull DoorActivityManager getDoorActivityManager();
 
     /**
      * Gets the {@link DoorOpener}.
      *
      * @return The {@link DoorOpener}.
      */
-    @NonNull DoorOpener getDoorOpener();
+    @NotNull DoorOpener getDoorOpener();
 
     /**
      * Gets the instance of the {@link IBigDoorsToolUtil} for this platform.
      *
      * @return The instance of the {@link IBigDoorsToolUtil} for this platform.
      */
-    @NonNull IBigDoorsToolUtil getBigDoorsToolUtil();
+    @NotNull IBigDoorsToolUtil getBigDoorsToolUtil();
 }

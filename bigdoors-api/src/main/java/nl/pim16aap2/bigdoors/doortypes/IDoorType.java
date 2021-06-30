@@ -1,8 +1,8 @@
 package nl.pim16aap2.bigdoors.doortypes;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.doors.IDoorBase;
 import nl.pim16aap2.bigdoors.util.RotateDirection;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -14,21 +14,21 @@ public interface IDoorType
      * @param rotateDirection The {@link RotateDirection} to check.
      * @return True if the provided {@link RotateDirection} is valid for this type, otherwise false.
      */
-    boolean isValidOpenDirection(@NonNull RotateDirection rotateDirection);
+    boolean isValidOpenDirection(@NotNull RotateDirection rotateDirection);
 
     /**
      * Gets the name of the plugin that owns this {@link IDoorType}.
      *
      * @return The name of the plugin that owns this {@link IDoorType}.
      */
-    @NonNull String getPluginName();
+    @NotNull String getPluginName();
 
     /**
      * Gets the name of this {@link IDoorType}. Note that this is always in lower case!
      *
      * @return The name of this {@link IDoorType}.
      */
-    @NonNull String getSimpleName();
+    @NotNull String getSimpleName();
 
     /**
      * Gets the version of this {@link IDoorType}. Note that changing the version creates a whole new {@link IDoorType}
@@ -43,12 +43,12 @@ public interface IDoorType
      *
      * @return The value of this type that represents the key in the translation system.
      */
-    @NonNull String getTranslationName();
+    @NotNull String getTranslationName();
 
     /**
      * The fully-qualified name of this {@link IDoorType}.
      */
-    @NonNull String getFullName();
+    @NotNull String getFullName();
 
     /**
      * Gets a list of all theoretically valid {@link RotateDirection} for this given type. It does NOT take the physical
@@ -57,5 +57,5 @@ public interface IDoorType
      *
      * @return A list of all valid {@link RotateDirection} for this given type.
      */
-    @NonNull List<RotateDirection> getValidOpenDirections();
+    @NotNull List<RotateDirection> getValidOpenDirections();
 }
