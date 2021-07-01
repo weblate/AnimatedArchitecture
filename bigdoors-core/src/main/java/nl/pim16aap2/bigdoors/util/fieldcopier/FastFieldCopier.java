@@ -1,6 +1,7 @@
-package nl.pim16aap2.bigdoors.util;
+package nl.pim16aap2.bigdoors.util.fieldcopier;
 
 import nl.pim16aap2.bigdoors.BigDoors;
+import nl.pim16aap2.bigdoors.util.Util;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sun.misc.Unsafe;
