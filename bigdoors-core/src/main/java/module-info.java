@@ -1,4 +1,4 @@
-module bigdoors
+module bigdoors.core
 {
     requires lombok;
     requires java.logging;
@@ -19,6 +19,7 @@ module bigdoors
     exports nl.pim16aap2.bigdoors.doortypes;
     exports nl.pim16aap2.bigdoors.events;
     exports nl.pim16aap2.bigdoors.events.dooraction;
+    exports nl.pim16aap2.bigdoors.logging;
     exports nl.pim16aap2.bigdoors.moveblocks;
     exports nl.pim16aap2.bigdoors.tooluser;
     exports nl.pim16aap2.bigdoors.tooluser.creator;

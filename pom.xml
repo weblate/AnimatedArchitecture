@@ -123,16 +123,20 @@
                     <configuration>
                         <argLine>
                             --enable-preview
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors=ALL-UNNAMED
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors.api=ALL-UNNAMED
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors.commands=ALL-UNNAMED
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors.managers=ALL-UNNAMED
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors.tooluser=ALL-UNNAMED
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors.tooluser.creator=ALL-UNNAMED
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors.util=ALL-UNNAMED
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors.util.cache=ALL-UNNAMED
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors.util.delayedinput=ALL-UNNAMED
-                            --add-opens bigdoors/nl.pim16aap2.bigdoors.util.vector=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors.api=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors.commands=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors.managers=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors.tooluser=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors.tooluser.creator=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors.util=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors.util.cache=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors.util.delayedinput=ALL-UNNAMED
+                            --add-opens bigdoors.core/nl.pim16aap2.bigdoors.util.vector=ALL-UNNAMED
+
+                            --add-opens bigdoors.spigot/nl.pim16aap2.bigdoors.spigot.util=ALL-UNNAMED
+                            --add-opens bigdoors.spigot/nl.pim16aap2.bigdoors.spigot.util.api=ALL-UNNAMED
+                            --add-opens bigdoors.spigot/nl.pim16aap2.bigdoors.spigot.util.implementations=ALL-UNNAMED
                         </argLine>
                         <trimStackTrace>false</trimStackTrace>
                         <useFile>false</useFile>
@@ -152,10 +156,6 @@
                             <relocation>
                                 <pattern>nl.pim16aap2.jcalculator</pattern>
                                 <shadedPattern>nl.pim16aap2.bigdoors.lib.jcalculator</shadedPattern>
-                            </relocation>
-                            <relocation>
-                                <pattern>com.google.errorprone</pattern>
-                                <shadedPattern>nl.pim16aap2.bigdoors.lib.errorprone</shadedPattern>
                             </relocation>
                         </relocations>
                     </configuration>
