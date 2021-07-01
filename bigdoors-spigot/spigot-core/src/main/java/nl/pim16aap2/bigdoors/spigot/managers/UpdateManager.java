@@ -30,7 +30,7 @@ public final class UpdateManager
     {
         this.plugin = plugin;
         logger = plugin.getPLogger();
-        updater = UpdateChecker.init(plugin, pluginID, plugin.getPLogger());
+        updater = new UpdateChecker(plugin, pluginID, null, plugin.getPLogger());
     }
 
     /**

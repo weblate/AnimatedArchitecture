@@ -9,9 +9,6 @@ module bigdoors.spigot
     requires java.sql;
     requires com.google.errorprone.annotations;
     requires org.bukkit;
-    requires guava;
-    requires gson;
-    requires commons.lang;
 
     exports nl.pim16aap2.bigdoors.spigot.util;
     exports nl.pim16aap2.bigdoors.spigot.util.api;
