@@ -1,8 +1,8 @@
 package nl.pim16aap2.bigdoors.commands;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -13,7 +13,7 @@ import java.util.Optional;
  * @author Pim
  */
 @ToString
-public enum CommandDefinition
+public enum CommandDefinition implements ICommandDefinition
 {
     ADD_OWNER("bigdoors.user.addowner", "bigdoors.admin.bypass.addowner"),
     MENU("bigdoors.user.base", "bigdoors.admin.bypass.menu"),
@@ -40,9 +40,9 @@ public enum CommandDefinition
     ;
 
     @Getter
-    private final @NonNull Optional<String> userPermission;
+    private final @NotNull Optional<String> userPermission;
     @Getter
-    private final @NonNull Optional<String> adminPermission;
+    private final @NotNull Optional<String> adminPermission;
 
     CommandDefinition(final @Nullable String userPermission, final @Nullable String adminPermission)
     {

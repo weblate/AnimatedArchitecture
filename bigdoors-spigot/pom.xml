@@ -13,9 +13,9 @@
     </parent>
 
     <modules>
-        <module>spigot-v1_15_R1</module>
-        <module>spigot-core</module>
-        <module>spigot-util</module>
+        <module>bigdoors-spigot-v1_15_R1</module>
+        <module>bigdoors-spigot-core</module>
+        <module>bigdoors-spigot-api</module>
     </modules>
 
     <repositories>
@@ -30,6 +30,13 @@
             <groupId>nl.pim16aap2.bigdoors</groupId>
             <artifactId>bigdoors-core</artifactId>
             <version>1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>nl.pim16aap2.bigdoors</groupId>
+            <artifactId>bigdoors-api</artifactId>
+            <version>1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

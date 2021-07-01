@@ -1,16 +1,16 @@
 package nl.pim16aap2.bigdoors.commands;
 
-import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
 import nl.pim16aap2.bigdoors.UnitTestUtil;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.managers.DatabaseManager;
 import nl.pim16aap2.bigdoors.managers.DelayedCommandInputManager;
 import nl.pim16aap2.bigdoors.util.DoorRetriever;
 import nl.pim16aap2.bigdoors.util.messages.Messages;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ import static nl.pim16aap2.bigdoors.commands.CommandTestingUtil.*;
 
 class AddOwnerTest
 {
-    private IBigDoorsPlatform platform;
+    private IBigDoorsInnerPlatform platform;
 
     @Mock
     private DoorRetriever doorRetriever;
@@ -169,7 +169,7 @@ class AddOwnerTest
                                                                    commandSender.getPlayer().orElse(null));
     }
 
-    private @NonNull DatabaseManager mockDatabaseManager()
+    private @NotNull DatabaseManager mockDatabaseManager()
     {
         val databaseManager = Mockito.mock(DatabaseManager.class);
         Mockito.when(platform.getDatabaseManager()).thenReturn(databaseManager);

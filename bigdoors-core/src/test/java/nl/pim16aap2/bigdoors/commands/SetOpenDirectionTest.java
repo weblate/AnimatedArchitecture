@@ -1,9 +1,8 @@
 package nl.pim16aap2.bigdoors.commands;
 
-import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.doortypes.DoorType;
@@ -11,6 +10,7 @@ import nl.pim16aap2.bigdoors.managers.DelayedCommandInputManager;
 import nl.pim16aap2.bigdoors.util.DoorRetriever;
 import nl.pim16aap2.bigdoors.util.RotateDirection;
 import nl.pim16aap2.bigdoors.util.messages.Messages;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ class SetOpenDirectionTest
     @Mock
     private DoorType doorType;
 
-    private IBigDoorsPlatform platform;
+    private IBigDoorsInnerPlatform platform;
 
     @Mock
     private DoorRetriever doorRetriever;
@@ -61,7 +61,7 @@ class SetOpenDirectionTest
     @SneakyThrows
     void testOpenDirValidity()
     {
-        final @NonNull RotateDirection rotateDirection = RotateDirection.CLOCKWISE;
+        final @NotNull RotateDirection rotateDirection = RotateDirection.CLOCKWISE;
 
         Mockito.when(doorType.isValidOpenDirection(Mockito.any())).thenReturn(false);
         val command = new SetOpenDirection(commandSender, doorRetriever, rotateDirection);
@@ -81,7 +81,7 @@ class SetOpenDirectionTest
     @SneakyThrows
     void testStaticRunners()
     {
-        final @NonNull RotateDirection rotateDirection = RotateDirection.CLOCKWISE;
+        final @NotNull RotateDirection rotateDirection = RotateDirection.CLOCKWISE;
         Mockito.when(doorType.isValidOpenDirection(rotateDirection)).thenReturn(true);
 
         Assertions.assertTrue(SetOpenDirection.run(commandSender, doorRetriever, rotateDirection)
@@ -95,7 +95,7 @@ class SetOpenDirectionTest
     @SneakyThrows
     void testDelayedInput()
     {
-        final @NonNull RotateDirection rotateDirection = RotateDirection.CLOCKWISE;
+        final @NotNull RotateDirection rotateDirection = RotateDirection.CLOCKWISE;
         Mockito.when(doorType.isValidOpenDirection(rotateDirection)).thenReturn(true);
         Mockito.when(platform.getMessages()).thenReturn(Mockito.mock(Messages.class));
 

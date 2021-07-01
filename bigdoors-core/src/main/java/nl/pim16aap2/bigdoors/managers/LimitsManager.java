@@ -1,37 +1,24 @@
 package nl.pim16aap2.bigdoors.managers;
 
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.BigDoors;
-import nl.pim16aap2.bigdoors.api.IConfigLoader;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.util.Limit;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.OptionalInt;
 
-public class LimitsManager
+public class LimitsManager implements ILimitsManager
 {
-    /**
-     * Gets the value of the {@link Limit} for the given player. It checks the global limit, any admin bypass
-     * permission, and the player's personal limit.
-     *
-     * @param player The player for whom to check the limit.
-     * @param limit  The {@link Limit} to check.
-     * @return The value of the limit for the given player, or an empty OptionalInt if none was found.
-     * <p>
-     * If there is a global limit in place (see {@link Limit#getGlobalLimit(IConfigLoader)}), the returned value cannot
-     * exceed this. Not even admins and OPs can bypass this limit.
-     * <p>
-     * If the player has a player limit as well as a global limit, the lowest value of the two will be used.
-     */
-    public @NonNull OptionalInt getLimit(final @NonNull IPPlayer player, final @NonNull Limit limit)
+    @Override
+    public @NotNull OptionalInt getLimit(final @NotNull IPPlayer player, final @NotNull Limit limit)
     {
         final boolean hasBypass = BigDoors.get().getPlatform().getPermissionsManager()
                                           .hasPermission(player, limit.getAdminPermission());
-        final @NonNull OptionalInt globalLimit = limit.getGlobalLimit(BigDoors.get().getPlatform().getConfigLoader());
+        final @NotNull OptionalInt globalLimit = limit.getGlobalLimit(BigDoors.get().getPlatform().getConfigLoader());
         if (hasBypass)
             return globalLimit;
 
-        final @NonNull OptionalInt playerLimit = BigDoors.get().getPlatform().getPermissionsManager()
+        final @NotNull OptionalInt playerLimit = BigDoors.get().getPlatform().getPermissionsManager()
                                                          .getMaxPermissionSuffix(player, limit.getUserPermission());
 
         if (globalLimit.isPresent() && playerLimit.isPresent())
@@ -42,19 +29,10 @@ public class LimitsManager
                OptionalInt.empty();
     }
 
-    /**
-     * Checks if a given value exceeds the limit for this player. For more info, see {@link #getLimit(IPPlayer,
-     * Limit)}.
-     *
-     * @param player The player for whom to check the limit.
-     * @param limit  The {@link Limit} to check.
-     * @param value  The value to compare to the limit.
-     * @return True if the given value exceeds the limit for this player. If value <= limit, this will return false.
-     */
-    public boolean exceedsLimit(final @NonNull IPPlayer player, final @NonNull Limit limit,
-                                final int value)
+    @Override
+    public boolean exceedsLimit(final @NotNull IPPlayer player, final @NotNull Limit limit, final int value)
     {
-        final @NonNull OptionalInt limitValue = getLimit(player, limit);
+        final @NotNull OptionalInt limitValue = getLimit(player, limit);
         return limitValue.isPresent() && value > limitValue.getAsInt();
     }
 }

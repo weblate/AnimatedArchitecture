@@ -1,7 +1,6 @@
 package nl.pim16aap2.bigdoors.doortypes;
 
 import lombok.Getter;
-import lombok.NonNull;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
@@ -9,6 +8,7 @@ import nl.pim16aap2.bigdoors.doors.DoorSerializer;
 import nl.pim16aap2.bigdoors.managers.DoorTypeManager;
 import nl.pim16aap2.bigdoors.tooluser.creator.Creator;
 import nl.pim16aap2.bigdoors.util.RotateDirection;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -20,56 +20,25 @@ import java.util.Optional;
  *
  * @author Pim
  */
-public abstract class DoorType
+public abstract class DoorType implements IDoorType
 {
-    /**
-     * Gets the name of the plugin that owns this {@link DoorType}.
-     *
-     * @return The name of the plugin that owns this {@link DoorType}.
-     */
     @Getter
-    protected final @NonNull String pluginName;
+    protected final @NotNull String pluginName;
 
-    /**
-     * Gets the name of this {@link DoorType}. Note that this is always in lower case!
-     *
-     * @return The name of this {@link DoorType}.
-     */
     @Getter
-    protected final @NonNull String simpleName;
+    protected final @NotNull String simpleName;
 
-    /**
-     * Gets the version of this {@link DoorType}. Note that changing the version creates a whole new {@link DoorType}
-     * and you'll have to take care of the transition.
-     *
-     * @return The version of this {@link DoorType}.
-     */
     @Getter
     protected final int typeVersion;
 
-    /**
-     * Obtains the value of this type that represents the key in the translation system.
-     *
-     * @return The value of this type that represents the key in the translation system.
-     */
     @Getter
     protected final String translationName;
 
-    /**
-     * The fully-qualified name of this {@link DoorType}.
-     */
     @Getter
-    private final @NonNull String fullName;
+    private final @NotNull String fullName;
 
-    /**
-     * Gets a list of all theoretically valid {@link RotateDirection} for this given type. It does NOT take the physical
-     * aspects of the {@link AbstractDoorBase} into consideration. Therefore, the actual list of valid {@link
-     * RotateDirection}s is most likely going to be a subset of those returned by this method.
-     *
-     * @return A list of all valid {@link RotateDirection} for this given type.
-     */
     @Getter
-    private final @NonNull List<RotateDirection> validOpenDirections;
+    private final @NotNull List<RotateDirection> validOpenDirections;
 
     private final @Nullable DoorSerializer<?> doorSerializer;
 
@@ -82,8 +51,8 @@ public abstract class DoorType
      *                    new {@link DoorType}, as far as the database is concerned. This fact can be used if the
      *                    parameters of the constructor for this type need to be changed.
      */
-    protected DoorType(final @NonNull String pluginName, final @NonNull String simpleName, final int typeVersion,
-                       final @NonNull List<RotateDirection> validOpenDirections)
+    protected DoorType(final @NotNull String pluginName, final @NotNull String simpleName, final int typeVersion,
+                       final @NotNull List<RotateDirection> validOpenDirections)
     {
         this.pluginName = pluginName;
         this.simpleName = simpleName.toLowerCase();
@@ -97,10 +66,10 @@ public abstract class DoorType
         {
             serializer = new DoorSerializer<>(getDoorClass());
         }
-        catch (Throwable t)
+        catch (Exception ex)
         {
             serializer = null;
-            BigDoors.get().getPLogger().logThrowable(t, "Failed to intialize serializer for type: " + getFullName());
+            BigDoors.get().getPLogger().logThrowable(ex, "Failed to intialize serializer for type: " + getFullName());
         }
         doorSerializer = serializer;
     }
@@ -110,18 +79,12 @@ public abstract class DoorType
      *
      * @return The {@link DoorSerializer}.
      */
-    public @NonNull Optional<DoorSerializer<?>> getDoorSerializer()
+    public @NotNull Optional<DoorSerializer<?>> getDoorSerializer()
     {
         return Optional.ofNullable(doorSerializer);
     }
 
-    /**
-     * Checks if a given {@link RotateDirection} is valid for this type.
-     *
-     * @param rotateDirection The {@link RotateDirection} to check.
-     * @return True if the provided {@link RotateDirection} is valid for this type, otherwise false.
-     */
-    public final boolean isValidOpenDirection(final @NonNull RotateDirection rotateDirection)
+    @Override public final boolean isValidOpenDirection(final @NotNull RotateDirection rotateDirection)
     {
         return validOpenDirections.contains(rotateDirection);
     }
@@ -131,7 +94,7 @@ public abstract class DoorType
      *
      * @return THe class of the door.
      */
-    public abstract @NonNull Class<? extends AbstractDoorBase> getDoorClass();
+    public abstract @NotNull Class<? extends AbstractDoorBase> getDoorClass();
 
     /**
      * Creates (and registers) a new {@link Creator} for this type.
@@ -139,7 +102,7 @@ public abstract class DoorType
      * @param player The player who will own the {@link Creator}.
      * @return The newly created {@link Creator}.
      */
-    public abstract @NonNull Creator getCreator(final @NonNull IPPlayer player);
+    public abstract @NotNull Creator getCreator(@NotNull IPPlayer player);
 
     /**
      * Creates (and registers) a new {@link Creator} for this type.
@@ -148,10 +111,10 @@ public abstract class DoorType
      * @param name   The name that will be given to the door.
      * @return The newly created {@link Creator}.
      */
-    public abstract @NonNull Creator getCreator(final @NonNull IPPlayer player, final @Nullable String name);
+    public abstract @NotNull Creator getCreator(@NotNull IPPlayer player, @Nullable String name);
 
     @Override
-    public final @NonNull String toString()
+    public final @NotNull String toString()
     {
         return getPluginName() + ":" + getSimpleName() + ":" + getTypeVersion();
     }

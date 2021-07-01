@@ -47,7 +47,7 @@ public class Mutable<T>
     /**
      * Sets the value stored in this {@link Mutable}
      *
-     * @param val The value that will be stored in this {@link Mutable}.
+     * @param val var The value that will be stored in this {@link Mutable}.
      */
     public void setVal(@Nullable T val)
     {

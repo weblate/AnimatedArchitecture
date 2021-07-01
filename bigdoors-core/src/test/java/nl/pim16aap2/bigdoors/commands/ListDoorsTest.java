@@ -2,7 +2,7 @@ package nl.pim16aap2.bigdoors.commands;
 
 import lombok.SneakyThrows;
 import lombok.val;
-import nl.pim16aap2.bigdoors.api.IBigDoorsPlatform;
+import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.managers.DelayedCommandInputManager;
@@ -26,7 +26,7 @@ import static nl.pim16aap2.bigdoors.commands.CommandTestingUtil.initCommandSende
 
 class ListDoorsTest
 {
-    private IBigDoorsPlatform platform;
+    private IBigDoorsInnerPlatform platform;
 
     private List<AbstractDoorBase> doors;
 
