@@ -1,9 +1,9 @@
 package nl.pim16aap2.bigdoors.doors.doorArchetypes;
 
-import nl.pim16aap2.bigdoors.doors.IDoorBase;
-import nl.pim16aap2.bigdoors.util.Cuboid;
-import nl.pim16aap2.bigdoors.util.RotateDirection;
-import nl.pim16aap2.bigdoors.util.vector.Vector2Di;
+import nl.pim16aap2.bigdoors.api.doors.IDoorBase;
+import nl.pim16aap2.bigdoors.api.util.Cuboid;
+import nl.pim16aap2.bigdoors.api.util.RotateDirection;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector2Di;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;

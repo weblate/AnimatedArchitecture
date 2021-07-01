@@ -6,13 +6,13 @@ import nl.pim16aap2.bigdoors.api.restartable.IRestartable;
 import nl.pim16aap2.bigdoors.api.restartable.IRestartableHolder;
 import nl.pim16aap2.bigdoors.api.restartable.Restartable;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
-import nl.pim16aap2.bigdoors.logging.IPLogger;
+import nl.pim16aap2.bigdoors.api.logging.IPLogger;
 import nl.pim16aap2.bigdoors.util.InnerUtil;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.api.util.Util;
 import nl.pim16aap2.bigdoors.util.cache.TimedCache;
-import nl.pim16aap2.bigdoors.util.vector.Vector2DiConst;
-import nl.pim16aap2.bigdoors.util.vector.Vector3Di;
-import nl.pim16aap2.bigdoors.util.vector.Vector3DiConst;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector2DiConst;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3Di;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3DiConst;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;

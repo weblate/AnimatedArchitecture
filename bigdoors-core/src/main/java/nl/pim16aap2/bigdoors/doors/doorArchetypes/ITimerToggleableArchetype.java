@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.doors.doorArchetypes;
 
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
-import nl.pim16aap2.bigdoors.doors.IDoorBase;
+import nl.pim16aap2.bigdoors.api.doors.IDoorBase;
 import org.jetbrains.annotations.NotNull;
 
 /**

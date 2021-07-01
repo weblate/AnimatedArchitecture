@@ -1,6 +1,6 @@
 package nl.pim16aap2.bigdoors.api;
 
-import nl.pim16aap2.bigdoors.util.WorldTime;
+import nl.pim16aap2.bigdoors.api.util.WorldTime;
 import org.jetbrains.annotations.NotNull;
 
 /**

@@ -4,7 +4,7 @@ import nl.pim16aap2.bigdoors.api.restartable.IRestartableHolder;
 import nl.pim16aap2.bigdoors.api.restartable.Restartable;
 import nl.pim16aap2.bigdoors.spigot.config.ConfigLoaderSpigot;
 import nl.pim16aap2.bigdoors.util.InnerUtil;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.api.util.Util;
 import nl.pim16aap2.bigdoors.util.cache.TimedCache;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

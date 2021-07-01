@@ -1,6 +1,7 @@
 package nl.pim16aap2.bigdoors.util;
 
 import nl.pim16aap2.bigdoors.BigDoors;
+import nl.pim16aap2.bigdoors.api.util.IDebugReporter;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class DebugReporter implements IDebugReporter

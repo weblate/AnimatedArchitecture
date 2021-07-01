@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.spigot.util.implementations;
 
-import nl.pim16aap2.bigdoors.commands.IPServer;
-import nl.pim16aap2.bigdoors.logging.IPLogger;
+import nl.pim16aap2.bigdoors.api.commands.IPServer;
+import nl.pim16aap2.bigdoors.api.logging.IPLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;

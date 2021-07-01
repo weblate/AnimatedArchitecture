@@ -2,7 +2,7 @@ package nl.pim16aap2.bigdoors.util.delayedinput;
 
 import lombok.SneakyThrows;
 import lombok.val;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.api.util.Util;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

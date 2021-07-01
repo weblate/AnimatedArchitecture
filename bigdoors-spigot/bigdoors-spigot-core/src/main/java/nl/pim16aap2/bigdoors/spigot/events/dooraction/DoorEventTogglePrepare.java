@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.doors.IDoorBase;
-import nl.pim16aap2.bigdoors.events.dooraction.DoorActionCause;
-import nl.pim16aap2.bigdoors.events.dooraction.DoorActionType;
-import nl.pim16aap2.bigdoors.events.dooraction.IDoorEventTogglePrepare;
-import nl.pim16aap2.bigdoors.util.CuboidConst;
+import nl.pim16aap2.bigdoors.api.doors.IDoorBase;
+import nl.pim16aap2.bigdoors.api.events.dooraction.DoorActionCause;
+import nl.pim16aap2.bigdoors.api.events.dooraction.DoorActionType;
+import nl.pim16aap2.bigdoors.api.events.dooraction.IDoorEventTogglePrepare;
+import nl.pim16aap2.bigdoors.api.util.CuboidConst;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,10 +1,11 @@
 package nl.pim16aap2.bigdoors.commands;
 
 import nl.pim16aap2.bigdoors.api.PPlayerData;
+import nl.pim16aap2.bigdoors.api.commands.ICommandSender;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
-import nl.pim16aap2.bigdoors.util.DoorOwner;
+import nl.pim16aap2.bigdoors.api.util.DoorOwner;
 import nl.pim16aap2.bigdoors.util.DoorRetriever;
-import nl.pim16aap2.bigdoors.util.pair.BooleanPair;
+import nl.pim16aap2.bigdoors.api.util.pair.BooleanPair;
 import org.mockito.Mockito;
 
 import java.util.Optional;

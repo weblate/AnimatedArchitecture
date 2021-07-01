@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.doors;
 
 import nl.pim16aap2.bigdoors.BigDoors;
-import nl.pim16aap2.bigdoors.annotations.PersistentVariable;
+import nl.pim16aap2.bigdoors.api.annotations.PersistentVariable;
 import nl.pim16aap2.bigdoors.util.FastFieldCopier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

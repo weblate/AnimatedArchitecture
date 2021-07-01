@@ -3,9 +3,10 @@ package nl.pim16aap2.bigdoors.commands;
 import lombok.ToString;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
+import nl.pim16aap2.bigdoors.api.commands.ICommandSender;
 import nl.pim16aap2.bigdoors.managers.DoorSpecificationManager;
 import nl.pim16aap2.bigdoors.util.delayedinput.DelayedInputRequest;
-import nl.pim16aap2.bigdoors.util.pair.BooleanPair;
+import nl.pim16aap2.bigdoors.api.util.pair.BooleanPair;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;

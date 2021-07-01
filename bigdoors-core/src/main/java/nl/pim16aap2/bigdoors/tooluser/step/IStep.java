@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.tooluser.step;
 
 import nl.pim16aap2.bigdoors.tooluser.stepexecutor.StepExecutor;
-import nl.pim16aap2.bigdoors.util.messages.Message;
+import nl.pim16aap2.bigdoors.api.util.messages.Message;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;

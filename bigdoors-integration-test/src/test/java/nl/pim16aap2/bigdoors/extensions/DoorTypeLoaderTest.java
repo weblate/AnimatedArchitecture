@@ -1,8 +1,8 @@
 package nl.pim16aap2.bigdoors.extensions;
 
 import nl.pim16aap2.bigdoors.BigDoors;
-import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
-import nl.pim16aap2.bigdoors.logging.BasicPLogger;
+import nl.pim16aap2.bigdoors.api.logging.BasicPLogger;
+import nl.pim16aap2.bigdoors.innerapi.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.managers.DoorTypeManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

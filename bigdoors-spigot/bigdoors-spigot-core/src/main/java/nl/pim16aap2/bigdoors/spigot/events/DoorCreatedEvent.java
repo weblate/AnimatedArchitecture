@@ -2,8 +2,8 @@ package nl.pim16aap2.bigdoors.spigot.events;
 
 import lombok.ToString;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.doors.IDoorBase;
-import nl.pim16aap2.bigdoors.events.IDoorCreatedEvent;
+import nl.pim16aap2.bigdoors.api.doors.IDoorBase;
+import nl.pim16aap2.bigdoors.api.events.IDoorCreatedEvent;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -15,7 +15,7 @@ import nl.pim16aap2.bigdoors.spigot.events.dooraction.DoorEventToggleEnd;
 import nl.pim16aap2.bigdoors.spigot.events.dooraction.DoorEventTogglePrepare;
 import nl.pim16aap2.bigdoors.spigot.events.dooraction.DoorEventToggleStart;
 import nl.pim16aap2.bigdoors.util.DebugReporter;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.api.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.RegisteredListener;

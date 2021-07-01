@@ -1,17 +1,17 @@
 package nl.pim16aap2.bigdoors;
 
 import lombok.val;
-import nl.pim16aap2.bigdoors.api.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.api.IPLocation;
 import nl.pim16aap2.bigdoors.api.IPWorld;
-import nl.pim16aap2.bigdoors.logging.BasicPLogger;
-import nl.pim16aap2.bigdoors.util.messages.IMessages;
-import nl.pim16aap2.bigdoors.util.messages.Message;
+import nl.pim16aap2.bigdoors.api.logging.BasicPLogger;
+import nl.pim16aap2.bigdoors.api.util.messages.IMessages;
+import nl.pim16aap2.bigdoors.api.util.messages.Message;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector2Di;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3DdConst;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3Di;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3DiConst;
+import nl.pim16aap2.bigdoors.innerapi.IBigDoorsInnerPlatform;
 import nl.pim16aap2.bigdoors.util.messages.Messages;
-import nl.pim16aap2.bigdoors.util.vector.Vector2Di;
-import nl.pim16aap2.bigdoors.util.vector.Vector3DdConst;
-import nl.pim16aap2.bigdoors.util.vector.Vector3Di;
-import nl.pim16aap2.bigdoors.util.vector.Vector3DiConst;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Assertions;

@@ -8,12 +8,12 @@ import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.doortypes.DoorType;
 import nl.pim16aap2.bigdoors.tooluser.creator.Creator;
 import nl.pim16aap2.bigdoors.tooluser.step.IStep;
-import nl.pim16aap2.bigdoors.util.Cuboid;
-import nl.pim16aap2.bigdoors.util.RotateDirection;
-import nl.pim16aap2.bigdoors.util.Util;
-import nl.pim16aap2.bigdoors.util.messages.Message;
-import nl.pim16aap2.bigdoors.util.vector.Vector3Di;
-import nl.pim16aap2.bigdoors.util.vector.Vector3DiConst;
+import nl.pim16aap2.bigdoors.api.util.Cuboid;
+import nl.pim16aap2.bigdoors.api.util.RotateDirection;
+import nl.pim16aap2.bigdoors.api.util.Util;
+import nl.pim16aap2.bigdoors.api.util.messages.Message;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3Di;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3DiConst;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

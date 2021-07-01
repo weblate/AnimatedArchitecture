@@ -2,7 +2,8 @@ package nl.pim16aap2.bigdoors.managers;
 
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.util.Limit;
+import nl.pim16aap2.bigdoors.api.managers.ILimitsManager;
+import nl.pim16aap2.bigdoors.api.util.Limit;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.OptionalInt;

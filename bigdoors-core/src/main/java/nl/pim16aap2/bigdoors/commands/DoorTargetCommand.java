@@ -2,11 +2,12 @@ package nl.pim16aap2.bigdoors.commands;
 
 import lombok.Getter;
 import nl.pim16aap2.bigdoors.BigDoors;
+import nl.pim16aap2.bigdoors.api.commands.ICommandSender;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
-import nl.pim16aap2.bigdoors.util.DoorAttribute;
+import nl.pim16aap2.bigdoors.api.util.DoorAttribute;
 import nl.pim16aap2.bigdoors.util.DoorRetriever;
 import nl.pim16aap2.bigdoors.util.InnerUtil;
-import nl.pim16aap2.bigdoors.util.pair.BooleanPair;
+import nl.pim16aap2.bigdoors.api.util.pair.BooleanPair;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;

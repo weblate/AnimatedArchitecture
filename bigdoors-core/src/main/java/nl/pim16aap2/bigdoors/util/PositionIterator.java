@@ -1,8 +1,10 @@
 package nl.pim16aap2.bigdoors.util;
 
+import nl.pim16aap2.bigdoors.api.util.Cuboid;
+import nl.pim16aap2.bigdoors.api.util.CuboidConst;
 import nl.pim16aap2.bigdoors.util.functional.TriIntConsumer;
-import nl.pim16aap2.bigdoors.util.vector.Vector3Di;
-import nl.pim16aap2.bigdoors.util.vector.Vector3DiConst;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3Di;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3DiConst;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;

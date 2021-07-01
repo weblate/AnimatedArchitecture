@@ -3,7 +3,7 @@ package nl.pim16aap2.bigdoors.spigot.util.implementations;
 import lombok.Getter;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IPWorld;
-import nl.pim16aap2.bigdoors.util.WorldTime;
+import nl.pim16aap2.bigdoors.api.util.WorldTime;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;

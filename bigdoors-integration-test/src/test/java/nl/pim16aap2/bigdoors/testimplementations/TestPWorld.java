@@ -2,7 +2,7 @@ package nl.pim16aap2.bigdoors.testimplementations;
 
 import lombok.Getter;
 import nl.pim16aap2.bigdoors.api.IPWorld;
-import nl.pim16aap2.bigdoors.util.WorldTime;
+import nl.pim16aap2.bigdoors.api.util.WorldTime;
 import org.jetbrains.annotations.NotNull;
 
 public final class TestPWorld implements IPWorld

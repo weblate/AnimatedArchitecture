@@ -1,6 +1,6 @@
 package nl.pim16aap2.bigdoors.storage;
 
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.api.util.Util;
 import org.jetbrains.annotations.NotNull;
 
 /**

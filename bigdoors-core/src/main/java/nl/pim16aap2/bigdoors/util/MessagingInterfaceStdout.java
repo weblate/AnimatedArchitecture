@@ -2,7 +2,7 @@ package nl.pim16aap2.bigdoors.util;
 
 import nl.pim16aap2.bigdoors.api.IMessagingInterface;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.logging.IPLogger;
+import nl.pim16aap2.bigdoors.api.logging.IPLogger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;

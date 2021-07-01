@@ -5,7 +5,7 @@ import lombok.val;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
 import nl.pim16aap2.bigdoors.api.factories.IBigDoorsEventFactory;
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
-import nl.pim16aap2.bigdoors.events.IDoorPrepareLockChangeEvent;
+import nl.pim16aap2.bigdoors.api.events.IDoorPrepareLockChangeEvent;
 import nl.pim16aap2.bigdoors.util.DoorRetriever;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;

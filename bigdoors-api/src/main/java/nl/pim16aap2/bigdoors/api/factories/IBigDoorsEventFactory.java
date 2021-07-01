@@ -1,21 +1,21 @@
 package nl.pim16aap2.bigdoors.api.factories;
 
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.doors.IDoorBase;
-import nl.pim16aap2.bigdoors.events.IBigDoorsEvent;
-import nl.pim16aap2.bigdoors.events.IDoorCreatedEvent;
-import nl.pim16aap2.bigdoors.events.IDoorPrepareAddOwnerEvent;
-import nl.pim16aap2.bigdoors.events.IDoorPrepareCreateEvent;
-import nl.pim16aap2.bigdoors.events.IDoorPrepareDeleteEvent;
-import nl.pim16aap2.bigdoors.events.IDoorPrepareLockChangeEvent;
-import nl.pim16aap2.bigdoors.events.IDoorPrepareRemoveOwnerEvent;
-import nl.pim16aap2.bigdoors.events.dooraction.DoorActionCause;
-import nl.pim16aap2.bigdoors.events.dooraction.DoorActionType;
-import nl.pim16aap2.bigdoors.events.dooraction.IDoorEventToggleEnd;
-import nl.pim16aap2.bigdoors.events.dooraction.IDoorEventTogglePrepare;
-import nl.pim16aap2.bigdoors.events.dooraction.IDoorEventToggleStart;
-import nl.pim16aap2.bigdoors.util.CuboidConst;
-import nl.pim16aap2.bigdoors.util.DoorOwner;
+import nl.pim16aap2.bigdoors.api.doors.IDoorBase;
+import nl.pim16aap2.bigdoors.api.events.IBigDoorsEvent;
+import nl.pim16aap2.bigdoors.api.events.IDoorCreatedEvent;
+import nl.pim16aap2.bigdoors.api.events.IDoorPrepareAddOwnerEvent;
+import nl.pim16aap2.bigdoors.api.events.IDoorPrepareCreateEvent;
+import nl.pim16aap2.bigdoors.api.events.IDoorPrepareDeleteEvent;
+import nl.pim16aap2.bigdoors.api.events.IDoorPrepareLockChangeEvent;
+import nl.pim16aap2.bigdoors.api.events.IDoorPrepareRemoveOwnerEvent;
+import nl.pim16aap2.bigdoors.api.events.dooraction.DoorActionCause;
+import nl.pim16aap2.bigdoors.api.events.dooraction.DoorActionType;
+import nl.pim16aap2.bigdoors.api.events.dooraction.IDoorEventToggleEnd;
+import nl.pim16aap2.bigdoors.api.events.dooraction.IDoorEventTogglePrepare;
+import nl.pim16aap2.bigdoors.api.events.dooraction.IDoorEventToggleStart;
+import nl.pim16aap2.bigdoors.api.util.CuboidConst;
+import nl.pim16aap2.bigdoors.api.util.DoorOwner;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

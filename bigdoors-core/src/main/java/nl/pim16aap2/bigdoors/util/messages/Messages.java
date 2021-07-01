@@ -3,9 +3,11 @@ package nl.pim16aap2.bigdoors.util.messages;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.restartable.IRestartableHolder;
 import nl.pim16aap2.bigdoors.api.restartable.Restartable;
-import nl.pim16aap2.bigdoors.logging.IPLogger;
-import nl.pim16aap2.bigdoors.logging.PLogger;
-import nl.pim16aap2.bigdoors.util.Util;
+import nl.pim16aap2.bigdoors.api.logging.IPLogger;
+import nl.pim16aap2.bigdoors.api.logging.PLogger;
+import nl.pim16aap2.bigdoors.api.util.Util;
+import nl.pim16aap2.bigdoors.api.util.messages.IMessages;
+import nl.pim16aap2.bigdoors.api.util.messages.Message;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;

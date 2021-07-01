@@ -2,7 +2,7 @@ package nl.pim16aap2.bigdoors.util;
 
 import lombok.experimental.UtilityClass;
 import nl.pim16aap2.bigdoors.BigDoors;
-import nl.pim16aap2.bigdoors.logging.IPLogger;
+import nl.pim16aap2.bigdoors.api.logging.IPLogger;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

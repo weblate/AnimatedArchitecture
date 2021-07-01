@@ -1,7 +1,6 @@
 package nl.pim16aap2.bigdoors.api;
 
-import lombok.NonNull;
-import nl.pim16aap2.bigdoors.doortypes.IDoorType;
+import nl.pim16aap2.bigdoors.api.doortypes.IDoorType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.OptionalDouble;

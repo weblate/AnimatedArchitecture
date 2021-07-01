@@ -2,7 +2,7 @@ package nl.pim16aap2.bigdoors.util;
 
 import nl.pim16aap2.bigdoors.doors.AbstractDoorBase;
 import nl.pim16aap2.bigdoors.managers.DoorRegistry;
-import nl.pim16aap2.bigdoors.util.messages.Message;
+import nl.pim16aap2.bigdoors.api.util.messages.Message;
 import org.jetbrains.annotations.NotNull;
 
 /**

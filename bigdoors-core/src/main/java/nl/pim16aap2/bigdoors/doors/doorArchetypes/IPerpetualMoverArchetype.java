@@ -1,6 +1,6 @@
 package nl.pim16aap2.bigdoors.doors.doorArchetypes;
 
-import nl.pim16aap2.bigdoors.doors.IDoorBase;
+import nl.pim16aap2.bigdoors.api.doors.IDoorBase;
 
 /**
  * Represents doors that are always active (e.g. clocks, windmills).

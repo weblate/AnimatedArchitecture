@@ -3,9 +3,9 @@ package nl.pim16aap2.bigdoors.spigot.gui;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
 import nl.pim16aap2.bigdoors.spigot.util.PageType;
-import nl.pim16aap2.bigdoors.util.DoorOwner;
-import nl.pim16aap2.bigdoors.util.messages.IMessages;
-import nl.pim16aap2.bigdoors.util.messages.Message;
+import nl.pim16aap2.bigdoors.api.util.DoorOwner;
+import nl.pim16aap2.bigdoors.api.util.messages.IMessages;
+import nl.pim16aap2.bigdoors.api.util.messages.Message;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 

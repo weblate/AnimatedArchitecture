@@ -3,10 +3,10 @@ package nl.pim16aap2.bigdoors.spigot.events.dooraction;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.doors.IDoorBase;
-import nl.pim16aap2.bigdoors.events.dooraction.DoorActionCause;
-import nl.pim16aap2.bigdoors.events.dooraction.DoorActionType;
-import nl.pim16aap2.bigdoors.events.dooraction.IDoorToggleEvent;
+import nl.pim16aap2.bigdoors.api.doors.IDoorBase;
+import nl.pim16aap2.bigdoors.api.events.dooraction.DoorActionCause;
+import nl.pim16aap2.bigdoors.api.events.dooraction.DoorActionType;
+import nl.pim16aap2.bigdoors.api.events.dooraction.IDoorToggleEvent;
 import nl.pim16aap2.bigdoors.spigot.events.BigDoorsSpigotEvent;
 import org.jetbrains.annotations.NotNull;
 

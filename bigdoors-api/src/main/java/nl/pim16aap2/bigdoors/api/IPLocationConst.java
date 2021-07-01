@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.api;
 
-import nl.pim16aap2.bigdoors.util.vector.Vector2Di;
-import nl.pim16aap2.bigdoors.util.vector.Vector3Di;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector2Di;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3Di;
 import org.jetbrains.annotations.NotNull;
 
 /**

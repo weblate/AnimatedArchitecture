@@ -6,8 +6,8 @@ import nl.pim16aap2.bigdoors.doortypes.DoorType;
 import nl.pim16aap2.bigdoors.spigot.BigDoorsSpigot;
 import nl.pim16aap2.bigdoors.spigot.gui.GUI.SortType;
 import nl.pim16aap2.bigdoors.spigot.util.PageType;
-import nl.pim16aap2.bigdoors.util.messages.IMessages;
-import nl.pim16aap2.bigdoors.util.messages.Message;
+import nl.pim16aap2.bigdoors.api.util.messages.IMessages;
+import nl.pim16aap2.bigdoors.api.util.messages.Message;
 
 import java.util.ArrayList;
 import java.util.List;

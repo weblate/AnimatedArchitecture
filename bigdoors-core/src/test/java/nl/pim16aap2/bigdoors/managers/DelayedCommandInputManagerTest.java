@@ -2,7 +2,7 @@ package nl.pim16aap2.bigdoors.managers;
 
 import lombok.val;
 import nl.pim16aap2.bigdoors.commands.DelayedCommandInputRequest;
-import nl.pim16aap2.bigdoors.commands.ICommandSender;
+import nl.pim16aap2.bigdoors.api.commands.ICommandSender;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

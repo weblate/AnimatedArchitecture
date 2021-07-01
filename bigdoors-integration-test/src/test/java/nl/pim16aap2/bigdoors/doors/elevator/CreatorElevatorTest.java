@@ -1,8 +1,8 @@
 package nl.pim16aap2.bigdoors.doors.elevator;
 
 import nl.pim16aap2.bigdoors.tooluser.creator.CreatorTestsUtil;
-import nl.pim16aap2.bigdoors.util.Cuboid;
-import nl.pim16aap2.bigdoors.util.RotateDirection;
+import nl.pim16aap2.bigdoors.api.util.Cuboid;
+import nl.pim16aap2.bigdoors.api.util.RotateDirection;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

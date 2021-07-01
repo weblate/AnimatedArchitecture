@@ -3,9 +3,9 @@ package nl.pim16aap2.bigdoors.spigot.util.implementations;
 import nl.pim16aap2.bigdoors.BigDoors;
 import nl.pim16aap2.bigdoors.api.IPLocation;
 import nl.pim16aap2.bigdoors.api.IPPlayer;
-import nl.pim16aap2.bigdoors.commands.ICommandDefinition;
+import nl.pim16aap2.bigdoors.api.commands.ICommandDefinition;
 import nl.pim16aap2.bigdoors.spigot.util.SpigotAdapter;
-import nl.pim16aap2.bigdoors.util.pair.BooleanPair;
+import nl.pim16aap2.bigdoors.api.util.pair.BooleanPair;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

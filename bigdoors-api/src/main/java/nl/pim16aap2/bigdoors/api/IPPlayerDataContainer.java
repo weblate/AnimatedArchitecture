@@ -1,7 +1,7 @@
 package nl.pim16aap2.bigdoors.api;
 
 import lombok.Getter;
-import nl.pim16aap2.bigdoors.util.IBitFlag;
+import nl.pim16aap2.bigdoors.api.util.IBitFlag;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package nl.pim16aap2.bigdoors.api;
 
 import lombok.Getter;
 import lombok.Setter;
-import nl.pim16aap2.bigdoors.util.vector.Vector3Dd;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3Dd;
 import org.jetbrains.annotations.NotNull;
 
 /**

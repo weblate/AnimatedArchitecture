@@ -1,6 +1,6 @@
 package nl.pim16aap2.bigdoors.api;
 
-import nl.pim16aap2.bigdoors.util.vector.Vector2DiConst;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector2DiConst;
 import org.jetbrains.annotations.NotNull;
 
 /**

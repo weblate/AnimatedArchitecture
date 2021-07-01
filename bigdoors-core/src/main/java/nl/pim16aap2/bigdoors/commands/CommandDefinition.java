@@ -2,6 +2,7 @@ package nl.pim16aap2.bigdoors.commands;
 
 import lombok.Getter;
 import lombok.ToString;
+import nl.pim16aap2.bigdoors.api.commands.ICommandDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

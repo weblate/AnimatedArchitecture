@@ -3,7 +3,7 @@ package nl.pim16aap2.bigdoors.spigot.managers;
 import nl.pim16aap2.bigdoors.api.IPWorld;
 import nl.pim16aap2.bigdoors.api.IPowerBlockRedstoneManager;
 import nl.pim16aap2.bigdoors.spigot.util.SpigotAdapter;
-import nl.pim16aap2.bigdoors.util.vector.Vector3DiConst;
+import nl.pim16aap2.bigdoors.api.util.vector.Vector3DiConst;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
