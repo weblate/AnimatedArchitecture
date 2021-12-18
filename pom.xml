@@ -47,6 +47,7 @@
         <dependency.version.maven-checkstyle>3.1.2</dependency.version.maven-checkstyle>
         <dependency.version.jdbc-sqlite>3.36.0.3</dependency.version.jdbc-sqlite>
         <dependency.version.jimfs>1.2</dependency.version.jimfs>
+        <dependency.version.moshi>1.13.0</dependency.version.moshi>
     </properties>
 
     <modules>
@@ -217,6 +218,15 @@
             <version>${dependency.version.checkstyle}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.squareup.moshi</groupId>
+            <artifactId>moshi</artifactId>
+            <version>${dependency.version.moshi}</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -343,6 +353,10 @@
                             <relocation>
                                 <pattern>ch.qos.logback</pattern>
                                 <shadedPattern>nl.pim16aap2.bigdoors.lib.logback</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>com.squareup.moshi</pattern>
+                                <shadedPattern>nl.pim16aap2.bigdoors.lib.moshi</shadedPattern>
                             </relocation>
 
                             <relocation>
