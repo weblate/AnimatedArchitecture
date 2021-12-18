@@ -1,5 +1,7 @@
 package nl.pim16aap2.bigdoors.doors;
 
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
 import lombok.extern.flogger.Flogger;
 import nl.pim16aap2.bigdoors.annotations.PersistentVariable;
 import nl.pim16aap2.bigdoors.util.FastFieldSetter;
@@ -8,15 +10,11 @@ import nl.pim16aap2.util.SafeStringBuilder;
 import org.jetbrains.annotations.Nullable;
 import sun.misc.Unsafe;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,8 +28,16 @@ import java.util.logging.Level;
  * @author Pim
  */
 @Flogger
-public class DoorSerializer<T extends AbstractDoor>
+public final class DoorSerializer<T extends AbstractDoor>
 {
+    private static final @Nullable Unsafe UNSAFE = UnsafeGetter.getUnsafe();
+
+    private final @Nullable FastFieldSetter<AbstractDoor, DoorBase> fieldCopierDoorBase =
+        getFieldCopierDoorBase(UNSAFE);
+
+    @SuppressWarnings("rawtypes")
+    private static final JsonAdapter<List> LIST_JSON_ADAPTER = new Moshi.Builder().build().adapter(List.class);
+
     /**
      * The list of serializable fields in the target class {@link #doorClass}.
      */
@@ -47,11 +53,6 @@ public class DoorSerializer<T extends AbstractDoor>
      * constructor exists.
      */
     private final @Nullable Constructor<T> ctor;
-
-    private static final @Nullable Unsafe UNSAFE = UnsafeGetter.getUnsafe();
-
-    private final @Nullable FastFieldSetter<AbstractDoor, DoorBase> fieldCopierDoorBase =
-        getFieldCopierDoorBase(UNSAFE);
 
     public DoorSerializer(Class<T> doorClass)
     {
@@ -97,10 +98,6 @@ public class DoorSerializer<T extends AbstractDoor>
             if (field.isAnnotationPresent(PersistentVariable.class))
             {
                 field.setAccessible(true);
-                if (!field.getType().isPrimitive() && !Serializable.class.isAssignableFrom(field.getType()))
-                    throw new UnsupportedOperationException(
-                        String.format("Type %s of field %s for door type %s is not serializable!",
-                                      field.getType().getName(), field.getName(), getDoorTypeName()));
                 fields.add(field);
             }
     }
@@ -126,7 +123,12 @@ public class DoorSerializer<T extends AbstractDoor>
                 throw new Exception(String.format("Failed to get value of field %s (type %s) for door type %s!",
                                                   field.getName(), field.getType().getName(), getDoorTypeName()), e);
             }
-        return toByteArray(values);
+        return serialize(values).getBytes(StandardCharsets.UTF_8);
+    }
+
+    private String serialize(ArrayList<Object> fieldValues)
+    {
+        return LIST_JSON_ADAPTER.toJson(fieldValues);
     }
 
     /**
@@ -143,43 +145,55 @@ public class DoorSerializer<T extends AbstractDoor>
     public T deserialize(DoorBase doorBase, byte[] data)
         throws Exception
     {
-        return instantiate(doorBase, fromByteArray(data));
-    }
+        @SuppressWarnings("unchecked") //
+        final @Nullable List<Object> values = LIST_JSON_ADAPTER.fromJson(new String(data, StandardCharsets.UTF_8));
+        if (values == null)
+            throw new IllegalArgumentException("Received null when trying to deserialize input: '" +
+                                                   Arrays.toString(data) + "'");
 
-    private static byte[] toByteArray(Serializable serializable)
-        throws Exception
-    {
-        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream))
+        // All numerical values are returned as doubles, so use the fields list
+        // to figure out which specific type to use.
+        for (int idx = 0; idx < values.size(); ++idx)
         {
-            objectOutputStream.writeObject(serializable);
-            return byteArrayOutputStream.toByteArray();
+            final @Nullable Object value = values.get(idx);
+            if (value instanceof Double doubleVal)
+                values.set(idx, downCastDouble(idx, doubleVal));
         }
+
+        return instantiate(doorBase, values);
     }
 
-    @SuppressWarnings("unchecked")
-    private static ArrayList<Object> fromByteArray(byte[] arr)
-        throws Exception
+    private Object downCastDouble(int idx, Double doubleVal)
     {
-        try (ObjectInputStream objectInputStream = new ObjectInputStream(new ByteArrayInputStream(arr)))
+        final @Nullable Field field = fields.size() >= idx ? fields.get(idx) : null;
+        if (field == null ||
+            (!Number.class.isAssignableFrom(field.getType()) && !field.getType().isPrimitive()))
         {
-            final Object obj = objectInputStream.readObject();
-            if (!(obj instanceof ArrayList))
-                throw new IllegalStateException(
-                    "Unexpected deserialization type! Expected ArrayList, but got " + obj.getClass().getName());
-
-            //noinspection unchecked
-            return (ArrayList<Object>) obj;
+            log.at(Level.FINE).log("Could not store double val %s in field %s!", doubleVal, field);
+            return doubleVal;
         }
+        final Class<?> type = field.getType();
+        if (Integer.class.isAssignableFrom(type) || int.class.isAssignableFrom(type))
+            return doubleVal.intValue();
+        else if (Double.class.isAssignableFrom(type) || double.class.isAssignableFrom(type))
+            return doubleVal;
+        else if (Float.class.isAssignableFrom(type) || float.class.isAssignableFrom(type))
+            return doubleVal.floatValue();
+        else if (Long.class.isAssignableFrom(type) || long.class.isAssignableFrom(type))
+            return doubleVal.longValue();
+        else if (Byte.class.isAssignableFrom(type) || byte.class.isAssignableFrom(type))
+            return doubleVal.byteValue();
+        else if (Short.class.isAssignableFrom(type) || short.class.isAssignableFrom(type))
+            return doubleVal.shortValue();
+        return doubleVal;
     }
 
-    T instantiate(DoorBase doorBase, ArrayList<Object> values)
+    T instantiate(DoorBase doorBase, List<Object> values)
         throws Exception
     {
         if (values.size() != fields.size())
             throw new IllegalStateException(String.format("Expected %d arguments but received %d for type %s",
                                                           fields.size(), values.size(), getDoorTypeName()));
-
         try
         {
             final @Nullable T door = instantiate(doorBase);
@@ -189,9 +203,9 @@ public class DoorSerializer<T extends AbstractDoor>
                 fields.get(idx).set(door, values.get(idx));
             return door;
         }
-        catch (Exception t)
+        catch (Exception e)
         {
-            throw new Exception("Failed to create new instance of type: " + getDoorTypeName(), t);
+            throw new Exception("Failed to create new instance of type: " + getDoorTypeName(), e);
         }
     }
 
