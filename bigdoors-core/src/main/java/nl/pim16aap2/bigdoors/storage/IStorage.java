@@ -247,7 +247,7 @@ public interface IStorage
      *     The type-specific data of this door.
      * @return True if the update was successful.
      */
-    boolean syncDoorData(DoorBase doorBase, byte[] typeData);
+    boolean syncDoorData(DoorBase doorBase, String typeData);
 
     /**
      * Deletes a {@link DoorType} and all {@link AbstractDoor}s of this type from the database.

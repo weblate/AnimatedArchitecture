@@ -14,7 +14,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -109,7 +108,7 @@ public final class DoorSerializer<T extends AbstractDoor>
      *     The door.
      * @return The serialized type-specific data.
      */
-    public byte[] serialize(AbstractDoor door)
+    public String serialize(AbstractDoor door)
         throws Exception
     {
         final ArrayList<Object> values = new ArrayList<>(fields.size());
@@ -123,7 +122,7 @@ public final class DoorSerializer<T extends AbstractDoor>
                 throw new Exception(String.format("Failed to get value of field %s (type %s) for door type %s!",
                                                   field.getName(), field.getType().getName(), getDoorTypeName()), e);
             }
-        return serialize(values).getBytes(StandardCharsets.UTF_8);
+        return serialize(values);
     }
 
     private String serialize(ArrayList<Object> fieldValues)
@@ -142,14 +141,13 @@ public final class DoorSerializer<T extends AbstractDoor>
      *     The serialized type-specific data.
      * @return The newly created instance.
      */
-    public T deserialize(DoorBase doorBase, byte[] data)
+    public T deserialize(DoorBase doorBase, String data)
         throws Exception
     {
         @SuppressWarnings("unchecked") //
-        final @Nullable List<Object> values = LIST_JSON_ADAPTER.fromJson(new String(data, StandardCharsets.UTF_8));
+        final @Nullable List<Object> values = LIST_JSON_ADAPTER.fromJson(data);
         if (values == null)
-            throw new IllegalArgumentException("Received null when trying to deserialize input: '" +
-                                                   Arrays.toString(data) + "'");
+            throw new IllegalArgumentException("Received null when trying to deserialize input: '" + data + "'");
 
         // All numerical values are returned as doubles, so use the fields list
         // to figure out which specific type to use.

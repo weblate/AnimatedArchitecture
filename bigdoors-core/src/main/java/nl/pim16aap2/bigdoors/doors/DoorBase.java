@@ -237,7 +237,7 @@ public final class DoorBase extends DatabaseManager.FriendDoorAccessor implement
      *     The type-specific data of an {@link AbstractDoor}.
      * @return true if the synchronization was successful.
      */
-    synchronized CompletableFuture<Boolean> syncData(byte[] typeData)
+    synchronized CompletableFuture<Boolean> syncData(String typeData)
     {
         return databaseManager.syncDoorData(getPartialSnapshot(), typeData);
     }

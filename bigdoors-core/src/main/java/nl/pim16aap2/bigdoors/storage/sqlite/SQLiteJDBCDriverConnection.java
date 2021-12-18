@@ -362,7 +362,7 @@ public final class SQLiteJDBCDriverConnection implements IStorage, IDebuggable
                                                  .isLocked(isLocked).openDir(openDirection.get()).primeOwner(primeOwner)
                                                  .doorOwners(doorOwners).build();
 
-        final byte[] rawTypeData = doorBaseRS.getBytes("typeData");
+        final String rawTypeData = doorBaseRS.getString("typeData");
         return Optional.of(serializer.deserialize(doorData, rawTypeData));
     }
 
@@ -379,7 +379,7 @@ public final class SQLiteJDBCDriverConnection implements IStorage, IDebuggable
         return removed;
     }
 
-    private Long insert(Connection conn, AbstractDoor door, String doorType, byte[] typeSpecificData)
+    private Long insert(Connection conn, AbstractDoor door, String doorType, String typeSpecificData)
     {
         final PPlayerData playerData = door.getPrimeOwner().pPlayerData();
         insertOrIgnorePlayer(conn, playerData);
@@ -405,7 +405,7 @@ public final class SQLiteJDBCDriverConnection implements IStorage, IDebuggable
                                                          .setNextInt(RotateDirection.getValue(door.getOpenDir()))
                                                          .setNextLong(getFlag(door))
                                                          .setNextString(doorType)
-                                                         .setNextBytes(typeSpecificData));
+                                                         .setNextString(typeSpecificData));
 
         // TODO: Just use the fact that the last-inserted door has the current UID (that fact is already used by
         //       getTypeSpecificDataInsertStatement(DoorType)), so it can be done in a single statement.
@@ -426,7 +426,7 @@ public final class SQLiteJDBCDriverConnection implements IStorage, IDebuggable
         final String typeName = door.getDoorType().getFullName();
         try
         {
-            final byte[] typeData = serializer.serialize(door);
+            final String typeData = serializer.serialize(door);
 
             final long doorUID = executeTransaction(conn -> insert(conn, door, typeName, typeData), -1L);
             if (doorUID > 0)
@@ -445,7 +445,7 @@ public final class SQLiteJDBCDriverConnection implements IStorage, IDebuggable
     }
 
     @Override
-    public boolean syncDoorData(DoorBase doorBase, byte[] typeData)
+    public boolean syncDoorData(DoorBase doorBase, String typeData)
     {
         return executeUpdate(SQLStatement.UPDATE_DOOR_BASE
                                  .constructPPreparedStatement()
@@ -472,7 +472,7 @@ public final class SQLiteJDBCDriverConnection implements IStorage, IDebuggable
 
                                  .setNextInt(RotateDirection.getValue(doorBase.getOpenDir()))
                                  .setNextLong(getFlag(doorBase.isOpen(), doorBase.isLocked()))
-                                 .setNextBytes(typeData)
+                                 .setNextString(typeData)
 
                                  .setNextLong(doorBase.getDoorUID())) > 0;
     }

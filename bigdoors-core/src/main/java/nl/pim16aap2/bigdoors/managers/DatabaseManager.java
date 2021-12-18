@@ -637,7 +637,7 @@ public final class DatabaseManager extends Restartable implements IDebuggable
      *     The type-specific data of this door.
      * @return The future result of the operation. If the operation was successful this will be true.
      */
-    public CompletableFuture<Boolean> syncDoorData(DoorBase doorBase, byte[] typeData)
+    public CompletableFuture<Boolean> syncDoorData(DoorBase doorBase, String typeData)
     {
         return CompletableFuture.supplyAsync(() -> db.syncDoorData(doorBase, typeData), threadPool)
                                 .exceptionally(ex -> Util.exceptionally(ex, Boolean.FALSE));

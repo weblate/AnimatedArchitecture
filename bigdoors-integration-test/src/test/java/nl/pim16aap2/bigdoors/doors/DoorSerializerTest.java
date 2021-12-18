@@ -91,7 +91,7 @@ class DoorSerializerTest
             Assertions.assertDoesNotThrow(() -> new DoorSerializer<>(TestDoorType.class));
         final TestDoorType testDoorType1 = new TestDoorType(doorBase, "test", true, 42);
 
-        final byte[] serialized = Assertions.assertDoesNotThrow(() -> instantiator.serialize(testDoorType1));
+        final String serialized = Assertions.assertDoesNotThrow(() -> instantiator.serialize(testDoorType1));
         Assertions.assertEquals(testDoorType1,
                                 Assertions.assertDoesNotThrow(() -> instantiator.deserialize(doorBase, serialized)));
     }
@@ -103,7 +103,7 @@ class DoorSerializerTest
             () -> new DoorSerializer<>(TestDoorSubType.class));
         final TestDoorSubType testDoorSubType1 = new TestDoorSubType(doorBase, "test", true, 42, 6);
 
-        final byte[] serialized = Assertions.assertDoesNotThrow(() -> instantiator.serialize(testDoorSubType1));
+        final String serialized = Assertions.assertDoesNotThrow(() -> instantiator.serialize(testDoorSubType1));
         final var testDoorSubType2 = Assertions.assertDoesNotThrow(
             () -> instantiator.deserialize(doorBase, serialized));
 
