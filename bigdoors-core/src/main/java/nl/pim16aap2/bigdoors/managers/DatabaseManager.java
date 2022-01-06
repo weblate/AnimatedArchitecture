@@ -529,8 +529,10 @@ public final class DatabaseManager extends Restartable implements IDebuggable
         return CompletableFuture.supplyAsync(
             () ->
             {
-                final var event = factoryMethod.apply(bigDoorsEventFactory);
+                final ICancellableBigDoorsEvent event = factoryMethod.apply(bigDoorsEventFactory);
                 doorEventCaller.callDoorEvent(event);
+                if (event.isCancelled())
+                    log.at(Level.FINER).log("Event cancelled: %s", event);
                 return event.isCancelled();
             });
     }
